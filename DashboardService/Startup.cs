@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
-using DashboardService.DataAccess.Elastic;
+using DashboardService.DataAccess.InMemory;
 using DashboardService.Domain;
 using DashboardService.Init;
-using DashboardService.Messaging.RabbitMq;
+using DashboardService.Messaging.MassTransit;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PolicyService.Api.Events;
-using Steeltoe.Discovery.Client;
 
 namespace DashboardService;
 
@@ -26,13 +25,11 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDiscoveryClient(Configuration);
         services.AddMvc()
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
-        services.AddElasticSearch(Configuration.GetConnectionString("ElasticSearchConnection"));
-        services.AddSingleton<IPolicyRepository, ElasticPolicyRepository>();
-        services.AddRabbitListeners(Configuration.GetSection("RabbitMqOptions").Get<RabbitMqOptions>());
+        services.AddLuceneSearch();
+        services.AddMassTransitLocal();
         services.AddInitialSalesData();
         services.AddSwaggerGen();
     }
@@ -55,7 +52,5 @@ public class Startup
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
-
-        app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated) });
     }
 }

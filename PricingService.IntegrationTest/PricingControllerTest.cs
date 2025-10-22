@@ -40,7 +40,6 @@ public class PricingControllerTest
                     }
                 })
                 .ToUrl("/api/Pricing");
-
             _.StatusCodeShouldBeOk();
         });
 

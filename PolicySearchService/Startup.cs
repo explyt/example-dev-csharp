@@ -6,9 +6,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PolicySearchService.DataAccess.ElasticSearch;
-using PolicySearchService.Messaging.RabbitMq;
+using PolicySearchService.Messaging.MassTransit;
 using PolicyService.Api.Events;
-using Steeltoe.Discovery.Client;
+
 
 namespace PolicySearchService;
 
@@ -24,12 +24,12 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDiscoveryClient(Configuration);
+
         services.AddMvc()
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddElasticSearch(Configuration.GetConnectionString("ElasticSearchConnection"));
-        services.AddRabbitListeners();
+        services.AddMassTransitListeners();
         services.AddSwaggerGen();
     }
 
@@ -49,7 +49,7 @@ public class Startup
         }
         
         app.UseHttpsRedirection();
-        app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated) });
+        app.UseMassTransitListeners();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using ChatService.Hubs;
-using ChatService.Messaging.RabbitMq;
+using ChatService.Messaging.MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -84,7 +84,7 @@ public class Startup
 
         services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
-        services.AddRabbitListeners();
+        services.AddMassTransitListeners();
         
         services.AddSwaggerGen();
     }
@@ -115,6 +115,6 @@ public class Startup
             endpoints.MapHub<AgentChatHub>("/agentsChat");
         });
 
-        app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated) });
+        app.UseMassTransitListeners();
     }
 }

@@ -13,7 +13,7 @@ using PaymentService.Domain;
 using PaymentService.Infrastructure;
 using PaymentService.Init;
 using PaymentService.Jobs;
-using PaymentService.Messaging.RabbitMq;
+using PaymentService.Messaging.MassTransit;
 using PolicyService.Api.Events;
 
 namespace PaymentService;
@@ -38,7 +38,7 @@ public class Startup
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLogingBehaviour();
         services.AddSingleton<PolicyAccountNumberGenerator>();
-        services.AddRabbitListeners();
+        services.AddMassTransitListeners();
         services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>());
         services.AddSwaggerGen();
     }
@@ -58,7 +58,6 @@ public class Startup
 
         app.UseHttpsRedirection();
         app.UseInitializer();
-        app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated), typeof(PolicyTerminated) });
         app.UseBackgroundJobs();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }

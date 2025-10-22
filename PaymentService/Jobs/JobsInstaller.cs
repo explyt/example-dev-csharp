@@ -1,6 +1,6 @@
 using Hangfire;
 using Hangfire.Logging.LogProviders;
-using Hangfire.PostgreSql;
+using Hangfire.MemoryStorage;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +15,7 @@ public static class JobsInstaller
         services.AddSingleton(jobsConfig);
         services.AddHangfire(config =>
         {
-            config.UsePostgreSqlStorage(jobsConfig.HangfireConnectionStringName);
+            config.UseMemoryStorage();
             config.UseLogProvider(new ColouredConsoleLogProvider());
         });
         services.AddScoped<InPaymentRegistrationJob, InPaymentRegistrationJob>();

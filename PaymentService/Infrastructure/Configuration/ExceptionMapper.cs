@@ -14,7 +14,7 @@ public static class ExceptionMapper
 
         cfg.ResponseBody(s => JsonConvert.SerializeObject(new
         {
-            Message = s is BussinesExceptions ? s.Message : "An error occured whilst processing your request"
+            Message = s is BussinesExceptions ? s.Message : "An error occured whilst processing your request in payment"
         }));
 
         cfg.Map<ValidationException>()

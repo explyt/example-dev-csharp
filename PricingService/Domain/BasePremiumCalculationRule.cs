@@ -5,6 +5,11 @@ namespace PricingService.Domain;
 
 public class BasePremiumCalculationRule
 {
+    // Parameterless constructor for Entity Framework
+    protected BasePremiumCalculationRule()
+    {
+    }
+
     public BasePremiumCalculationRule(string coverCode, string applyIfFormula, string basePriceFormula)
     {
         CoverCode = coverCode;
@@ -12,9 +17,9 @@ public class BasePremiumCalculationRule
         BasePriceFormula = basePriceFormula;
     }
 
-    public string CoverCode { get; }
-    public string ApplyIfFormula { get; }
-    public string BasePriceFormula { get; }
+    public string CoverCode { get; private set; }
+    public string ApplyIfFormula { get; private set; }
+    public string BasePriceFormula { get; private set; }
 
     public bool Applies(Cover cover, Calculation calculation)
     {

@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
+using FluentValidation.Results;
 using MediatR;
 using PricingService.Api.Commands;
 using PricingService.Domain;
@@ -23,6 +24,11 @@ public class CalculatePriceHandler : IRequestHandler<CalculatePriceCommand, Calc
         await commandValidator.ValidateAndThrowAsync(cmd);
 
         var tariff = await dataStore.Tariffs[cmd.ProductCode];
+        
+        if (tariff == null)
+        {
+            throw new ValidationException($"Product with code '{cmd.ProductCode}' does not exist");
+        }
 
         var calculation = tariff.CalculatePrice(ToCalculation(cmd));
 

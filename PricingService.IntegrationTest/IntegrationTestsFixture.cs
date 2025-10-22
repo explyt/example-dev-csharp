@@ -1,49 +1,41 @@
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Alba;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Testcontainers.PostgreSql;
+using PricingService.DataAccess.EfCore;
+using PricingService.Domain;
+using PricingService.IntegrationTest.DataAccess.InMemory;
 using Xunit;
 
 namespace PricingService.IntegrationTest;
 
 public class IntegrationTestsFixture : IAsyncLifetime
 {
-    private readonly PostgreSqlContainer pgSqlContainer = new PostgreSqlBuilder()
-        .WithDatabase("lab_netmicro_pricing")
-        .WithCleanUp(true)
-        .Build();
-
     public IAlbaHost SystemUnderTest { get; private set; }
 
-    public async Task InitializeAsync()
+    public Task InitializeAsync()
     {
-        await pgSqlContainer.StartAsync();
-
         var hostBuilder = Program.CreateWebHostBuilder(Array.Empty<string>())
-            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)SetupServices)
-            .ConfigureAppConfiguration((ctx, configBuilder) =>
-            {
-                configBuilder.AddInMemoryCollection(new Dictionary<string, string>
-                {
-                    ["ConnectionStrings:DefaultConnection"] = pgSqlContainer.GetConnectionString()
-                });
-            });
+            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)SetupServices);
 
         SystemUnderTest = new AlbaHost(hostBuilder);
+        return Task.CompletedTask;
     }
 
     public async Task DisposeAsync()
     {
+        if (SystemUnderTest == null) return;
         await SystemUnderTest.DisposeAsync();
-        await pgSqlContainer.DisposeAsync();
     }
 
     protected virtual void SetupServices(HostBuilderContext ctx, IServiceCollection services)
     {
+        // Add EF Core InMemory DbContext and EfDataStore for tests
+        services.AddDbContext<PricingDbContext>(opt => opt.UseInMemoryDatabase("PricingInMemoryTest"));
+        services.AddScoped<IDataStore, EfDataStore>();
     }
 
     protected Task SetupData()

@@ -4,7 +4,6 @@
       "DownstreamPathTemplate": "/api/Products/{everything}",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/Products/{everything}",
-      "ServiceName": "ProductService",
       "UpstreamHttpMethod": [
         "Get"
       ],
@@ -17,13 +16,18 @@
       },
       "RouteClaimsRequirement": {
         "userType": "SALESMAN"
-      }
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ]
     },
     {
       "DownstreamPathTemplate": "/api/Products",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/Products",
-      "ServiceName": "ProductService",
       "UpstreamHttpMethod": [
         "Get"
       ],
@@ -36,13 +40,18 @@
       },
       "RouteClaimsRequirement": {
         "userType": "SALESMAN"
-      }
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ]
     },
     {
       "DownstreamPathTemplate": "/api/Dashboard/{everything}",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/Dashboard/{everything}",
-      "ServiceName": "DashboardService",
       "UpstreamHttpMethod": [
         "Post"
       ],
@@ -55,13 +64,18 @@
       },
       "RouteClaimsRequirement": {
         "userType": "SALESMAN"
-      }
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ]
     },
     {
       "DownstreamPathTemplate": "/api/Offer",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/Offers",
-      "ServiceName": "PolicyService",
       "UpstreamHttpMethod": [
         "Post"
       ],
@@ -74,13 +88,18 @@
       },
       "AddHeadersToRequest": {
         "AgentLogin": "Claims[http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier] > value[0] > |"
-      }
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ]
     },
     {
       "DownstreamPathTemplate": "/api/Policy",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/Policies",
-      "ServiceName": "PolicyService",
       "UpstreamHttpMethod": [
         "Post"
       ],
@@ -90,13 +109,18 @@
       },
       "RouteClaimsRequirement": {
         "userType": "SALESMAN"
-      }
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ]
     },
     {
       "DownstreamPathTemplate": "/api/Policy/{number}",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/Policies/{number}",
-      "ServiceName": "PolicyService",
       "UpstreamHttpMethod": [
         "Get"
       ],
@@ -109,13 +133,18 @@
       },
       "RouteClaimsRequirement": {
         "userType": "SALESMAN"
-      }
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ]
     },
     {
       "DownstreamPathTemplate": "/api/PolicySearch",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/api/PolicySearch",
-      "ServiceName": "PolicySearchService",
       "UpstreamHttpMethod": [
         "Get"
       ],
@@ -125,17 +154,18 @@
       },
       "RouteClaimsRequirement": {
         "userType": "SALESMAN"
-      }
+      },
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "catalog.api",
+          "Port": 80
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {
     "RequestIdKey": "OcRequestId",
     "AdministrationPath": "/administration",
-    "UseServiceDiscovery": true,
-    "ServiceDiscoveryProvider": {
-      "Type": "Eureka",
-      "Host": "localhost",
-      "Port": "8761"
-    }
+    "UseServiceDiscovery": false
   }
 }

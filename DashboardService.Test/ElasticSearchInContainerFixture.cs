@@ -1,48 +1,31 @@
 using System.Threading.Tasks;
-using DashboardService.DataAccess.Elastic;
+using DashboardService.DataAccess.InMemory;
 using DashboardService.Domain;
-using DotNet.Testcontainers.Builders;
-using Elastic.Clients.Elasticsearch;
-using Testcontainers.Elasticsearch;
 using Xunit;
 
 namespace DashboardService.Test;
 
-public class ElasticSearchInContainerFixture : IAsyncLifetime
+public class LuceneInMemoryFixture : IAsyncLifetime
 {
-    private readonly ElasticsearchContainer testContainer = new ElasticsearchBuilder()
-        .WithImage("elasticsearch:8.9.2")
-        .WithName("elasticsearch-892")
-        .WithEnvironment("discovery.type", "single-node")
-        .WithEnvironment("xpack.security.enabled", "false")
-        .WithPortBinding(9200, 9200)
-        .WithPortBinding(9300, 9300)
-        .WithWaitStrategy(Wait.ForUnixContainer().UntilPortIsAvailable(9200))
-        .Build();
-    
+    private readonly LucenePolicyRepository policyRepo = new LucenePolicyRepository();
+
     public async Task InitializeAsync()
     {
-        await testContainer.StartAsync();
+        await Task.CompletedTask;
         InsertData();
     }
 
     public Task DisposeAsync()
     {
-        return testContainer.DisposeAsync().AsTask();
+        policyRepo.Dispose();
+        return Task.CompletedTask;
     }
-    
 
-    public ElasticsearchClient ElasticClient()
-    {
-        var connectionSettings = new ElasticsearchClientSettings()
-            .DefaultMappingFor<PolicyDocument>(m =>
-                m.IndexName("policy_lab_stats").IdProperty(d => d.Number));
-        return new ElasticsearchClient(connectionSettings);
-    }
+    public LucenePolicyRepository Repository() => policyRepo;
 
     private void InsertData()
     {
-        var policyRepo = new ElasticPolicyRepository(ElasticClient());
+        var policyRepo = Repository();
         //products TRI,HSI,FAI,CAR
 
         var agent = "jimmy.solid";
@@ -249,7 +232,7 @@ public class ElasticSearchInContainerFixture : IAsyncLifetime
     }
 }
 
-[CollectionDefinition("ElasticSearch in a container")]
-public class ElasticSearchInContainerCollection : ICollectionFixture<ElasticSearchInContainerFixture>
+[CollectionDefinition("Lucene in memory")]
+public class LuceneInMemoryCollection : ICollectionFixture<LuceneInMemoryFixture>
 {
 }

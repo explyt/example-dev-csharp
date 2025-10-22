@@ -1,6 +1,3 @@
-
-using Elastic.Clients.Elasticsearch;
-
 namespace DashboardService.DataAccess.Elastic;
 
 public abstract class QueryAdapter<TQuery, TQueryResult, TIndex> where TIndex : class
@@ -12,7 +9,5 @@ public abstract class QueryAdapter<TQuery, TQueryResult, TIndex> where TIndex : 
         this.query = query;
     }
 
-    public abstract SearchRequest<TIndex> BuildQuery();
-
-    public abstract TQueryResult ExtractResult(SearchResponse<TIndex> searchResponse);
+    // Elastic-specific query/response types removed. Keep adapter base as a marker only.
 }

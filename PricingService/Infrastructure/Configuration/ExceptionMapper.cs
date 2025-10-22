@@ -13,7 +13,7 @@ public static class ExceptionMapper
 
         cfg.ResponseBody(s => JsonConvert.SerializeObject(new
         {
-            Message = "An error occured whilst processing your request"
+            Message = "An error occured whilst processing your request in pricing"
         }));
 
 

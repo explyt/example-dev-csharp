@@ -6,8 +6,6 @@ using Polly;
 using Polly.Retry;
 using PricingService.Api.Commands;
 using RestEase;
-using Steeltoe.Common.Discovery;
-using Steeltoe.Discovery;
 
 namespace PolicyService.RestClients;
 
@@ -25,12 +23,12 @@ public class PricingClient : IPricingClient
 
     private readonly IPricingClient client;
 
-    public PricingClient(IConfiguration configuration, IDiscoveryClient discoveryClient)
+    public PricingClient(IConfiguration configuration)
     {
-        var handler = new DiscoveryHttpClientHandler(discoveryClient);
-        var httpClient = new HttpClient(handler, false)
+        var pricingUri = configuration.GetValue<string>("PricingServiceUri");
+        var httpClient = new HttpClient()
         {
-            BaseAddress = new Uri(configuration.GetValue<string>("PricingServiceUri"))
+            BaseAddress = new Uri(pricingUri)
         };
         client = RestClient.For<IPricingClient>(httpClient);
     }

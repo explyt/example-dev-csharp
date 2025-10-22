@@ -2,18 +2,18 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using DashboardService.Api.Queries;
-using DashboardService.DataAccess.Elastic;
+using DashboardService.DataAccess.InMemory;
 using DashboardService.Queries;
 using Xunit;
 
 namespace DashboardService.Test;
 
-[Collection("ElasticSearch in a container")]
+[Collection("Lucene in memory")]
 public class GetTotalSalesQueryTest
 {
-    private readonly ElasticSearchInContainerFixture fixture;
+    private readonly LuceneInMemoryFixture fixture;
 
-    public GetTotalSalesQueryTest(ElasticSearchInContainerFixture fixture)
+    public GetTotalSalesQueryTest(LuceneInMemoryFixture fixture)
     {
         this.fixture = fixture;
     }
@@ -21,7 +21,7 @@ public class GetTotalSalesQueryTest
     [Fact]
     public async Task TotalSales_All_Product_In_First_Q_2020()
     {
-        var queryHandler = new GetTotalSalesHandler(new ElasticPolicyRepository(fixture.ElasticClient()));
+        var queryHandler = new GetTotalSalesHandler(fixture.Repository());
 
         var result = await queryHandler.Handle(
             new GetTotalSalesQuery
@@ -45,7 +45,7 @@ public class GetTotalSalesQueryTest
     [Fact]
     public async Task TotalSales_HSI_Product_In_01_2020()
     {
-        var queryHandler = new GetTotalSalesHandler(new ElasticPolicyRepository(fixture.ElasticClient()));
+        var queryHandler = new GetTotalSalesHandler(fixture.Repository());
 
         var result = await queryHandler.Handle(
             new GetTotalSalesQuery

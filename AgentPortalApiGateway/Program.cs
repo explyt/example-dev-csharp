@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using Ocelot.Cache.CacheManager;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
-using Ocelot.Provider.Eureka;
 
 namespace AgentPortalApiGateway;
 
@@ -56,7 +55,7 @@ public class Program
                             ValidateAudience = false
                         };
                     });
-                s.AddOcelot().AddEureka().AddCacheManager(x => x.WithDictionaryHandle());
+                s.AddOcelot().AddCacheManager(x => x.WithDictionaryHandle());
             })
             .Configure(a =>
             {
