@@ -6,7 +6,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <EmbeddedResource Include="Messaging\RabbitMq\Outbox\Message.hbm.xml" />
         <None Remove="Messaging\Outbox\Message.hbm.xml" />
         <None Remove="Domain\Offer.hbm.xml" />
         <None Remove="Domain\Policy.hbm.xml" />

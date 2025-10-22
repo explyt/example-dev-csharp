@@ -19,8 +19,8 @@
       },
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalog.api",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5030
         }
       ]
     },
@@ -43,8 +43,8 @@
       },
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalog.api",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5030
         }
       ]
     },
@@ -67,8 +67,8 @@
       },
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalog.api",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5035
         }
       ]
     },
@@ -91,8 +91,8 @@
       },
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalog.api",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5040
         }
       ]
     },
@@ -112,8 +112,8 @@
       },
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalog.api",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5040
         }
       ]
     },
@@ -136,8 +136,8 @@
       },
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalog.api",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5040
         }
       ]
     },
@@ -157,8 +157,8 @@
       },
       "DownstreamHostAndPorts": [
         {
-          "Host": "catalog.api",
-          "Port": 80
+          "Host": "localhost",
+          "Port": 5040
         }
       ]
     }
