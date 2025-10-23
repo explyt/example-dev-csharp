@@ -44,25 +44,11 @@ public class PolicyServiceWebApplicationFactory : WebApplicationFactory<PolicySe
 {
     protected override IHostBuilder CreateHostBuilder()
     {
-        return Host.CreateDefaultBuilder()
-            .ConfigureWebHostDefaults(webBuilder =>
-            {
-                webBuilder.UseStartup<PolicyService.Startup>();
-            });
+        return PolicyService.Program.CreateWebHostBuilder([]);
     }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        // Configure test services
-        builder.ConfigureServices(services =>
-        {
-            // Add EF Core InMemory DbContext for tests
-            services.AddDbContext<PolicyDbContext>(opt => opt.UseInMemoryDatabase("PolicyInMemoryTest"));
-            
-            // Register repositories (already registered in Startup, but we can override if needed)
-            services.AddScoped<IOfferRepository, EfOfferRepository>();
-            services.AddScoped<IPolicyRepository, EfPolicyRepository>();
-            services.AddScoped<IUnitOfWork, EfUnitOfWork>();
-        });
+        
     }
 }

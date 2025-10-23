@@ -65,7 +65,7 @@ public class OfferController : IClassFixture<PolicyControllerWithRealPricingFixt
     [Fact]
     public async Task AgentCanCreateOfferWithRealPricingService()
     {
-        var agentLogin = "jimmy.son";
+        var agentLogin = "jimmy.solid";
         var command = new CreateOfferCommand
         {
             ProductCode = "HSI",
