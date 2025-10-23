@@ -75,7 +75,7 @@
     {
       "DownstreamPathTemplate": "/api/Offer",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/api/Offers",
+      "UpstreamPathTemplate": "/api/Offer",
       "UpstreamHttpMethod": [
         "Post"
       ],

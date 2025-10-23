@@ -7,7 +7,7 @@ using Serilog.Events;
 
 namespace PolicyService;
 
-public static class Program
+public class Program
 {
     public static void Main(string[] args)
     {
