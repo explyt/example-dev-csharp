@@ -31,19 +31,13 @@ public class Startup
         services.AddSwaggerGen();
         
         // Add EF Core with in-memory database
-        services.AddDbContext<PolicyDbContext>(options => 
-            options.UseInMemoryDatabase("PolicyServiceDb"));
-        
-        // Register repositories
-        services.AddScoped<IOfferRepository, EfOfferRepository>();
-        services.AddScoped<IPolicyRepository, EfPolicyRepository>();
-        services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+        services.AddDbContext<PolicyDbContext>(options => options.UseInMemoryDatabase("PolicyServiceDb"));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        // app.UseExceptionHandler("/error");
+        app.UseExceptionHandler("/error");
 
         if (!env.IsDevelopment()) app.UseHsts();
         

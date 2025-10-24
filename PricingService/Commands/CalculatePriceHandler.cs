@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
-using FluentValidation.Results;
 using MediatR;
 using PricingService.Api.Commands;
 using PricingService.Domain;
