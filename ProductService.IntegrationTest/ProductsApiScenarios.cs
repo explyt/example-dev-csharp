@@ -9,6 +9,8 @@ using ProductService.Api.Queries.Dtos;
 using Xunit;
 using CoverDto = ProductService.Api.Commands.Dtos.CoverDto;
 using NumericQuestionDto = ProductService.Api.Commands.Dtos.NumericQuestionDto;
+using ChoiceQuestionDto = ProductService.Api.Commands.Dtos.ChoiceQuestionDto;
+using ChoiceDto = ProductService.Api.Commands.Dtos.ChoiceDto;
 using QuestionDto = ProductService.Api.Commands.Dtos.QuestionDto;
 
 namespace ProductService.IntegrationTest;
@@ -65,7 +67,7 @@ public class ProductsApiScenarios
         var invalidProductCode = "INVALID_CODE";
 
         // Act & Assert
-        await fixture.SystemUnderTest.Scenario(_ =>
+        var result = await fixture.SystemUnderTest.Scenario(_ =>
         {
             _.Get.Url($"/api/products/{invalidProductCode}");
             _.StatusCodeShouldBe(HttpStatusCode.NotFound);
@@ -101,7 +103,26 @@ public class ProductsApiScenarios
                     {
                         QuestionCode = "QUESTION1",
                         Index = 1,
-                        Text = "Test question?",
+                        Text = "Test numeric question?",
+                    },
+                    new ChoiceQuestionDto
+                    {
+                        QuestionCode = "QUESTION2",
+                        Index = 2,
+                        Text = "Test choice question?",
+                        Choices = new List<ChoiceDto>
+                        {
+                            new()
+                            {
+                                Code = "CHOICE_TEST_1",
+                                Label = "Choice 1"
+                            },
+                            new()
+                            {
+                                Code = "CHOICE_TEST_2", 
+                                Label = "Choice 2"
+                            }
+                        }
                     }
                 }
             }
@@ -143,7 +164,15 @@ public class ProductsApiScenarios
                         SumInsured = 2000
                     }
                 },
-                Questions = new List<QuestionDto>()
+                Questions = new List<QuestionDto>
+                {
+                    new NumericQuestionDto
+                    {
+                        QuestionCode = "QUESTION1",
+                        Index = 1,
+                        Text = "Test question?",
+                    }
+                }
             }
         };
 
@@ -184,10 +213,10 @@ public class ProductsApiScenarios
         };
 
         // Act & Assert
-        await fixture.SystemUnderTest.Scenario(_ =>
+        var result = await fixture.SystemUnderTest.Scenario(_ =>
         {
             _.Post.Json(activateCommand).ToUrl("/api/products/activate");
-            _.StatusCodeShouldBe(HttpStatusCode.BadRequest);
+            _.StatusCodeShouldBe(HttpStatusCode.NotFound);
         });
     }
 }

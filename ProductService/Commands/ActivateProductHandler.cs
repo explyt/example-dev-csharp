@@ -17,8 +17,7 @@ public class ActivateProductHandler : IRequestHandler<ActivateProductCommand, Ac
     public async Task<ActivateProductResult> Handle(ActivateProductCommand request, CancellationToken cancellationToken)
     {
         var product = await products.FindById(request.ProductId);
-        if (product == null)
-            throw new ValidationException("Product not found with id : " + request.ProductId);
+        if (product == null) return null;
         product.Activate();
         return new ActivateProductResult
         {

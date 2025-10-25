@@ -29,9 +29,7 @@ public class Startup
         services.AddProductDemoInitializer();
         
         services.AddSwaggerGen();
-        
-        services.AddDbContext<ProductDbContext>(options => options.UseInMemoryDatabase("ProductServiceDb"));
-        services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddEFConfiguration(Configuration);
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
