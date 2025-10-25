@@ -2,7 +2,7 @@ using Xunit;
 
 namespace PricingService.IntegrationTest;
 
-[CollectionDefinition("PricingControllerFixtureCollection")]
+[CollectionDefinition(nameof(PricingControllerFixtureCollection))]
 public class PricingControllerFixtureCollection : ICollectionFixture<PricingControllerFixture>
 {
 }

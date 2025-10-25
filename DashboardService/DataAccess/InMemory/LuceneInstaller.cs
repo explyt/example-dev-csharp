@@ -7,7 +7,8 @@ public static class LuceneInstaller
 {
     public static IServiceCollection AddLuceneSearch(this IServiceCollection services)
     {
-        services.AddScoped<IPolicyRepository, LucenePolicyRepository>();
+        // Use a singleton so the in-memory Lucene index persists across scopes/requests
+        services.AddSingleton<IPolicyRepository, LucenePolicyRepository>();
         return services;
     }
 }
