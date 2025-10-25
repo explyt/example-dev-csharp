@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using FluentValidation;
 using MediatR;
 using PolicyService.Api.Commands;
 using PolicyService.Api.Commands.Dtos;
@@ -26,6 +27,7 @@ public class CreatePolicyHandler : IRequestHandler<CreatePolicyCommand, CreatePo
     public async Task<CreatePolicyResult> Handle(CreatePolicyCommand request, CancellationToken cancellationToken)
     {
         var offer = await uow.Offers.WithNumber(request.OfferNumber);
+
         var customer = new PolicyHolder
         (
             request.PolicyHolder.FirstName,

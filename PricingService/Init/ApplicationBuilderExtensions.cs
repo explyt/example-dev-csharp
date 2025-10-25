@@ -12,16 +12,7 @@ public static async Task UseInitializer(this IApplicationBuilder app)
         {
             var initializer = scope.ServiceProvider.GetService<DataLoader>();
             if (initializer == null) return;
-
-            try
-            {
-                await initializer.Seed();
-            }
-            catch
-            {
-                // Rethrow so the host can fail fast, but preserve stack for diagnostics.
-                throw;
-            }
+            await initializer.Seed();
         }
     }
 }

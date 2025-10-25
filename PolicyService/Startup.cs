@@ -32,6 +32,11 @@ public class Startup
         
         // Add EF Core with in-memory database
         services.AddDbContext<PolicyDbContext>(options => options.UseInMemoryDatabase("PolicyServiceDb"));
+
+        // Domain/data access registrations
+        services.AddScoped<IOfferRepository, EfOfferRepository>();
+        services.AddScoped<IPolicyRepository, EfPolicyRepository>();
+        services.AddScoped<IUnitOfWork, EfUnitOfWork>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

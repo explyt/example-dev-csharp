@@ -16,7 +16,6 @@ public class PricingController : ControllerBase
         this.bus = bus;
     }
 
-
     // POST api/values
     [HttpPost]
     public async Task<ActionResult> Post([FromBody] CalculatePriceCommand cmd)
