@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using PolicyService.DataAccess.EfCore;
 using PolicyService.Domain;
-using PolicyService.Messaging.NServiceBus;
+using PolicyService.Messaging.MessagePipe;
 using PolicyService.RestClients;
 
 
@@ -27,7 +27,7 @@ public class Startup
         services.AddMvc().AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddPricingRestClient();
-        services.AddNServiceBus();
+        services.UseMessagePipe();
         services.AddSwaggerGen();
         
         // Add EF Core with in-memory database

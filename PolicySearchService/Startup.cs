@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PolicySearchService.DataAccess.InMemory;
-using PolicySearchService.Messaging.NServiceBus;
+using PolicySearchService.Messaging.MessagePipe;
 
 
 namespace PolicySearchService;
@@ -26,7 +26,7 @@ public class Startup
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLuceneSearch();
-        services.AddNServiceBus();
+        services.UseMessagePipe();
         services.AddSwaggerGen();
     }
 
