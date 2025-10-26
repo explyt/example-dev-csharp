@@ -52,6 +52,9 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
 
     public Task<List<Policy>> Find(string queryText)
     {
+        if (queryText is null || queryText.Length == 0)
+            return Task.FromResult(new List<Policy>());
+        
         using var reader = writer.GetReader(applyAllDeletes: true);
         var searcher = new IndexSearcher(reader);
         
