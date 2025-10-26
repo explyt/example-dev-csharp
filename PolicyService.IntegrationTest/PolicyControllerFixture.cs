@@ -18,12 +18,10 @@ public class PolicyControllerFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        var pricingBuilder = PricingService.Program.CreateWebHostBuilder([])
-            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((ctx, services) => { }));
-
+        var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
         PricingHost = new AlbaHost(pricingBuilder);
 
-        var pricingBase = PricingHost?.Server.BaseAddress.ToString().TrimEnd('/') ?? "http://localhost";
+        var pricingBase = PricingHost.Server.BaseAddress.ToString().TrimEnd('/');
         var pricingEndpoint = $"{pricingBase}/api/pricing";
 
         var policyBuilder = PolicyService.Program.CreateWebHostBuilder([])

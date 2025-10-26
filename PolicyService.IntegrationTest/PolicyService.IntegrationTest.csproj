@@ -22,6 +22,8 @@
         <ProjectReference Include="..\PolicyService\PolicyService.csproj" />
         <ProjectReference Include="..\PolicyService.Api\PolicyService.Api.csproj" />
         <ProjectReference Include="..\PricingService\PricingService.csproj" />
+        <ProjectReference Include="..\PolicySearchService\PolicySearchService.csproj" />
+        <ProjectReference Include="..\PolicySearchService.Api\PolicySearchService.Api.csproj" />
     </ItemGroup>
 
 </Project>
