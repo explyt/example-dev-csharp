@@ -58,7 +58,8 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest : IAsyncLifetime
         var policySearchBuilder = PolicySearchService.Program.CreateWebHostBuilder([]);
         policySearchHost = new AlbaHost(policySearchBuilder);
 
-        await Task.CompletedTask;
+        // Give services time to fully initialize, especially NServiceBus endpoints
+        await Task.Delay(2000);
     }
 
     public async Task DisposeAsync()
@@ -150,8 +151,8 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest : IAsyncLifetime
         
         // Try searching multiple times with a delay to account for eventual consistency
         FindPolicyResult searchResult = null;
-        var maxAttempts = 5;
-        var delayMs = 500;
+        var maxAttempts = 10;
+        var delayMs = 1000;
 
         for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
@@ -164,7 +165,14 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest : IAsyncLifetime
             searchResult = await searchScenario.ReadAsJsonAsync<FindPolicyResult>();
             
             if (searchResult?.Policies?.Count > 0)
+            {
+                Console.WriteLine($"Policy found in search results after {attempt + 1} attempts");
                 break;
+            }
+            else
+            {
+                Console.WriteLine($"Attempt {attempt + 1}: No policies found in search results");
+            }
 
             await Task.Delay(delayMs);
         }

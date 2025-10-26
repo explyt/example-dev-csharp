@@ -11,10 +11,22 @@ public class PolicyCreatedHandler(IMediator mediator, ILogger<PolicyCreatedHandl
 {
     public async Task Handle(PolicyCreated message, IMessageHandlerContext context)
     {
-        logger.LogInformation("Received PolicyCreated event for policy number: {PolicyNumber}", 
-            message.PolicyNumber);
-        
-        // Publish the event to MediatR for internal handling
-        await mediator.Publish(message, context.CancellationToken);
+        try
+        {
+            logger.LogInformation("Received PolicyCreated event for policy number: {PolicyNumber}", 
+                message.PolicyNumber);
+            
+            // Publish the event to MediatR for internal handling
+            await mediator.Publish(message, context.CancellationToken);
+            
+            logger.LogInformation("Successfully processed PolicyCreated event for policy number: {PolicyNumber}", 
+                message.PolicyNumber);
+        }
+        catch (System.Exception ex)
+        {
+            logger.LogError(ex, "Failed to process PolicyCreated event for policy number: {PolicyNumber}", 
+                message.PolicyNumber);
+            throw;
+        }
     }
 }
