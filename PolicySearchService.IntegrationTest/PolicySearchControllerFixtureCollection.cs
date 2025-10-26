@@ -1,0 +1,6 @@
+using Xunit;
+
+namespace PolicySearchService.IntegrationTest;
+
+[CollectionDefinition(nameof(PolicySearchControllerFixtureCollection))]
+public class PolicySearchControllerFixtureCollection: ICollectionFixture<PolicySearchControllerFixture>;
