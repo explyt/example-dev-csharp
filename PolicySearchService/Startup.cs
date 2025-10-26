@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PolicySearchService.DataAccess.ElasticSearch;
+using PolicySearchService.DataAccess.InMemory;
 using PolicySearchService.Messaging.MassTransit;
-using PolicyService.Api.Events;
 
 
 namespace PolicySearchService;
@@ -28,7 +25,7 @@ public class Startup
         services.AddMvc()
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
-        services.AddElasticSearch(Configuration.GetConnectionString("ElasticSearchConnection"));
+        services.AddLuceneSearch();
         services.AddMassTransitListeners();
         services.AddSwaggerGen();
     }
