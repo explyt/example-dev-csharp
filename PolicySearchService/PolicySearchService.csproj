@@ -5,7 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="MassTransit" Version="8.2.3" />
+        <PackageReference Include="NServiceBus" Version="9.0.0" />
+        <PackageReference Include="NServiceBus.Extensions.Hosting" Version="3.0.0" />
         <PackageReference Include="Lucene.Net" Version="4.8.0-beta00016" />
         <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00016" />
         <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00016" />

@@ -1,10 +1,11 @@
 using System;
 using MediatR;
+using NServiceBus;
 using PolicyService.Api.Commands.Dtos;
 
 namespace PolicyService.Api.Events;
 
-public class PolicyTerminated : INotification
+public class PolicyTerminated : INotification, IMessage
 {
     public string PolicyNumber { get; set; }
     public string ProductCode { get; set; }
