@@ -13,7 +13,7 @@ using PaymentService.Domain;
 using PaymentService.Infrastructure;
 using PaymentService.Init;
 using PaymentService.Jobs;
-using PaymentService.Messaging.MassTransit;
+using PaymentService.Messaging.MessagePipe;
 using PolicyService.Api.Events;
 
 namespace PaymentService;
@@ -38,7 +38,7 @@ public class Startup
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLogingBehaviour();
         services.AddSingleton<PolicyAccountNumberGenerator>();
-        services.AddMassTransitListeners();
+        services.UseMessagePipe();
         services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>());
         services.AddSwaggerGen();
     }
