@@ -35,7 +35,7 @@ public class PolicyCreatedHandler(
                     message.PolicyNumber);
                 throw;
             }
-        });
+        }, cancellationToken: stoppingToken);
 
         logger.LogInformation("PolicyCreatedHandler started and listening for events");
 

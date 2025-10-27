@@ -14,15 +14,10 @@ public class PaymentMessageProcessor(IMediator mediator, ILogger<PaymentMessageP
     {
         logger.LogInformation("Received PolicyCreated event for policy number: {PolicyNumber}",
             message.PolicyNumber);
-        Debug.WriteLine("Received PolicyCreated event for policy number: {PolicyNumber}",
-            message.PolicyNumber);
 
-        // Publish the event to MediatR for internal handling
         await mediator.Publish(message, cancellationToken);
 
         logger.LogInformation("Successfully processed PolicyCreated event for policy number: {PolicyNumber}",
-            message.PolicyNumber);
-        Debug.WriteLine("Successfully processed PolicyCreated event for policy number: {PolicyNumber}",
             message.PolicyNumber);
     }
 
@@ -30,15 +25,10 @@ public class PaymentMessageProcessor(IMediator mediator, ILogger<PaymentMessageP
     {
         logger.LogInformation("Received PolicyTerminated event for policy number: {PolicyNumber}",
             message.PolicyNumber);
-        Debug.WriteLine("Received PolicyTerminated event for policy number: {PolicyNumber}",
-            message.PolicyNumber);
 
-        // Publish the event to MediatR for internal handling
         await mediator.Publish(message, cancellationToken);
 
         logger.LogInformation("Successfully processed PolicyTerminated event for policy number: {PolicyNumber}",
-            message.PolicyNumber);
-        Debug.WriteLine("Successfully processed PolicyTerminated event for policy number: {PolicyNumber}",
             message.PolicyNumber);
     }
 }

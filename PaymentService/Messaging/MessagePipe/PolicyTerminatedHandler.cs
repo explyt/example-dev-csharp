@@ -34,9 +34,8 @@ public class PolicyTerminatedHandler(
                     message.PolicyNumber);
                 throw;
             }
-        });
+        }, cancellationToken: stoppingToken);
 
-        // Keep alive
         await Task.Delay(Timeout.Infinite, stoppingToken);
     }
 }

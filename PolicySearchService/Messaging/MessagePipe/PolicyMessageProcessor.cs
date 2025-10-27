@@ -14,15 +14,10 @@ public class PolicyMessageProcessor(IMediator mediator, ILogger<PolicyMessagePro
     {
         logger.LogInformation("Received PolicyCreated event for policy number: {PolicyNumber}",
             message.PolicyNumber);
-        Debug.WriteLine("Received PolicyCreated event for policy number: {PolicyNumber}",
-            message.PolicyNumber);
 
-        // Publish the event to MediatR for internal handling
         await mediator.Publish(message, cancellationToken);
 
         logger.LogInformation("Successfully processed PolicyCreated event for policy number: {PolicyNumber}",
-            message.PolicyNumber);
-        Debug.WriteLine("Successfully processed PolicyCreated event for policy number: {PolicyNumber}",
             message.PolicyNumber);
     }
 }
