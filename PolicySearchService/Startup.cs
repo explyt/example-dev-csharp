@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using PolicySearchService.DataAccess.InMemory;
 using PolicySearchService.Messaging.MessagePipe;
 
@@ -28,6 +29,7 @@ public class Startup
         services.AddLuceneSearch();
         services.UseMessagePipe();
         services.AddSwaggerGen();
+        services.AddLogging(log => log.AddConsole());
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

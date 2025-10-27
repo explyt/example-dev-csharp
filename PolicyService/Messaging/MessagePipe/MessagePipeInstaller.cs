@@ -11,41 +11,12 @@ public static class MessagePipeInstaller
 {
     public static IServiceCollection UseMessagePipe(this IServiceCollection services)
     {
-        // Register MessagePipe
-        services.AddMessagePipe().AddTcpInterprocess("localhost", 5040);
+        // Register MessagePipe with NamedPipeInterprocess for distributed messaging
+        services.AddMessagePipe().AddUdpInterprocess("127.0.0.1", 8083);
         
-        // Register event publishers for different event types
-        services.AddSingleton<IEventPublisher, MessagePipeEventPublisher>();
-        
-        // Register handlers for PolicyCreated events
-        services.AddSingleton<ISubscriber<PolicyCreated>>(provider =>
-        {
-            var options = provider.GetRequiredService<MessagePipeOptions>();
-            return options.BuildServiceProvider().GetRequiredService<ISubscriber<PolicyCreated>>();
-        });
-        
-        // Register handlers for PolicyTerminated events
-        services.AddSingleton<ISubscriber<PolicyTerminated>>(provider =>
-        {
-            var options = provider.GetRequiredService<MessagePipeOptions>();
-            return options.BuildServiceProvider().GetRequiredService<ISubscriber<PolicyTerminated>>();
-        });
+        // Register event publisher as Scoped to match the lifetime of MessagePipe dependencies
+        services.AddScoped<IEventPublisher, MessagePipeEventPublisher>();
         
         return services;
-    }
-}
-
-public class MessagePipeOptions
-{
-    private readonly IServiceCollection _services;
-
-    public MessagePipeOptions(IServiceCollection services)
-    {
-        _services = services;
-    }
-
-    public IServiceProvider BuildServiceProvider()
-    {
-        return _services.BuildServiceProvider();
     }
 }

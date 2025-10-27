@@ -6,15 +6,8 @@ using PolicyService.Api.Events;
 
 namespace PolicySearchService.Listeners;
 
-public class PolicyCreatedHandler : INotificationHandler<PolicyCreated>
+public class PolicyCreatedHandler(IPolicyRepository policis) : INotificationHandler<PolicyCreated>
 {
-    private readonly IPolicyRepository policis;
-
-    public PolicyCreatedHandler(IPolicyRepository policis)
-    {
-        this.policis = policis;
-    }
-
     public async Task Handle(PolicyCreated notification, CancellationToken cancellationToken)
     {
         await policis.Add(new Policy

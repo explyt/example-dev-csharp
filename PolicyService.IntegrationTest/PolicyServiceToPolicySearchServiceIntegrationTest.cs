@@ -4,11 +4,14 @@ using System.Threading.Tasks;
 using Alba;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using PolicyService.Api.Commands;
 using PolicyService.Api.Commands.Dtos;
 using PolicyService.Api.Queries;
 using PolicySearchService.Api.Queries;
 using Xunit;
+using Xunit.Abstractions;
 using static Xunit.Assert;
 
 namespace PolicyService.IntegrationTest;
@@ -17,11 +20,59 @@ namespace PolicyService.IntegrationTest;
 /// Integration test that spans both PolicyService and PolicySearchService
 /// Tests the complete flow: policy creation -> event publishing -> indexing -> search
 /// </summary>
-public class PolicyServiceToPolicySearchServiceIntegrationTest : IAsyncLifetime
+public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper testOutputHelper) : IAsyncLifetime
 {
     private IAlbaHost policyHost;
     private IAlbaHost pricingHost;
     private IAlbaHost policySearchHost;
+
+    public class TestOutputLogger(string categoryName, ITestOutputHelper output) : ILogger
+    {
+        public IDisposable BeginScope<TState>(TState state) where TState : notnull
+        {
+            return NullScope.Instance;
+        }
+
+        public sealed class NullScope : IDisposable
+        {
+            public static readonly NullScope Instance = new();
+
+            private NullScope()
+            {
+            }
+
+            public void Dispose()
+            {
+            }
+        }
+
+        public bool IsEnabled(LogLevel logLevel) => true;
+
+        public void Log<TState>(
+            LogLevel logLevel,
+            EventId eventId,
+            TState state,
+            Exception? exception,
+            Func<TState, Exception?, string> formatter)
+        {
+            var message = formatter(state, exception);
+            output.WriteLine($"{DateTime.Now:HH:mm:ss.fff} [{logLevel}] {categoryName}: {message}");
+            if (exception != null)
+                output.WriteLine(exception.ToString());
+        }
+    }
+
+    public class TestOutputLoggerProvider(ITestOutputHelper output) : ILoggerProvider
+    {
+        public ILogger CreateLogger(string categoryName)
+        {
+            return new TestOutputLogger(categoryName, output);
+        }
+
+        public void Dispose()
+        {
+        }
+    }
 
     public async Task InitializeAsync()
     {
@@ -50,12 +101,15 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest : IAsyncLifetime
                     http.BaseAddress = new Uri(pricingEndpoint);
                     return RestEase.RestClient.For<PolicyService.RestClients.IPricingClient>(http);
                 });
-            });
+            })
+            .ConfigureLogging(logging => { logging.AddProvider(new TestOutputLoggerProvider(testOutputHelper)); });
 
         policyHost = new AlbaHost(policyBuilder);
 
-        // Start Policy Search Service
-        var policySearchBuilder = PolicySearchService.Program.CreateWebHostBuilder([]);
+        // Start Policy Search Service with test logging
+        var policySearchBuilder = PolicySearchService.Program.CreateWebHostBuilder([])
+            .ConfigureLogging(logging => { logging.AddProvider(new TestOutputLoggerProvider(testOutputHelper)); });
+
         policySearchHost = new AlbaHost(policySearchBuilder);
 
         // Give services time to fully initialize, especially NServiceBus endpoints
@@ -148,10 +202,10 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest : IAsyncLifetime
         // Step 4: Wait for event processing and verify policy is searchable
         var policyNumber = createPolicyResult.PolicyNumber;
         var policyHolderName = "John Doe";
-        
+
         // Try searching multiple times with a delay to account for eventual consistency
         FindPolicyResult searchResult = null;
-        var maxAttempts = 10;
+        var maxAttempts = 3;
         var delayMs = 1000;
 
         for (int attempt = 0; attempt < maxAttempts; attempt++)
@@ -163,15 +217,15 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest : IAsyncLifetime
             });
 
             searchResult = await searchScenario.ReadAsJsonAsync<FindPolicyResult>();
-            
+
             if (searchResult?.Policies?.Count > 0)
             {
-                Console.WriteLine($"Policy found in search results after {attempt + 1} attempts");
+                testOutputHelper.WriteLine($"Policy found in search results after {attempt + 1} attempts");
                 break;
             }
             else
             {
-                Console.WriteLine($"Attempt {attempt + 1}: No policies found in search results");
+                testOutputHelper.WriteLine($"Attempt {attempt + 1}: No policies found in search results");
             }
 
             await Task.Delay(delayMs);
@@ -301,7 +355,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest : IAsyncLifetime
         var allPoliciesResult = await allPoliciesScenario.ReadAsJsonAsync<FindPolicyResult>();
         NotNull(allPoliciesResult);
         NotNull(allPoliciesResult.Policies);
-        True(allPoliciesResult.Policies.Count >= policyNumbers.Count, 
+        True(allPoliciesResult.Policies.Count >= policyNumbers.Count,
             $"Should find at least {policyNumbers.Count} policies when searching by product code");
     }
 }

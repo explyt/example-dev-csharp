@@ -2,40 +2,55 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using MessagePipe;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PolicyService.Api.Events;
 
 namespace PolicySearchService.Messaging.MessagePipe;
 
-public class PolicyCreatedHandler : IAsyncMessageHandler<PolicyCreated>
+public class PolicyCreatedMessageHandler
 {
-    private readonly IMediator _mediator;
-    private readonly ILogger<PolicyCreatedHandler> _logger;
-
-    public PolicyCreatedHandler(IMediator mediator, ILogger<PolicyCreatedHandler> logger)
+    public PolicyCreatedMessageHandler(IMediator mediator,
+        IDistributedSubscriber<string, PolicyCreated> subscriber,
+        ILogger<PolicyCreatedMessageHandler> logger)
     {
-        _mediator = mediator;
-        _logger = logger;
+        subscriber.SubscribeAsync("PolicyCreated", async (message, cancellationToken) =>
+        {
+            await mediator.Publish(message, cancellationToken);
+        }).GetAwaiter().GetResult();
     }
+}
 
-    public async ValueTask HandleAsync(PolicyCreated message, CancellationToken cancellationToken = default)
+public class PolicyCreatedHandler(
+    IServiceScopeFactory serviceScopeFactory,
+    ILogger<PolicyCreatedHandler> logger
+    ) : BackgroundService
+{
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        try
+        using var scope = serviceScopeFactory.CreateScope();
+        var subscriber = scope.ServiceProvider.GetRequiredService<IDistributedSubscriber<string, PolicyCreated>>();
+        
+        await subscriber.SubscribeAsync("PolicyCreated", async (message, cancellationToken) =>
         {
-            _logger.LogInformation("Received PolicyCreated event for policy number: {PolicyNumber}", 
-                message.PolicyNumber);
-            
-            // Publish the event to MediatR for internal handling
-            await _mediator.Publish(message, cancellationToken);
-            
-            _logger.LogInformation("Successfully processed PolicyCreated event for policy number: {PolicyNumber}", 
-                message.PolicyNumber);
-        }
-        catch (System.Exception ex)
-        {
-            _logger.LogError(ex, "Failed to process PolicyCreated event for policy number: {PolicyNumber}", 
-                message.PolicyNumber);
-            throw;
-        }
+            try
+            {
+                // Create a new scope for each message to handle scoped dependencies
+                using var messageScope = serviceScopeFactory.CreateScope();
+                var processor = messageScope.ServiceProvider.GetRequiredService<PolicyMessageProcessor>();
+
+                await processor.ProcessPolicyCreated(message, cancellationToken);
+            }
+            catch (System.Exception ex)
+            {
+                logger.LogError(ex, "Failed to process PolicyCreated event for policy number: {PolicyNumber}",
+                    message.PolicyNumber);
+                throw;
+            }
+        });
+
+        // Keep alive
+        await Task.Delay(Timeout.Infinite, stoppingToken);
     }
 }

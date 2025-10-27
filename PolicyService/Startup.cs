@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using PolicyService.DataAccess.EfCore;
 using PolicyService.Domain;
 using PolicyService.Messaging.MessagePipe;
@@ -37,12 +38,13 @@ public class Startup
         services.AddScoped<IOfferRepository, EfOfferRepository>();
         services.AddScoped<IPolicyRepository, EfPolicyRepository>();
         services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+        services.AddLogging(log => log.AddConsole());
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-        app.UseExceptionHandler("/error");
+        // app.UseExceptionHandler("/error");
 
         if (!env.IsDevelopment()) app.UseHsts();
         
@@ -51,7 +53,6 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
         app.UseRouting();
         app.UseHttpsRedirection();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
