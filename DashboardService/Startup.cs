@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DashboardService.DataAccess.InMemory;
 using DashboardService.Domain;
 using DashboardService.Init;
-using DashboardService.Messaging.MassTransit;
+using DashboardService.Messaging.MessagePipe;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +29,7 @@ public class Startup
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLuceneSearch();
-        services.AddMassTransitLocal();
+        services.UseMessagePipe();
         services.AddInitialSalesData();
         services.AddSwaggerGen();
     }
