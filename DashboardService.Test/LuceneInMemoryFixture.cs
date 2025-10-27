@@ -1,6 +1,5 @@
 using System.Threading.Tasks;
 using DashboardService.DataAccess.InMemory;
-using DashboardService.Domain;
 using Xunit;
 
 namespace DashboardService.Test;

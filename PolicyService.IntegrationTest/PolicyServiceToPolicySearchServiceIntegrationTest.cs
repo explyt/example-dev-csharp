@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 using Alba;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using PolicyService.Api.Commands;
 using PolicyService.Api.Commands.Dtos;
 using PolicyService.Api.Queries;
 using PolicySearchService.Api.Queries;
+using PolicySearchService.Domain;
 using Xunit;
 using Xunit.Abstractions;
 using static Xunit.Assert;
@@ -25,55 +24,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
     private IAlbaHost policyHost;
     private IAlbaHost pricingHost;
     private IAlbaHost policySearchHost;
-
-    public class TestOutputLogger(string categoryName, ITestOutputHelper output) : ILogger
-    {
-        public IDisposable BeginScope<TState>(TState state) where TState : notnull
-        {
-            return NullScope.Instance;
-        }
-
-        public sealed class NullScope : IDisposable
-        {
-            public static readonly NullScope Instance = new();
-
-            private NullScope()
-            {
-            }
-
-            public void Dispose()
-            {
-            }
-        }
-
-        public bool IsEnabled(LogLevel logLevel) => true;
-
-        public void Log<TState>(
-            LogLevel logLevel,
-            EventId eventId,
-            TState state,
-            Exception? exception,
-            Func<TState, Exception?, string> formatter)
-        {
-            var message = formatter(state, exception);
-            output.WriteLine($"{DateTime.Now:HH:mm:ss.fff} [{logLevel}] {categoryName}: {message}");
-            if (exception != null)
-                output.WriteLine(exception.ToString());
-        }
-    }
-
-    public class TestOutputLoggerProvider(ITestOutputHelper output) : ILoggerProvider
-    {
-        public ILogger CreateLogger(string categoryName)
-        {
-            return new TestOutputLogger(categoryName, output);
-        }
-
-        public void Dispose()
-        {
-        }
-    }
-
+    
     public async Task InitializeAsync()
     {
         // Start Pricing Service
@@ -101,14 +52,12 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
                     http.BaseAddress = new Uri(pricingEndpoint);
                     return RestEase.RestClient.For<PolicyService.RestClients.IPricingClient>(http);
                 });
-            })
-            .ConfigureLogging(logging => { logging.AddProvider(new TestOutputLoggerProvider(testOutputHelper)); });
+            });
 
         policyHost = new AlbaHost(policyBuilder);
 
         // Start Policy Search Service with test logging
-        var policySearchBuilder = PolicySearchService.Program.CreateWebHostBuilder([])
-            .ConfigureLogging(logging => { logging.AddProvider(new TestOutputLoggerProvider(testOutputHelper)); });
+        var policySearchBuilder = PolicySearchService.Program.CreateWebHostBuilder([]);
 
         policySearchHost = new AlbaHost(policySearchBuilder);
 
@@ -116,6 +65,11 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         await Task.Delay(2000);
     }
 
+    private void LuceneCleanup()
+    {
+        policySearchHost?.Services.GetService<IPolicyRepository>().Clear();
+    }
+    
     public async Task DisposeAsync()
     {
         if (policyHost != null) await policyHost.DisposeAsync();
@@ -257,6 +211,8 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         var foundByNamePolicy = searchByNameResult.Policies[0];
         Equal(policyNumber, foundByNamePolicy.PolicyNumber);
         Equal(policyHolderName, foundByNamePolicy.PolicyHolder);
+        
+        LuceneCleanup();
     }
 
     /// <summary>
@@ -284,6 +240,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
                 Answers = new List<QuestionAnswer>
                 {
                     new NumericQuestionAnswer { QuestionCode = "NUM_OF_ADULTS", Answer = 1M },
+                    new NumericQuestionAnswer { QuestionCode = "NUM_OF_CHILDREN", Answer = 1M },
                     new TextQuestionAnswer { QuestionCode = "DESTINATION", Answer = "EUR" }
                 }
             };
@@ -357,5 +314,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         NotNull(allPoliciesResult.Policies);
         True(allPoliciesResult.Policies.Count >= policyNumbers.Count,
             $"Should find at least {policyNumbers.Count} policies when searching by product code");
+        
+        LuceneCleanup();
     }
 }
