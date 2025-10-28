@@ -64,6 +64,7 @@ public class CreatePolicyHandler : IRequestHandler<CreatePolicyCommand, CreatePo
             PolicyNumber = policy.Number,
             PolicyFrom = version.CoverPeriod.ValidFrom,
             PolicyTo = version.CoverPeriod.ValidTo,
+            SalesDate = policy.CreationDate,
             ProductCode = policy.ProductCode,
             TotalPremium = version.TotalPremiumAmount,
             PolicyHolder = new PersonDto

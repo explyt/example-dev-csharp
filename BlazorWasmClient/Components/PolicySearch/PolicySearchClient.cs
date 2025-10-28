@@ -12,7 +12,7 @@ public class PolicySearchClient
     private readonly CustomAuthenticationStateProvider customAuthenticationStateProvider;
     private readonly HttpClient httpClient;
     private readonly string baseUrl;
-    private const string And = "%20AND%20";
+    private const string Or = "%20OR%20";
 
     public PolicySearchClient
     (
@@ -39,7 +39,7 @@ public class PolicySearchClient
 
         if (!string.IsNullOrWhiteSpace(policyHolder))
         {
-            queryString += ((queryString.Length>0 ? And : string.Empty) + policyHolder);
+            queryString += ((queryString.Length>0 ? Or : string.Empty) + policyHolder);
         }
         
         var productsString = await httpClient
