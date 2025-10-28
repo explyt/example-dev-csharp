@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>NServiceBus.MessageInterfaces</id>
+    <version>1.0.0</version>
+    <authors>Particular Software</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>NServiceBus.png</icon>
+    <readme>Package-README.md</readme>
+    <projectUrl>https://docs.particular.net/nuget/NServiceBus.MessageInterfaces</projectUrl>
+    <description>The set of marker interfaces used to define message types</description>
+    <copyright>© NServiceBus Ltd. All rights reserved.</copyright>
+    <tags>nservicebus messaging</tags>
+    <repository type="git" url="https://github.com/Particular/NServiceBus.MessageInterfaces" commit="df7d2f0573e4862d6d41a22e862c921b3fc99f34" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+</package>

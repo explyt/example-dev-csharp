@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Alba</id>
+    <version>8.2.1</version>
+    <authors>Alba</authors>
+    <license type="expression">Apache-2.0</license>
+    <licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
+    <icon>icon.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>http://jasperfx.github.io/alba/</projectUrl>
+    <description>Supercharged integration testing for ASP.NET Core HTTP endpoints</description>
+    <repository type="git" url="git://github.com/JasperFx/alba" branch="refs/heads/master" commit="5fdfd8058ea84d4b33e6f9e05dee663749e6ac21" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="IdentityModel" version="6.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Authentication.JwtBearer" version="8.0.17" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Testing" version="8.0.17" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net9.0">
+        <dependency id="IdentityModel" version="6.2.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Authentication.JwtBearer" version="9.0.6" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Mvc.Testing" version="9.0.6" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkReferences>
+      <group targetFramework="net8.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+      <group targetFramework="net9.0">
+        <frameworkReference name="Microsoft.AspNetCore.App" />
+      </group>
+    </frameworkReferences>
+  </metadata>
+</package>

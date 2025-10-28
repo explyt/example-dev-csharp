@@ -1,0 +1,87 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.MiddlewareAnalysis</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> decorator used by <see cref="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisStartupFilter"/>
+            to add <see cref="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisMiddleware"/> before and after each other middleware in the pipeline.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder.#ctor(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder"/>.
+            </summary>
+            <param name="inner">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> to decorate.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder.ApplicationServices">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder.Properties">
+            <inheritdoc />
+        </member>
+        <member name="P:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder.ServerFeatures">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder.Build">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder.New">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder.Use(System.Func{Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.AspNetCore.Http.RequestDelegate})">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisMiddleware">
+            <summary>
+            Middleware that is inserted before and after each other middleware in the pipeline by <see cref="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder"/>
+            to log to a <see cref="T:System.Diagnostics.DiagnosticSource"/> when other middleware starts, finishes and throws.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,System.Diagnostics.DiagnosticSource,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisMiddleware"/>.
+            </summary>
+            <param name="next">The next middleware in the pipeline.</param>
+            <param name="diagnosticSource">The <see cref="T:System.Diagnostics.DiagnosticSource"/> to log when other middleware starts, finishes and throws.</param>
+            <param name="middlewareName">
+            The name of the next middleware in the pipeline. This name is typically retrieved from <see cref="P:Microsoft.AspNetCore.Builder.IApplicationBuilder.Properties"/>
+            using the "analysis.NextMiddlewareName" key.
+            </param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisMiddleware.Invoke(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Executes the middleware that logs to a <see cref="T:System.Diagnostics.DiagnosticSource"/> when the next middleware starts, finishes and throws.
+            </summary>
+            <param name="httpContext">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/> for the current request.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisStartupFilter">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Hosting.IStartupFilter"/> that configures the middleware pipeline to log to a <see cref="T:System.Diagnostics.DiagnosticSource"/>
+            when middleware starts, finishes and throws.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisStartupFilter.Configure(System.Action{Microsoft.AspNetCore.Builder.IApplicationBuilder})">
+            <summary>
+            Wraps the <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/> with <see cref="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisBuilder"/> and directly adds
+            <see cref="T:Microsoft.AspNetCore.MiddlewareAnalysis.AnalysisMiddleware"/> to the end of the middleware pipeline.
+            </summary>
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.AnalysisServiceCollectionExtensions">
+            <summary>
+            Extension methods for setting up diagnostic services in an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.AnalysisServiceCollectionExtensions.AddMiddlewareAnalysis(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds diagnostic services to the specified <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> by logging to
+            a <see cref="T:System.Diagnostics.DiagnosticSource"/> when middleware starts, finishes and throws.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection" /> to add services to.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> so that additional calls can be chained.</returns>
+        </member>
+    </members>
+</doc>

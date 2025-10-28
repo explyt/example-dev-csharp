@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NServiceBus.MessageInterfaces</name>
+    </assembly>
+    <members>
+        <member name="T:NServiceBus.ICommand">
+            <summary>
+            Marker interface to indicate that a class is a command message.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.IEvent">
+            <summary>
+            Marker interface to indicate that a class is a event message.
+            </summary>
+        </member>
+        <member name="T:NServiceBus.IMessage">
+            <summary>
+            Marker interface to indicate that a class is a message suitable
+            for transmission and handling by an NServiceBus.
+            </summary>
+        </member>
+    </members>
+</doc>

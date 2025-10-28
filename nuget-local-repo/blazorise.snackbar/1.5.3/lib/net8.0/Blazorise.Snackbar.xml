@@ -1,0 +1,517 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blazorise.Snackbar</name>
+    </assembly>
+    <members>
+        <member name="T:Blazorise.Snackbar.Constants">
+            <summary>
+            Defines the snackbar constant values.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Constants.DefaultIntervalBeforeClose">
+            <summary>
+            Defines the default interval(in milliseconds) after which the snackbar will be automatically closed.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Constants.DefaultOnClickIntervalBeforeClose">
+            <summary>
+            Defines the default interval(in milliseconds) by which the snackbar will be delayed from closing.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Constants.DefaultAnimationDuration">
+            <summary>
+            Defines the default animation duration in milliseconds.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Snackbar.SnackbarCloseReason">
+            <summary>
+            Specifies the reason that a snackbar was closed.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarCloseReason.None">
+            <summary>
+            Snackbar is closed automatically by internal timer or by other unknown reason.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarCloseReason.UserClosed">
+            <summary>
+            Snackbar is closed by the user.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Snackbar.SnackbarColor">
+            <summary>
+            Predefined set of contextual colors.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Default">
+            <summary>
+            No color will be applied to an element.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Primary">
+            <summary>
+            Primary color.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Secondary">
+            <summary>
+            Secondary color.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Success">
+            <summary>
+            Success color.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Danger">
+            <summary>
+            Danger color.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Warning">
+            <summary>
+            Warning color.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Info">
+            <summary>
+            Info color.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Light">
+            <summary>
+            Light color.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarColor.Dark">
+            <summary>
+            Dark color.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Snackbar.SnackbarLocation">
+            <summary>
+            Defines the snackbar location.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.Default">
+            <summary>
+            Default behavior.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.Bottom">
+            <summary>
+            Show the snackbar on the bottom side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.BottomStart">
+            <summary>
+            Show the snackbar on the bottom-start side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.BottomEnd">
+            <summary>
+            Show the snackbar on the bottom-end side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.Start">
+            <summary>
+            Show the snackbar on the bottom-start side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.End">
+            <summary>
+            Show the snackbar on the bottom-end side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.Top">
+            <summary>
+            Show the snackbar on the top side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.TopStart">
+            <summary>
+            Show the snackbar on the top-start side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarLocation.TopEnd">
+            <summary>
+            Show the snackbar on the top-end side of the screen.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Snackbar.SnackbarStackLocation">
+            <summary>
+            Defines the snackbar stack location.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.Center">
+            <summary>
+            Default behavior.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.Bottom">
+            <summary>
+            Show the snackbar on the bottom side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.BottomStart">
+            <summary>
+            Show the snackbar on the bottom-start side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.BottomEnd">
+            <summary>
+            Show the snackbar on the bottom-end side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.Start">
+            <summary>
+            Show the snackbar stack on the start side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.End">
+            <summary>
+            Show the snackbar stack on the end side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.Top">
+            <summary>
+            Show the snackbar stack on the top side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.TopStart">
+            <summary>
+            Show the snackbar stack on the top-end side of the screen.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.SnackbarStackLocation.TopEnd">
+            <summary>
+            Show the snackbar stack on the top-start side of the screen.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Snackbar.SnackbarClosedEventArgs">
+            <summary>
+            Provides information about <see cref="P:Blazorise.Snackbar.Snackbar.Closed"/> event.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarClosedEventArgs.Key">
+            <summary>
+            Gets the key associated with the closed snackbar.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarClosedEventArgs.CloseReason">
+            <summary>
+            Gets a value that indicates why the snackbar is being closed.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Snackbar.Snackbar">
+            <summary>
+            Snackbars provide brief messages about app processes. The component is also known as a toast.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.visible">
+            <summary>
+            Indicates if snackbar is visible.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.multiline">
+            <summary>
+            Indicates if snackbar can show multiple lines of text.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.location">
+            <summary>
+            Snackbar location.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.snackbarColor">
+            <summary>
+            Snackbar color.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.countdownTimer">
+            <summary>
+            Timer used to countdown the close event.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.closingAnimation">
+            <summary>
+            A flag that indicates if the snackbar is currently being closed with animation.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.closingDelayed">
+            <summary>
+            A flag that indicates if the snackbar close action was delayed.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.closeReason">
+            <summary>
+            Holds the last received reason for snackbar closure.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Snackbar.Snackbar.snackbarActions">
+            <summary>
+            List of all action buttons placed inside the snackbar.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Snackbar.Snackbar.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blazorise.Snackbar.Snackbar.Show">
+            <summary>
+            Shows the snackbar.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Snackbar.Snackbar.Hide">
+            <summary>
+            Hides the snackbar.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.CloseAnimationDuration">
+            <summary>
+            Gets the duration of the closing animation of the snackbar.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.ParentSnackbar">
+            <summary>
+            Gets or sets the cascaded parent SnackbarStack component.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.Key">
+            <summary>
+            Unique key associated by this snackbar.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.Visible">
+            <summary>
+            Defines the visibility of snackbar.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.Multiline">
+            <summary>
+            Allow snackbar to show multiple lines of text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.Location">
+            <summary>
+            Defines the snackbar location.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.Color">
+            <summary>
+            Defines the snackbar color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.Interval">
+            <summary>
+            Defines the interval(in milliseconds) after which the snackbar will be automatically closed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.AnimationDuration">
+            <summary>
+            Defines the base animation duration in milliseconds.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.DelayCloseOnClick">
+            <summary>
+            If clicked on snackbar, a close action will be delayed by increasing the <see cref="P:Blazorise.Snackbar.Snackbar.Interval"/> time.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.DelayCloseOnClickInterval">
+            <summary>
+            Defines the interval(in milliseconds) by which the snackbar will be delayed from closing.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.Closed">
+            <summary>
+            Occurs after the snackbar has closed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.Snackbar.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Snackbar.Snackbar"/>.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Snackbar.SnackbarAction.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarAction.Clicked">
+            <summary>
+            Occurs when the button is clicked.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarAction.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Snackbar.SnackbarAction"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarBody.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Snackbar.SnackbarBody"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarFooter.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Snackbar.SnackbarFooter"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarHeader.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Snackbar.SnackbarHeader"/>.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Snackbar.SnackbarOptions">
+            <summary>
+            Holds the snackbar message state.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.Key">
+            <summary>
+            Custom key for snack bar message.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.MessageTemplate">
+            <summary>
+            Custom snackbar template to render.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.ShowCloseButton">
+            <summary>
+            Flag that indicates if close button will be visible.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.CloseButtonText">
+            <summary>
+            Custom close button text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.CloseButtonIcon">
+            <summary>
+            Custom close button icon. Can be either enum <see cref="T:Blazorise.IconName"/> or string eg. "fa-times".
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.ShowActionButton">
+            <summary>
+            Flag that indicates if action button will be visible.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.ActionButtonText">
+            <summary>
+            Custom action button text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.ActionButtonIcon">
+            <summary>
+            Custom action button icon. Can be either enum <see cref="T:Blazorise.IconName"/> or string eg. "fa-times".
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.AnimationDuration">
+            <summary>
+            Time in millisecond for snackbar animation.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.IntervalBeforeClose">
+            <summary>
+            Time in millisecond until snackbar is automatically closed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarOptions.Multiline">
+            <summary>
+            Defines if the snackbar will contain multiple lines.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Snackbar.SnackbarStack.PushAsync(System.String,Blazorise.Snackbar.SnackbarColor,System.Action{Blazorise.Snackbar.SnackbarOptions})">
+            <summary>
+            Pushes the message to the stack to be shown as a snackbar.
+            </summary>
+            <param name="message">Message text.</param>
+            <param name="color">Message color.</param>
+            <param name="options">Additional message options.</param>
+            <returns>Returns awaitable task.</returns>
+        </member>
+        <member name="M:Blazorise.Snackbar.SnackbarStack.PushAsync(Microsoft.AspNetCore.Components.MarkupString,Blazorise.Snackbar.SnackbarColor,System.Action{Blazorise.Snackbar.SnackbarOptions})">
+            <summary>
+            Pushes the message to the stack to be shown as a snackbar.
+            </summary>
+            <param name="message">Message text.</param>
+            <param name="color">Message color.</param>
+            <param name="options">Additional message options.</param>
+            <returns>Returns awaitable task.</returns>
+        </member>
+        <member name="M:Blazorise.Snackbar.SnackbarStack.PushAsync(System.String,System.String,Blazorise.Snackbar.SnackbarColor,System.Action{Blazorise.Snackbar.SnackbarOptions})">
+            <summary>
+            Pushes the message to the stack to be shown as a snackbar.
+            </summary>
+            <param name="message">Message text.</param>
+            <param name="title">Message caption.</param>
+            <param name="color">Message color.</param>
+            <param name="options">Additional message options.</param>
+            <returns>Returns awaitable task.</returns>
+        </member>
+        <member name="M:Blazorise.Snackbar.SnackbarStack.PushAsync(Microsoft.AspNetCore.Components.MarkupString,System.String,Blazorise.Snackbar.SnackbarColor,System.Action{Blazorise.Snackbar.SnackbarOptions})">
+            <summary>
+            Pushes the message to the stack to be shown as a snackbar.
+            </summary>
+            <param name="message">Message text.</param>
+            <param name="title">Message caption.</param>
+            <param name="color">Message color.</param>
+            <param name="options">Additional message options.</param>
+            <returns>Returns awaitable task.</returns>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.Location">
+            <summary>
+            Defines the snackbar stack location.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.DefaultInterval">
+            <summary>
+            Defines the default interval (in milliseconds) after which the snackbars will be automatically closed (used if IntervalBeforeClose is not set on PushAsync call).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.DelayCloseOnClick">
+            <summary>
+            If clicked on snackbar, a close action will be delayed by increasing the <see cref="P:Blazorise.Snackbar.SnackbarStack.DefaultInterval"/> time.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.DelayCloseOnClickInterval">
+            <summary>
+            Defines the interval(in milliseconds) by which the snackbar will be delayed from closing.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.CloseButtonText">
+            <summary>
+            Defines a text to show for snackbar close button. Leave as null to not show it!
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.CloseButtonIcon">
+            <summary>
+            Defines an icon to show for snackbar close button. Leave as null to not show it!
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.ActionButtonText">
+            <summary>
+            Defines a text to show for snackbar action button. Leave as null to not show it!
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.ActionButtonIcon">
+            <summary>
+            Defines an icon to show for snackbar action button. Leave as null to not show it!
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.AnimationDuration">
+            <summary>
+            Defines the duration of the animation of the stack snackbar.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.Closed">
+            <summary>
+            Occurs after the snackbar has closed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Snackbar.SnackbarStack.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Snackbar.SnackbarStack"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

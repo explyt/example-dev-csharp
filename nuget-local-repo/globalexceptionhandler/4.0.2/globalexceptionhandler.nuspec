@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>GlobalExceptionHandler</id>
+    <version>4.0.2</version>
+    <title>Global Exception Handling Middleware</title>
+    <authors>Joseph Woodward</authors>
+    <owners>Joseph Woodward</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/JosephWoodward/GlobalExceptionHandlerDotNet/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/JosephWoodward/GlobalExceptionHandlerDotNet</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/JosephWoodward/GlobalExceptionHandlerDotNet/master/assets/logo_128_128.png</iconUrl>
+    <description>Global Exception Handler is middleware allowing you to handle exceptions by convention</description>
+    <releaseNotes>https://github.com/JosephWoodward/GlobalExceptionHandlerDotNet/releases/tag/4.0.2</releaseNotes>
+    <tags>global exception handler asp.net core .net core</tags>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Microsoft.AspNetCore.Diagnostics" version="2.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Http" version="2.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Http.Abstractions" version="2.1.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

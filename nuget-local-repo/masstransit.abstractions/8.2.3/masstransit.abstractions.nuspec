@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>MassTransit.Abstractions</id>
+    <version>8.2.3</version>
+    <authors>Chris Patterson</authors>
+    <license type="expression">Apache-2.0</license>
+    <licenseUrl>https://licenses.nuget.org/Apache-2.0</licenseUrl>
+    <icon>mt-logo-small.png</icon>
+    <readme>NuGet.README.md</readme>
+    <projectUrl>https://masstransit.io/</projectUrl>
+    <description>MassTransit provides a developer-focused, modern platform for creating distributed applications without complexity.</description>
+    <copyright>Copyright 2007-2024 Chris Patterson</copyright>
+    <tags>MassTransit</tags>
+    <repository type="git" url="https://github.com/MassTransit/MassTransit" commit="ff9de5c79dd72a0536a8bd703bcc637c8936a652" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.7.2">
+        <dependency id="System.ValueTuple" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0" />
+      <group targetFramework="net8.0" />
+      <group targetFramework=".NETStandard2.0" />
+    </dependencies>
+  </metadata>
+</package>
