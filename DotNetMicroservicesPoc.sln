@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardService.Integratio
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PolicySearchService.IntegrationTest", "PolicySearchService.IntegrationTest\PolicySearchService.IntegrationTest.csproj", "{FA604522-6A5A-4848-8879-92411E6539C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardService.E2ETest", "DashboardService.E2ETest\DashboardService.E2ETest.csproj", "{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService.Test", "AuthService.Test\AuthService.Test.csproj", "{29FE7A94-6F1D-4DA6-8D20-43A5BCB47DC2}"
 EndProject
 Global
@@ -393,6 +395,18 @@ Global
 		{FA604522-6A5A-4848-8879-92411E6539C5}.Release|x64.Build.0 = Release|Any CPU
 		{FA604522-6A5A-4848-8879-92411E6539C5}.Release|x86.ActiveCfg = Release|Any CPU
 		{FA604522-6A5A-4848-8879-92411E6539C5}.Release|x86.Build.0 = Release|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Debug|x64.Build.0 = Debug|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Debug|x86.Build.0 = Debug|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Release|x64.ActiveCfg = Release|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Release|x64.Build.0 = Release|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Release|x86.ActiveCfg = Release|Any CPU
+		{A20ED4A3-5246-44D3-85CB-2AE4A8FC8562}.Release|x86.Build.0 = Release|Any CPU
 		{29FE7A94-6F1D-4DA6-8D20-43A5BCB47DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{29FE7A94-6F1D-4DA6-8D20-43A5BCB47DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{29FE7A94-6F1D-4DA6-8D20-43A5BCB47DC2}.Debug|x64.ActiveCfg = Debug|Any CPU
