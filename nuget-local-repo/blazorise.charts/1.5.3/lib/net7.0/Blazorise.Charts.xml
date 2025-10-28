@@ -1,0 +1,2495 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blazorise.Charts</name>
+    </assembly>
+    <members>
+        <member name="M:Blazorise.Charts.BaseChart`4.Clear">
+            <summary>
+            Clears all the labels and data from the chart.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.AddLabels(System.Object[])">
+            <summary>
+            Adds a new label to the chart.
+            </summary>
+            <param name="labels">Label name(s).</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.AddDataSet(`0[])">
+            <summary>
+            Adds a new dataset to the chart.
+            </summary>
+            <param name="datasets">Data set(s).</param>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.RemoveDataSet(System.Int32)">
+            <summary>
+            Removed the dataset at the specified index.
+            </summary>
+            <param name="dataSetIndex">Index of the dataset in the data list.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.SetData(System.Int32,System.Collections.Generic.List{`1})">
+            <summary>
+            Sets the new data point(s) to the specified dataset.
+            </summary>
+            <param name="dataSetIndex">Dataset index to which we set the data point(s).</param>
+            <param name="data">Data point(s) to set.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.AddData(System.Int32,`1[])">
+            <summary>
+            Adds the new data point(s) to the specified dataset.
+            </summary>
+            <param name="dataSetIndex">Dataset index to which we add the data point(s).</param>
+            <param name="data">Data point(s) to add.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.AddDatasetsAndUpdate(`0[])">
+            <summary>
+            Adds new datasets and then update the chart.
+            </summary>
+            <param name="datasets">List of datasets.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.AddLabelsDatasetsAndUpdate(System.Collections.Generic.IReadOnlyCollection{System.Object},`0[])">
+            <summary>
+            Adds new set of labels and datasets and then update the chart.
+            </summary>
+            <param name="labels">List of labels.</param>
+            <param name="datasets">List of datasets.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.ShiftLabel">
+            <summary>
+            Removes the oldest label.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.ShiftData(System.Int32)">
+            <summary>
+            Removes the oldest data point from the specified dataset.
+            </summary>
+            <param name="dataSetIndex">Dataset index from which the oldest data point is to be removed from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.PopLabel">
+            <summary>
+            Removes the newest label.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.PopData(System.Int32)">
+            <summary>
+            Removes the newest data point from the specified dataset.
+            </summary>
+            <param name="dataSetIndex">Dataset index from which the newest data point is to be removed from.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.SetOptions(`2)">
+            <summary>
+            Sets the chart's options manually. Must call Update after making this call.  If the options changes AspectRatio must also call Resize after Update.
+            </summary>
+            <param name="options">New chart options used though OptionsJsonString or OptionsObject will supersede.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.SetOptionsObject(System.Object)">
+            <summary>
+            Sets the chart's <see cref="P:Blazorise.Charts.BaseChart`4.OptionsObject"/> manually. Must call <see cref="M:Blazorise.Charts.BaseChart`4.Update"/> after manging this call.
+            If the options changes AspectRatio must also call <see cref="M:Blazorise.Charts.BaseChart`4.Resize"/> after <see cref="M:Blazorise.Charts.BaseChart`4.Update"/>.
+            </summary>
+            <param name="optionsObject">New chart options object used.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.Resize">
+            <summary>
+             Manually resize the canvas element. This is run each time the canvas container is resized,
+             but you can call this method manually if you change the size of the canvas nodes container element.
+             Should also be called when updating the aspect ratio.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.ChangeType(Blazorise.Charts.ChartType)">
+            <summary>
+            Destroy the current chart instance and recreates it by using the same data and options.
+            </summary>
+            <param name="type">New chart type.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.Destroy">
+            <summary>
+            Destroys the chart instance. Calling this method should generally dispose of any chart resources.
+            </summary>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`4.Update">
+            <summary>
+            Update and redraw the chart.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`4.LicenseChecker">
+            <summary>
+            Gets or sets the license checker for the user session.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`4.Type">
+            <summary>
+            Defines the chart type.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`4.Options">
+            <summary>
+            Defines the chart options.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`4.DataJsonString">
+            <summary>
+            Defines the chart data that is serialized as json string.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`4.OptionsJsonString">
+            <summary>
+            Defines the chart options that is serialized as json string.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`4.OptionsObject">
+            <summary>
+            Defines the chart options that is serialized as json object.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.BaseChart`1">
+            <summary>
+            Base class for all chart types.
+            </summary>
+            <typeparam name="TItem">Generic dataset value type.</typeparam>
+        </member>
+        <member name="E:Blazorise.Charts.BaseChart`1.Initialized">
+            <summary>
+            Occures after the chart has initialized successfully.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Charts.BaseChart`1.pluginNames">
+            <summary>
+            List of registered plugins for this chart.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`1.NotifyInitialized">
+            <summary>
+            Notifies the chart that it is being properly initialized.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`1.NotifyPluginInitialized(System.String)">
+            <summary>
+            Notifies the chart that it contains the plugin.
+            </summary>
+            <param name="pluginName">Plugin name that is placed inside of the chart.</param>
+        </member>
+        <member name="M:Blazorise.Charts.BaseChart`1.NotifyPluginRemoved(System.String)">
+            <summary>
+            Notifies the chart that it should remove the plugin.
+            </summary>
+            <param name="pluginName">Plugin name that is placed inside of the chart.</param>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`1.ShouldAutoGenerateId">
+            <inheritdoc/>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`1.PluginNames">
+            <summary>
+            Gets the list of registered plugins inside of this chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BaseChart`1.Data">
+            <summary>
+            Defines the chart data.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.op_Implicit(System.String)~Blazorise.Charts.ChartColor">
+            <summary>
+            Implicitly converts from string value to <see cref="T:Blazorise.Charts.ChartColor"/>.
+            </summary>
+            <param name="value">String value.</param>
+        </member>
+        <member name="F:Blazorise.Charts.ChartColor.IsHexDigit">
+            <summary>
+            Checks for characters that are Hexadecimal
+            </summary>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.ExtractHexDigits(System.String)">
+            <summary>
+            Extract only the hex digits from a string.
+            </summary>
+            <param name="input">A string to extract.</param>
+            <returns>A new hex string.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.HexStringToColor(System.String)">
+            <summary>
+            Converts the hexadecimal string into a <see cref="T:System.Drawing.Color">Color</see> value.
+            </summary>
+            <param name="hexColor">A color represented as hexadecimal string.</param>
+            <returns>Parsed color value or <see cref="F:System.Drawing.Color.Empty">Empty</see> if failed.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.CssRgbaFunctionToColor(System.String)">
+            <summary>
+            Converts the function call into into a <see cref="T:System.Drawing.Color">Color</see> value.
+            </summary>
+            <param name="cssColor">A color represented as (rgb or rgba) function call.</param>
+            <returns>Parsed color value or <see cref="F:System.Drawing.Color.Empty">Empty</see> if failed.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.op_Implicit(Blazorise.Charts.ChartColor)~System.String">
+            <summary>
+            Implicitly convert color to the string representation that is understood by the ChartJs.
+            </summary>
+            <param name="color">The string formated color.</param>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.FromRgba(System.Byte,System.Byte,System.Byte,System.Single)">
+            <summary>
+            Creates the new color based on the supplied color component values.
+            </summary>
+            <param name="red"></param>
+            <param name="green"></param>
+            <param name="blue"></param>
+            <param name="alpha"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.FromHtmlColorCode(System.String)">
+            <summary>
+            Creates a new color based on the supplied HTML color code.
+            </summary>
+            <param name="code">The HTML color code to parse</param>
+            <returns><see cref="T:Blazorise.Charts.ChartColor"/></returns>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.ToJsRgba">
+            <summary>
+            Converts the color to the js function call.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Charts.ChartColor.ToString">
+            <inheritdoc/>
+        </member>
+        <member name="F:Blazorise.Charts.ChartColor.Empty">
+            <summary>
+            Represents a color that is null.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartColor.R">
+            <summary>
+            Gets or sets the red component value of color structure.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartColor.G">
+            <summary>
+            Gets or sets the green component value of color structure.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartColor.B">
+            <summary>
+            Gets or sets the blue component value of color structure.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartColor.A">
+            <summary>
+            Gets or sets the alpha component value of color structure.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.BarChartDataset`1">
+            <remarks>
+            Defaults as per https://www.chartjs.org/docs/latest/charts/bar.html#dataset-properties
+            </remarks>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.Base">
+            <summary>
+            Base value for the bar in data units along the value axis. If not set, defaults to the value axis base value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.BarPercentage">
+            <summary>
+            Percent (0-1) of the available width each bar should be within the category width. 1.0 will take the whole
+            category width and put the bars right next to each other.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.BarThickness">
+            <summary>
+                <para>
+                    If this value is a number, it is applied to the width of each bar, in pixels. When this is enforced, barPercentage and categoryPercentage are ignored.
+                </para>
+                <para>
+                    If set to 'flex', the base sample widths are calculated automatically based on the previous and following samples so that they take the full available widths without overlap. Then, bars are sized using barPercentage and categoryPercentage. There is no gap when the percentage options are 1. This mode generates bars with different widths when data are not evenly spaced.
+                </para>
+                <para>
+                    If not set (default), the base sample widths are calculated using the smallest interval that prevents bar overlapping, and bars are sized using barPercentage and categoryPercentage. This mode always generates bars equally sized.
+                </para>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.BorderSkipped">
+            <summary>
+            This setting is used to avoid drawing the bar stroke at the base of the fill, or disable the border radius.
+            In general, this does not need to be changed except when creating chart types that derive from a bar chart.
+            <list type="bullet">
+                <item>
+                    <term>"start"</term>
+                    <description></description>
+                </item>
+                <item>
+                    <term>"end"</term>
+                    <description></description>
+                </item>
+                <item>
+                    <term>"middle"</term>
+                    <description>(only valid on stacked bars: the borders between bars are skipped)</description>
+                </item>
+                <item>
+                    <term>"bottom"</term>
+                    <description></description>
+                </item>
+                <item>
+                    <term>"left"</term>
+                    <description></description>
+                </item>
+                <item>
+                    <term>"top"</term>
+                    <description></description>
+                </item>
+                <item>
+                    <term>"right"</term>
+                    <description></description>
+                </item>
+                <item>
+                    <term>false</term>
+                    <description></description>
+                </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.BorderRadius">
+            <summary>
+            If this value is a number, it is applied to all corners of the rectangle (topLeft, topRight, bottomLeft, bottomRight), except corners touching the borderSkipped. If this value is an object, the topLeft property defines the top-left corners border radius. Similarly, the topRight, bottomLeft, and bottomRight properties can also be specified. Omitted corners and those touching the borderSkipped are skipped. For example if the top border is skipped, the border radius for the corners topLeft and topRight will be skipped as well.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.CategoryPercentage">
+            <summary>
+            Percent (0-1) of the available width each category should be within the sample width.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.Grouped">
+            <summary>
+            Should the bars be grouped on index axis. When true, all the datasets at same index value will be placed next
+            to each other centering on that index value. When false, each bar is placed on its actual index-axis value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.HoverBackgroundColor">
+            <summary>
+            The bar background color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.HoverBorderColor">
+            <summary>
+            The bar border color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.HoverBorderWidth">
+            <summary>
+            The bar border width when hovered (in pixels).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.HoverBorderRadius">
+            <summary>
+            The bar border radius when hovered (in pixels).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.IndexAxis">
+            <summary>
+            The base axis of the dataset. 'x' for vertical bars and 'y' for horizontal bars.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.InflateAmount">
+            <summary>
+            This option can be used to inflate the rects that are used to draw the bars. This can be used to hide artifacts
+            between bars when barPercentage(#barpercentage) * categoryPercentage(#categorypercentage) is 1. The default
+            value 'auto' should work in most cases.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.MaxBarThickness">
+            <summary>
+            Set this to ensure that bars are not sized thicker than this.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.MinBarLength">
+            <summary>
+            Set this to ensure that bars have a minimum length in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.PointStyle">
+            <summary>
+            Style of the point for legend. https://www.chartjs.org/docs/latest/configuration/elements.html#point-styles
+            </summary>    
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.SkipNull">
+            <summary>
+            If true, null or undefined values will not be used for spacing calculations when determining bar size.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.Stack">
+            <summary>
+            The ID of the group to which this dataset belongs to (when stacked, each group will be a separate stack). Defaults
+            to dataset type.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.XAxisID">
+            <summary>
+            The ID of the x-axis to plot this dataset on.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartDataset`1.YAxisID">
+            <summary>
+            The ID of the y-axis to plot this dataset on.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BubbleChartDataset`1.PointStyle">
+            <summary>
+            Style of the point.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartData`1">
+            <summary>
+            Base data object for all charts.
+            </summary>
+            <typeparam name="TItem">Type of value in the dataset.</typeparam>
+        </member>
+        <member name="P:Blazorise.Charts.ChartData`1.Labels">
+            <summary>
+            List of labels for the chart coordinates.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartData`1.Datasets">
+            <summary>
+            List of datasets to be displayed in the chart.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartDataset`1">
+            <summary>
+            Base class for the chart dataset.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.Label">
+            <summary>
+            Defines the dataset display name.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.Data">
+            <summary>
+            List of data items.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.BackgroundColor">
+             <summary>
+            List of background colors for each of the data items.
+             </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.BorderColor">
+            <summary>
+            List of border colors for each of the data items.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.BorderWidth">
+            <summary>
+            Defines the border width.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.Type">
+            <summary>
+            Defines the type of a chart dataset.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.Clip">
+            <summary>
+            How to clip relative to chartArea. Positive value allows overflow, negative value clips that many pixels
+            inside chartArea. 0 = clip at chartArea. Clipping can also be configured per side: clip: {left: 5, top: false,
+            right: -2, bottom: 0}
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.Order">
+            <summary>
+            The drawing order of dataset. Also affects order for stacking, tooltip and legend.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDataset`1.Hidden">
+            <summary>
+            Configure the visibility of the dataset. Using <c>Hidden = true</c> will hide the dataset from being rendered in the Chart.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.LineChartDataset`1">
+            <remarks>
+            Defaults values as per https://www.chartjs.org/docs/latest/charts/line.html#dataset-properties
+            </remarks>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.Stack">
+            <summary>
+            The ID of the group to which this dataset belongs to (when stacked, each group will be a separate stack). Defaults
+            to dataset type.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.BorderCapStyle">
+            <summary>
+            Cap style of the line. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap">MDN</see>.
+            <list type="bullet">
+                <item>
+                    <term>"butt"</term>
+                    <description>The ends of lines are squared off at the endpoints. Default value.</description>
+                </item>
+                <item>
+                    <term>"round"</term>
+                    <description>The ends of lines are rounded.</description>
+                </item>
+                <item>
+                    <term>"square"</term>
+                    <description>The ends of lines are squared off by adding a box with an equal width and half the height of the line's thickness.</description>
+                </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.BorderDash">
+            <summary>
+            Length and spacing of dashes. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.BorderDashOffset">
+            <summary>
+            Offset for line dashes. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.BorderJoinStyle">
+            <summary>
+            Line joint style. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.CubicInterpolationMode">
+            <summary>
+            <para>
+                The following interpolation modes are supported.
+            </para>
+            <list type="bullet">
+                <item>
+                    <term>default</term>
+                    <description>The 'default' algorithm uses a custom weighted cubic interpolation, which produces pleasant curves for all types of datasets.</description>
+                </item>
+                <item>
+                    <term>monotone</term>
+                    <description>The 'monotone' algorithm is more suited to y = f(x) datasets: it preserves monotonicity (or piecewise monotonicity) of the dataset being interpolated, and ensures local extremums (if any) stay at input data points.</description>
+                </item>
+            </list>
+            <para>
+                If left untouched (undefined), the global options.elements.line.cubicInterpolationMode property is used.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.Fill">
+            <summary>
+            Fill the area under the line. See <see href="https://www.chartjs.org/docs/latest/charts/area.html">area charts.</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointBackgroundColor">
+            <summary>
+            The fill color for points.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointBorderColor">
+            <summary>
+            The border color for points.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointBorderWidth">
+            <summary>
+            The width of the point border in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointHitRadius">
+            <summary>
+            The pixel size of the non-displayed point that reacts to mouse events.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointHoverBackgroundColor">
+            <summary>
+            Point background color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointHoverBorderColor">
+            <summary>
+            Point border color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointHoverBorderWidth">
+            <summary>
+            Border width of point when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointHoverRadius">
+            <summary>
+            The radius of the point when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointRadius">
+            <summary>
+            The radius of the point shape. If set to 0, the point is not rendered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointRotation">
+            <summary>
+            The radius of the point shape. If set to 0, the point is not rendered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.PointStyle">
+            <summary>
+            Style of the point.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.ShowLine">
+            <summary>
+            If false, the line is not drawn for this dataset.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.Segment">
+            <summary>
+            <para>
+            Line segment styles can be overridden by scriptable options in the <c>segment</c> object. Currently all of the <c>border*</c> and <c>backgroundColor</c> options are supported. The segment styles are resolved for each section of the line between each point. <c>undefined</c> fallbacks to main line styles.
+            </para>
+            <list type="bullet">
+                <item>
+                    <term>type</term>
+                    <description>segment</description>
+                </item>
+                <item>
+                    <term>p0</term>
+                    <description>first point element</description>
+                </item>
+                <item>
+                    <term>p1</term>
+                    <description>second point element</description>
+                </item>
+                <item>
+                    <term>p0DataIndex</term>
+                    <description>index of first point in the data array</description>
+                </item>
+                <item>
+                    <term>p1DataIndex</term>
+                    <description>index of second point in the data array</description>
+                </item>
+                <item>
+                    <term>datasetIndex</term>
+                    <description>dataset index</description>
+                </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.SpanGaps">
+            <summary>
+            If true, lines will be drawn between points with no or null data. If false, points with null data will
+            create a break in the line. Can also be a number specifying the maximum gap length to span. The unit of the value depends on the scale used.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.Stepped">
+            <summary>
+            <para>
+                If the line is shown as a <c>stepped</c> line.
+            </para>
+            <list type="bullet">
+                <item>
+                    <term>false</term>
+                    <description>No Step Interpolation (default)</description>
+                </item>
+                <item>
+                    <term>true</term>
+                    <description>Step-before Interpolation (eq. 'before')</description>
+                </item>
+                <item>
+                    <term>"before"</term>
+                    <description>Step-before Interpolation</description>
+                </item>
+                <item>
+                    <term>"after"</term>
+                    <description>Step-after Interpolation</description>
+                </item>
+                <item>
+                    <term>"middle"</term>
+                    <description>Step-middle Interpolation</description>
+                </item>
+            </list>
+            <para>
+                If the <c>stepped</c> value is set to anything other than false, <c>tension</c> will be ignored.
+            </para>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.Tension">
+            <summary>
+            Bezier curve tension of the line. Set to 0 to draw straightlines. This option is ignored if monotone cubic
+            interpolation is used.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.XAxisID">
+            <summary>
+            The ID of the x-axis to plot this dataset on.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartDataset`1.YAxisID">
+            <summary>
+            The ID of the y-axis to plot this dataset on.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.PieChartDataset`1">
+            <remarks>
+            Defaults as per https://www.chartjs.org/docs/latest/charts/doughnut.html#dataset-properties
+            </remarks>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.BorderAlign">
+            <summary>
+            <para>
+                The following values are supported for <c>borderAlign</c>.
+            </para>
+            <list type="bullet">
+                <item>
+                    <term>center</term>
+                    <description>The borders of arcs next to each other will overlap (default).</description>
+                </item>
+                <item>
+                    <term>inner</term>
+                    <description>It is guaranteed that all borders will not overlap.</description>
+                </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.BorderRadius">
+            <summary>
+            If this value is a number, it is applied to all corners of the arc (outerStart, outerEnd, innerStart, innerRight). If this value is an object, the outerStart property defines the outer-start corner's border radius. Similarly, the outerEnd, innerStart, and innerEnd properties can also be specified.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.Circumference">
+            <summary>
+            Per-dataset override for the sweep that the arcs cover.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.HoverBackgroundColor">
+            <summary>
+            Arc background color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.HoverBorderColor">
+            <summary>
+            Arc border color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.HoverBorderWidth">
+            <summary>
+            Arc border width when hovered (in pixels).
+            </summary>
+            <remarks>Default as per https://www.chartjs.org/docs/latest/configuration/elements.html#arc-configuration </remarks>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.HoverOffset">
+            <summary>
+            Arc offset when hovered (in pixels).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.Offset">
+            <summary>
+            Arc offset (in pixels).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.Rotation">
+            <summary>
+            Per-dataset override for the starting angle to draw arcs from.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.Spacing">
+            <summary>
+            Fixed arc offset (in pixels). Similar to offset but applies to all arcs.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartDataset`1.Weight">
+            <summary>
+            The relative thickness of the dataset. Providing a value for weight will cause the pie or doughnut dataset
+            to be drawn with a thickness relative to the sum of all the dataset weight values.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.PolarAreaChartDataset`1">
+            <remarks>
+            Defaults as per https://www.chartjs.org/docs/latest/charts/polar.html#dataset-properties
+            </remarks>
+        </member>
+        <member name="P:Blazorise.Charts.PolarAreaChartDataset`1.BorderAlign">
+            <summary>
+            Defines the border alignment.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PolarAreaChartDataset`1.HoverBackgroundColor">
+            <summary>
+            The fill colour of the arcs when hovered.
+            </summary>
+            <remarks>Default as per https://www.chartjs.org/docs/latest/configuration/elements.html#arc-configuration </remarks>
+        </member>
+        <member name="P:Blazorise.Charts.PolarAreaChartDataset`1.HoverBorderColor">
+            <summary>
+            The stroke colour of the arcs when hovered.
+            </summary>
+            <remarks>Default as per https://www.chartjs.org/docs/latest/configuration/elements.html#arc-configuration </remarks>
+        </member>
+        <member name="P:Blazorise.Charts.PolarAreaChartDataset`1.HoverBorderWidth">
+            <summary>
+            The stroke width of the arcs when hovered.
+            </summary>
+            <remarks>Default as per https://www.chartjs.org/docs/latest/configuration/elements.html#arc-configuration </remarks>
+        </member>
+        <member name="T:Blazorise.Charts.RadarChartDataset`1">
+            <remarks>
+            Defaults from https://www.chartjs.org/docs/latest/charts/radar.html#dataset-properties
+            </remarks>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.BorderCapStyle">
+            <summary>
+            Cap style of the line. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineCap">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.BorderDash">
+            <summary>
+            Length and spacing of dashes. <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.BorderDashOffset">
+            <summary>
+            Offset for line dashes. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.BorderJoinStyle">
+            <summary>
+            Line joint style. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.HoverBorderColor">
+            <summary>
+            The bar border color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.HoverBorderWidth">
+            <summary>
+            The bar border width when hovered (in pixels).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.Fill">
+            <summary>
+            Fill the area under the line. See <see href="https://www.chartjs.org/docs/latest/charts/area.html">area charts.</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.Tension">
+            <summary>
+            Bezier curve tension of the line. Set to 0 to draw straight lines.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointBackgroundColor">
+            <summary>
+            The fill color for points.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointBorderColor">
+            <summary>
+            The border color for points.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointBorderWidth">
+            <summary>
+            The width of the point border in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointHitRadius">
+            <summary>
+            The pixel size of the non-displayed point that reacts to mouse events.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointHoverBackgroundColor">
+            <summary>
+            Point background color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointHoverBorderColor">
+            <summary>
+            Point border color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointHoverBorderWidth">
+            <summary>
+            Border width of point when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointHoverRadius">
+            <summary>
+            The radius of the point when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointRadius">
+            <summary>
+            The radius of the point shape. If set to 0, the point is not rendered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointRotation">
+            <summary>
+            The rotation of the point in degrees.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.PointStyle">
+            <summary>
+            Style of the point.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.RadarChartDataset`1.SpanGaps">
+            <summary>
+            If true, lines will be drawn between points with no or null data. If false, points with null data will create a break in the line.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.Stack">
+            <summary>
+            The ID of the group to which this dataset belongs to (when stacked, each group will be a separate stack). Defaults
+            to dataset type.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointBackgroundColor">
+            <summary>
+            The fill color for points.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointBorderColor">
+            <summary>
+            The border color for points.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointBorderWidth">
+            <summary>
+            The width of the point border in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointHitRadius">
+            <summary>
+            The pixel size of the non-displayed point that reacts to mouse events.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointHoverBackgroundColor">
+            <summary>
+            Point background color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointHoverBorderColor">
+            <summary>
+            Point border color when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointHoverBorderWidth">
+            <summary>
+            Border width of point when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointHoverRadius">
+            <summary>
+            The radius of the point when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointRadius">
+            <summary>
+            The radius of the point shape. If set to 0, the point is not rendered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointRotation">
+            <summary>
+            The radius of the point shape. If set to 0, the point is not rendered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.PointStyle">
+            <summary>
+            Style of the point.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.XAxisID">
+            <summary>
+            The ID of the x-axis to plot this dataset on.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScatterChartDataset`1.YAxisID">
+            <summary>
+            The ID of the y-axis to plot this dataset on.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartMouseEventArgs.DatasetIndex">
+            <summary>
+            Gets the dataset index in which the data point is resides.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartMouseEventArgs.Index">
+            <summary>
+            Gets the data point index.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartMouseEventArgs.Model">
+            <summary>
+            Gets the full data point info.
+            </summary>
+            <remarks>
+            TODO: use ChartModel instead of object type once the System.Text.Json serializer is fixed!
+            </remarks>
+        </member>
+        <member name="T:Blazorise.Charts.IBaseChart">
+            <summary>
+            Interface is needed to set the value from javascript because calling generic component directly is not supported by Blazor.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.IndexableOption`1">
+            <summary>
+            Represents an object that can be either a single value or an array of values. This is used for type safe js-interop.
+            </summary>
+            <typeparam name="T">The type of data this <see cref="T:Blazorise.Charts.IndexableOption`1"/> is supposed to hold.</typeparam>
+        </member>
+        <member name="F:Blazorise.Charts.IndexableOption`1.PropertyName">
+            <summary>
+            The compile-time name of the property which gets the wrapped value. This is used internally for serialization.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.#ctor(`0)">
+            <summary>
+            Creates a new instance of <see cref="T:Blazorise.Charts.IndexableOption`1"/> which represents a single value.
+            </summary>
+            <param name="singleValue">The single value this <see cref="T:Blazorise.Charts.IndexableOption`1"/> should represent.</param>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.#ctor(`0[])">
+            <summary>
+            Creates a new instance of <see cref="T:Blazorise.Charts.IndexableOption`1"/> which represents an array of values.
+            </summary>
+            <param name="indexedValues">The array of values this <see cref="T:Blazorise.Charts.IndexableOption`1"/> should represent.</param>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.op_Implicit(`0)~Blazorise.Charts.IndexableOption{`0}">
+            <summary>
+            Implicitly wraps a single value of <typeparamref name="T"/> to a new instance of <see cref="T:Blazorise.Charts.IndexableOption`1"/>.
+            </summary>
+            <param name="singleValue">The single value to wrap</param>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.op_Implicit(`0[])~Blazorise.Charts.IndexableOption{`0}">
+            <summary>
+            Implicitly wraps an array of values of <typeparamref name="T"/> to a new instance of <see cref="T:Blazorise.Charts.IndexableOption`1"/>.
+            </summary>
+            <param name="indexedValues">The array of values to wrap</param>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.op_Equality(Blazorise.Charts.IndexableOption{`0},Blazorise.Charts.IndexableOption{`0})">
+            <summary>
+            Determines whether two specified <see cref="T:Blazorise.Charts.IndexableOption`1"/> instances contain the same value.
+            </summary>
+            <param name="a">The first <see cref="T:Blazorise.Charts.IndexableOption`1"/> to compare</param>
+            <param name="b">The second <see cref="T:Blazorise.Charts.IndexableOption`1"/> to compare</param>
+            <returns>true if the value of a is the same as the value of b; otherwise, false.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.op_Inequality(Blazorise.Charts.IndexableOption{`0},Blazorise.Charts.IndexableOption{`0})">
+            <summary>
+            Determines whether two specified <see cref="T:Blazorise.Charts.IndexableOption`1"/> instances contain different values.
+            </summary>
+            <param name="a">The first <see cref="T:Blazorise.Charts.IndexableOption`1"/> to compare</param>
+            <param name="b">The second <see cref="T:Blazorise.Charts.IndexableOption`1"/> to compare</param>
+            <returns>true if the value of a is different from the value of b; otherwise, false.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.Equals(Blazorise.Charts.IndexableOption{`0})">
+            <summary>
+            Determines whether the specified <see cref="T:Blazorise.Charts.IndexableOption`1"/> instance is considered equal to the current instance.
+            </summary>
+            <param name="other">The <see cref="T:Blazorise.Charts.IndexableOption`1"/> to compare with.</param>
+            <returns>true if the objects are considered equal; otherwise, false.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.Equals(System.Object)">
+            <summary>
+            Determines whether the specified object instance is considered equal to the current instance.
+            </summary>
+            <param name="obj">The object to compare with.</param>
+            <returns>true if the objects are considered equal; otherwise, false.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.IndexableOption`1.GetHashCode">
+            <summary>
+            Returns the hash of the underlying object.
+            </summary>
+            <returns>The hash of the underlying object.</returns>
+        </member>
+        <member name="P:Blazorise.Charts.IndexableOption`1.IsIndexed">
+            <summary>
+            Gets the value indicating whether the option wrapped in this <see cref="T:Blazorise.Charts.IndexableOption`1"/> is indexed.
+            <para>True if the wrapped value represents an array of <typeparamref name="T"/>, false if it represents a single value of <typeparamref name="T"/>.</para>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.IndexableOption`1.IndexedValues">
+            <summary>
+            The indexed values represented by this instance.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.IndexableOption`1.SingleValue">
+            <summary>
+            The single value represented by this instance.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Charts.JSChartModule.#ctor(Microsoft.JSInterop.IJSRuntime,Blazorise.IVersionProvider)">
+            <summary>
+            Default module constructor.
+            </summary>
+            <param name="jsRuntime">JavaScript runtime instance.</param>
+            <param name="versionProvider">Version provider.</param>
+        </member>
+        <member name="P:Blazorise.Charts.JSChartModule.ModuleFileName">
+            <inheritdoc/>
+        </member>
+        <member name="T:Blazorise.Charts.ChartAnimation">
+            <summary>
+            Defines the chart animation options.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAnimation.Duration">
+            <summary>
+            The number of milliseconds an animation takes.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAnimation.Easing">
+            <summary>
+            Easing function to use. <see href="https://www.chartjs.org/docs/latest/configuration/animations.html#easing">more...</see>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAnimation.Delay">
+            <summary>
+            Delay before starting the animations.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAnimation.Loop">
+            <summary>
+            If set to true, the animations loop endlessly.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartArcElements">
+            <summary>
+            Arcs are used in the polar area, doughnut and pie charts.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartArcElements.Angle">
+            <summary>
+            Arc angle to cover. Polar only.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartArcElements.BackgroundColor">
+            <summary>
+            Arc fill color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartArcElements.BorderAlign">
+            <summary>
+            Arc stroke alignment.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartArcElements.BorderColor">
+            <summary>
+            Arc stroke color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartArcElements.BorderJoinStyle">
+            <summary>
+            Line join style. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin">MDN</see>. The default is 'round' when borderAlign is 'inner'.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartArcElements.BorderWidth">
+            <summary>
+            Arc stroke width.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartArcElements.Circular">
+            <summary>
+            By default the Arc is curved. If circular: false the Arc will be flat.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartAxis">
+            <summary>
+            Common options to all axes.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Type">
+            <summary>
+            Type of scale being employed. Custom scales can be created and registered with a string key. This allows changing the type of an axis for a chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.AlignToPixels">
+            <summary>
+            Align pixel values to device pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Display">
+            <summary>
+            Controls the axis global visibility (visible when <c>true</c>, hidden when <c>false</c>). When display: <c>"auto"</c>, the axis is visible only if at least one associated dataset is visible.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Grid">
+            <summary>
+            Grid line configuration. <see href="https://www.chartjs.org/docs/latest/axes/styling.html#grid-line-configuration">more...</see>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Min">
+            <summary>
+            User defined minimum number for the scale, overrides minimum value from data. <see href="https://www.chartjs.org/docs/latest/axes/#axis-range-settings">more...</see>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Max">
+            <summary>
+            User defined maximum number for the scale, overrides maximum value from data. <see href="https://www.chartjs.org/docs/latest/axes/#axis-range-settings">more...</see>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Reverse">
+            <summary>
+            Reverse the scale.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Stacked">
+            <summary>
+            Should the data be stacked.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.SuggestedMax">
+            <summary>
+            Adjustment used when calculating the maximum data value. <see href="https://www.chartjs.org/docs/latest/axes/#axis-range-settings">more...</see>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.SuggestedMin">
+            <summary>
+            Adjustment used when calculating the minimum data value. <see href="https://www.chartjs.org/docs/latest/axes/#axis-range-settings">more...</see>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Ticks">
+            <summary>
+            Tick configuration.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Time">
+            <summary>
+            Time configuration.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Weight">
+            <summary>
+            The weight used to sort the axis. Higher weights are further away from the chart area.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Title">
+            <summary>
+            Defines options for the scale title. Note that this only applies to cartesian axes.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.BeginAtZero">
+            <summary>
+            If true, scale will include 0 if it is not already included.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxis.Grace">
+            <summary>
+            Percentage (string ending with %) or amount (number) for added room in the scale range above and below data.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartAxisGridLine">
+            <summary>
+            The grid line configuration is nested under the scale configuration in the gridLines key. It defines options for the grid lines that run perpendicular to the axis.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.BorderColor">
+            <summary>
+            The color of the border line.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.BorderWidth">
+            <summary>
+            The width of the border line.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.BorderDash">
+            <summary>
+            Length and spacing of dashes on grid lines
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.BorderDashOffset">
+            <summary>
+            Offset for line dashes.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.Circular">
+            <summary>
+            If true, gridlines are circular (on radar chart only).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.Color">
+            <summary>
+            The color of the grid lines. If specified as an array, the first color applies to the first grid line, the second to the second grid line, and so on.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.Display">
+            <summary>
+            If false, do not display grid lines for this axis.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.DrawBorder">
+            <summary>
+            If true, draw border at the edge between the axis and the chart area.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.DrawOnChartArea">
+            <summary>
+            If true, draw lines on the chart area inside the axis lines. This is useful when there are multiple axes and you need to control which grid lines are drawn.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.DrawTicks">
+            <summary>
+            If true, draw lines beside the ticks in the axis area beside the chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.LineWidth">
+            <summary>
+            Stroke width of grid lines.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.Offset">
+            <summary>
+            If true, grid lines will be shifted to be between labels. This is set to true for a bar chart by default.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.TickBorderDash">
+            <summary>
+            Length and spacing of the tick mark line. If not set, defaults to the grid line borderDash value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.TickBorderDashOffset">
+            <summary>
+            Offset for the line dash of the tick mark. If unset, defaults to the grid line borderDashOffset value
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.TickColor">
+            <summary>
+            Color of the tick line. If unset, defaults to the grid line color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.TickLength">
+            <summary>
+            Length in pixels that the grid lines will draw into the axis area.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.TickWidth">
+            <summary>
+            Width of the tick mark in pixels. If unset, defaults to the grid line width.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisGridLine.Z">
+            <summary>
+            z-index of gridline layer. Values &lt;= 0 are drawn under datasets, > 0 on top.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartAxisMajorTick">
+            <summary>
+            The majorTick configuration is nested under the ticks configuration in the major key. It defines options for the major tick marks that are generated by the axis. Omitted options are inherited from ticks configuration. These options are disabled by default.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisMajorTick.Enabled">
+            <summary>
+            If true, major tick options are used to show major ticks.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartAxisScaleLabel">
+            <summary>
+            Defines options for the scale title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisScaleLabel.Display">
+            <summary>
+            If true, display the axis title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisScaleLabel.LabelString">
+            <summary>
+            The text for the title. (i.e. "# of People" or "Response Choices").
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisScaleLabel.LineHeight">
+            <summary>
+            Height of an individual line of text (https://developer.mozilla.org/en-US/docs/Web/CSS/line-height).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisScaleLabel.FontColor">
+            <summary>
+            Font color for scale title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisScaleLabel.FontFamily">
+            <summary>
+            Font family for the scale title, follows CSS font-family options.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisScaleLabel.FontSize">
+            <summary>
+            Font size for scale title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisScaleLabel.FontStyle">
+            <summary>
+            Font style for the scale title, follows CSS font-style options (i.e. normal, italic, oblique, initial, inherit).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisScaleLabel.Padding">
+            <summary>
+            Padding to apply around scale labels. Only top and bottom are implemented.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartAxisTicks">
+            <summary>
+            Common tick options to all axes.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.BackdropColor">
+            <summary>
+            Color of label backdrops.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.BackdropPadding">
+            <summary>
+            Padding of label backdrop. See <see href="https://www.chartjs.org/docs/3.7.1/general/padding.html">Padding</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Callback">
+            <summary>
+            Defines the Expression which will be converted to JavaScript as a string representation of the tick value as it should be displayed on the chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Display">
+            <summary>
+            If true, show tick marks.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Color">
+            <summary>
+            Color of ticks.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Font">
+            <summary>
+            Font color for tick labels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Major">
+            <summary>
+            Major ticks configuration. Omitted options are inherited from options above.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Padding">
+            <summary>
+            Sets the offset of the tick labels from the axis.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.ShowLabelBackdrop">
+            <summary>
+            If true, draw a background behind the tick labels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.TextStrokeColor">
+            <summary>
+            The color of the stroke around the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.TextStrokeWidth">
+            <summary>
+            Stroke width around the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Z">
+            <summary>
+            z-index of tick layer. Useful when ticks are drawn on chart area. Values &lt;= 0 are drawn under datasets, &gt; 0 on top.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Count">
+            <summary>
+            The number of ticks to generate. If specified, this overrides the automatic generation.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Format">
+            <summary>
+            The number format options used by the default label formatter.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.Precision">
+            <summary>
+            If defined and <see cref="P:Blazorise.Charts.ChartAxisTicks.StepSize"/> is not specified, the step size will be rounded to this many decimal places.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTicks.StepSize">
+            <summary>
+            User-defined fixed step size for the scale.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartAxisTime">
+            <summary>
+            Common time options to all axes.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTime.DisplayFormat">
+            <summary>
+            Sets how different time units are displayed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTime.IsoWeekday">
+            <summary>
+            If boolean and true and the unit is set to 'week', then the first day of the week will be Monday. Otherwise, it will be Sunday. If number, the index of the first day of the week (0 - Sunday, 6 - Saturday)
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTime.Parser">
+            <summary>
+            Custom parser for dates.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTime.Round">
+            <summary>
+            If defined, dates will be rounded to the start of this unit. See <see href="https://www.chartjs.org/docs/latest/axes/cartesian/time.html#time-units">Time Units</see> section below for details.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTime.Unit">
+            <summary>
+            If defined, will force the unit to be a certain type. See <see href="https://www.chartjs.org/docs/latest/axes/cartesian/time.html#time-units">Time Units</see> section below for details.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTime.StepSize">
+            <summary>
+            The number of units between grid lines.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartAxisTime.MinUnit">
+            <summary>
+            The minimum display format to be used for a time unit.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartAxisTimeDisplayFormat">
+            <summary>
+            Display formats for time options.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartBarElements">
+            <summary>
+            Bar elements are used to represent the bars in a bar chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartBarElements.BackgroundColor">
+            <summary>
+            Bar fill color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartBarElements.BorderWidth">
+            <summary>
+            Bar stroke width.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartBarElements.BorderColor">
+            <summary>
+            Bar stroke color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartBarElements.BorderSkipped">
+            <summary>
+            Skipped (excluded) border: 'start', 'end', 'middle', 'bottom', 'left', 'top', 'right' or false.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartBarElements.BorderRadius">
+            <summary>
+            The bar border radius (in pixels).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartBarElements.InflateAmount">
+            <summary>
+            The amount of pixels to inflate the bar rectangle(s) when drawing.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartBarElements.PointStyle">
+            <summary>
+            Style of the point for legend.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDecimation.Enabled">
+            <summary>
+            s decimation enabled?
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDecimation.Algorithm">
+            <summary>
+            Decimation algorithm to use. See <see href="https://www.chartjs.org/docs/latest/configuration/decimation.html#decimation-algorithms">more...</see>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDecimation.Samples">
+            <summary>
+            If the <c>lttb</c> algorithm is used, this is the number of samples in the output dataset. Defaults to the canvas width to pick 1 sample per pixel.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartDecimation.Threshold">
+            <summary>
+            If the number of samples in the current axis range is above this value, the decimation will be triggered. Defaults to 4 times the canvas width. The number of point after decimation can be higher than the <c>Threshold</c> value.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartElements">
+            <summary>
+            Point elements are used to represent the points in a line, radar or bubble chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartElements.Point">
+            <summary>
+            Point elements are used to represent the points in a line, radar or bubble chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartElements.Line">
+            <summary>
+            Line elements are used to represent the line in a line chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartElements.Bar">
+            <summary>
+            Bar elements are used to represent the bars in a bar chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartElements.Arc">
+            <summary>
+            Arcs are used in the polar area, doughnut and pie charts.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartFont">
+            <summary>
+            Defines the font styles.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartFont.Family">
+            <summary>
+            Default font family for all text, follows CSS font-family options.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartFont.Size">
+            <summary>
+            Default font size (in px) for text. Does not apply to radialLinear scale point labels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartFont.Style">
+            <summary>
+            Default font style. Does not apply to tooltip title or footer. Does not apply to chart title. Follows CSS font-style options (i.e. normal, italic, oblique, initial, inherit).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartFont.Weight">
+            <summary>
+            Default font weight (boldness). See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/font-weight">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartFont.LineHeight">
+            <summary>
+            Height of an individual line of text. See <see href="https://developer.mozilla.org/en-US/docs/Web/CSS/line-height">MDN</see>.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartInteractions">
+            <summary>
+            To configure which events trigger chart interactions.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartInteractions.Mode">
+            <summary>
+            Sets which elements appear in the interaction.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartInteractions.Intersect">
+            <summary>
+            If true, the interaction mode only applies when the mouse position intersects an item on the chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartInteractions.Axis">
+            <summary>
+            Can be set to 'x', 'y', or 'xy' to define which directions are used in calculating distances. Defaults to 'x' for 'index' mode and 'xy' in dataset and 'nearest' modes.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartLayout">
+            <summary>
+            The global options for the chart layout is defined in Chart.defaults.layout.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLayout.AutoPadding">
+            <summary>
+            Apply automatic padding so visible elements are completely drawn.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLayout.Padding">
+            <summary>
+            The padding to add inside the chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.Display">
+            <summary>
+            Is the legend shown.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.Position">
+            <summary>
+            Position of the legend.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.Align">
+            <summary>
+            Alignment of the legend.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.MaxHeight">
+            <summary>
+            Maximum height of the legend, in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.MaxWidth">
+            <summary>
+            Maximum width of the legend, in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.FullSize">
+            <summary>
+            Marks that this box should take the full width/height of the canvas (moving other boxes). This is unlikely to need to be changed in day-to-day use.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.Reverse">
+            <summary>
+            Legend will show datasets in reverse order.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.Labels">
+            <summary>
+            Options to change legend labels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.Rtl">
+            <summary>
+            true for rendering the legends from right to left.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.TextDirection">
+            <summary>
+            This will force the text direction 'rtl' or 'ltr' on the canvas for rendering the legend, regardless of the css specified on the canvas.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegend.Title">
+            <summary>
+            Options to change legend title.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartLegendLabel">
+            <summary>
+            Legend Label Configuration.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendLabel.BoxWidth">
+            <summary>
+            Width of coloured box.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendLabel.BoxHeight">
+            <summary>
+            Height of the coloured box.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendLabel.Color">
+            <summary>
+            Color of label and the strikethrough.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendLabel.Font">
+            <summary>
+            Font of the label.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendLabel.Padding">
+            <summary>
+            Padding between rows of colored boxes.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendLabel.PointStyle">
+            <summary>
+            If specified, this style of point is used for the legend. Only used if usePointStyle is true.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendLabel.TextAlign">
+            <summary>
+            Horizontal alignment of the label text. Options are: 'left', 'right' or 'center'.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendLabel.UsePointStyle">
+            <summary>
+            Label style will match corresponding point style (size is based on the minimum value between boxWidth and font.size).
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartLegendTitle">
+            <summary>
+            Legend Title Configuration.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendTitle.Color">
+            <summary>
+            Color of the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendTitle.Display">
+            <summary>
+            Is the legend title displayed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendTitle.Font">
+            <summary>
+            Font of the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendTitle.Padding">
+            <summary>
+            Padding around the title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLegendTitle.Text">
+            <summary>
+            The string title.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartLineElements">
+            <summary>
+            Line elements are used to represent the line in a line chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.Tension">
+            <summary>
+            Bézier curve tension (0 for no Bézier curves).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.BackgroundColor">
+            <summary>
+            Line fill color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.BorderWidth">
+            <summary>
+            Line stroke width.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.BorderColor">
+            <summary>
+            Line stroke color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.BorderCapStyle">
+            <summary>
+            Line cap style. See <see href="https://developer.mozilla.org/en/docs/Web/API/CanvasRenderingContext2D/lineCap">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.BorderDash">
+            <summary>
+            Line dash. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/setLineDash">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.BorderDashOffset">
+            <summary>
+            Line dash offset. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineDashOffset">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.BorderJoinStyle">
+            <summary>
+            Line join style. See <see href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/lineJoin">MDN</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.CapBezierPoints">
+            <summary>
+            true to keep Bézier control inside the chart, false for no restriction.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.CubicInterpolationMode">
+            <summary>
+            Interpolation mode to apply. <see href="https://www.chartjs.org/docs/latest/charts/line.html#cubicinterpolationmode">See more...</see>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.Fill">
+            <summary>
+            How to fill the area under the line. See <see href="https://www.chartjs.org/docs/latest/charts/area.html#filling-modes">area charts</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartLineElements.Stepped">
+            <summary>
+            true to show the line as a stepped line (tension will be ignored).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartOptions.Responsive">
+            <summary>
+            Resizes the chart canvas when its container does.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartOptions.MaintainAspectRatio">
+            <summary>
+            Maintain the original canvas aspect ratio (width / height) when resizing.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartOptions.AspectRatio">
+            <summary>
+            Canvas aspect ratio (i.e. width / height, a value of 1 representing a square canvas).
+            Note that this option is ignored if the height is explicitly defined either as attribute or via the style.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartOptions.ResizeDelay">
+            <summary>
+            Delay the resize update by give amount of milliseconds. This can ease the resize process by debouncing update of the elements.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartOptions.Locale">
+            <summary>
+            A string with a BCP 47 language tag, leveraging on <see href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat/NumberFormat">INTL NumberFormat</see>
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartPadding">
+            <summary>
+            Padding options.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPadding.Top">
+            <summary>
+            Padding from top in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPadding.Right">
+            <summary>
+            Padding from right in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPadding.Bottom">
+            <summary>
+            Padding from bottom in pixels.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPadding.Left">
+            <summary>
+            Padding from left in pixels.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartPointElements">
+            <summary>
+            Point elements are used to represent the points in a line, radar or bubble chart.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.Radius">
+            <summary>
+            Point radius.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.PointStyle">
+            <summary>
+            Point style.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.Rotation">
+            <summary>
+            Point rotation (in degrees).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.BackgroundColor">
+            <summary>
+            Point fill color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.BorderWidth">
+            <summary>
+            Point stroke width.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.BorderColor">
+            <summary>
+            Point stroke color.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.HitRadius">
+            <summary>
+            Extra radius added to point radius for hit detection.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.HoverRadius">
+            <summary>
+            Point radius when hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartPointElements.HoverBorderWidth">
+            <summary>
+            Stroke width when hovered.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartScaleTitle">
+            <summary>
+            Scale title Configuration.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartScaleTitle.Display">
+            <summary>
+            If true, display the axis title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartScaleTitle.Align">
+            <summary>
+            Alignment of the axis title. Possible options are 'start', 'center' and 'end'.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartScaleTitle.Text">
+            <summary>
+            The text for the title. (i.e. "# of People" or "Response Choices").
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartScaleTitle.Color">
+            <summary>
+            Color of label.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartScaleTitle.Font">
+            <summary>
+            Font of the label.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartScaleTitle.Padding">
+            <summary>
+            Padding to apply around scale labels. Only top, bottom and y are implemented.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartSubtitle">
+            <summary>
+            Subtitle Configuration.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartSubtitle.Align">
+            <summary>
+            Alignment of the subtitle.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartSubtitle.Color">
+            <summary>
+            Color of the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartSubtitle.Display">
+            <summary>
+            Is the legend subtitle displayed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartSubtitle.FullSize">
+            <summary>
+            Marks that this box should take the full width/height of the canvas. If false, the box is sized and placed above/beside the chart area.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartSubtitle.Position">
+            <summary>
+            Position of subtitle.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartSubtitle.Font">
+            <summary>
+            Font of the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartSubtitle.Padding">
+            <summary>
+            Padding around the subtitle.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartSubtitle.Text">
+            <summary>
+            Subtitle text to display.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartTitle">
+            <summary>
+            Title Configuration.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTitle.Align">
+            <summary>
+            Alignment of the title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTitle.Color">
+            <summary>
+            Color of the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTitle.Display">
+            <summary>
+            Is the legend title displayed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTitle.FullSize">
+            <summary>
+            Marks that this box should take the full width/height of the canvas. If false, the box is sized and placed above/beside the chart area.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTitle.Position">
+            <summary>
+            Position of title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTitle.Font">
+            <summary>
+            Font of the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTitle.Padding">
+            <summary>
+            Padding around the title.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTitle.Text">
+            <summary>
+            Title text to display.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ChartTooltips">
+            <summary>
+            Tooltip Configuration
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.Enabled">
+            <summary>
+            Are on-canvas tooltips enabled.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.Mode">
+            <summary>
+            Sets which elements appear in the tooltip.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.Intersect">
+            <summary>
+            If true, the tooltip mode applies only when the mouse position intersects with an element. If false, the mode will be applied at all times.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.Position">
+            <summary>
+            The mode for positioning the tooltip.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BackgroundColor">
+            <summary>
+            Background color of the tooltip.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.TitleColor">
+            <summary>
+            Color of title text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.TitleFont">
+            <summary>
+            See <see href="https://www.chartjs.org/docs/latest/general/fonts.html">Fonts</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.TitleAlign">
+            <summary>
+            Horizontal alignment of the title text lines.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.TitleSpacing">
+            <summary>
+            Spacing to add to top and bottom of each title line.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.TitleMarginBottom">
+            <summary>
+            Margin to add on bottom of title section.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BodyColor">
+            <summary>
+            Color of body text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BodyFont">
+            <summary>
+            See <see href="https://www.chartjs.org/docs/latest/general/fonts.html">Fonts</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BodyAlign">
+            <summary>
+            Horizontal alignment of the body text lines.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BodySpacing">
+            <summary>
+            Spacing to add to top and bottom of each tooltip item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.FooterColor">
+            <summary>
+            Color of footer text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.FooterFont">
+            <summary>
+            See <see href="https://www.chartjs.org/docs/latest/general/fonts.html">Fonts</see>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.FooterAlign">
+            <summary>
+            Horizontal alignment of the footer text lines.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.FooterSpacing">
+            <summary>
+            Spacing to add to top and bottom of each footer line.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.FooterMarginTop">
+            <summary>
+            Margin to add before drawing the footer.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.Padding">
+            <summary>
+            Padding inside the tooltip.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.CaretPadding">
+            <summary>
+            Extra distance to move the end of the tooltip arrow away from the tooltip point.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.CaretSize">
+            <summary>
+            Size, in px, of the tooltip arrow.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.CornerRadius">
+            <summary>
+            Radius of tooltip corner curves.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.MultiKeyBackground">
+            <summary>
+            Color to draw behind the colored boxes when multiple items are in the tooltip.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.DisplayColors">
+            <summary>
+            If true, color boxes are shown in the tooltip.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BoxWidth">
+            <summary>
+            Width of the color box if displayColors is true.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BoxHeight">
+            <summary>
+            Height of the color box if displayColors is true.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BoxPadding">
+            <summary>
+            Padding between the color box and the text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.UsePointStyle">
+            <summary>
+            Use the corresponding point style (from dataset options) instead of color boxes, ex: star, triangle etc. (size is based on the minimum value between boxWidth and boxHeight).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BorderColor">
+            <summary>
+            Color of the border.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.BorderWidth">
+            <summary>
+            Size of the border.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.Rtl">
+            <summary>
+            true for rendering the tooltip from right to left.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.TextDirection">
+            <summary>
+            This will force the text direction 'rtl' or 'ltr on the canvas for rendering the tooltips, regardless of the css specified on the canvas
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.XAlign">
+            <summary>
+            Position of the tooltip caret in the X direction.
+            <list type="bullet">
+                <item>
+                    <term>"left"</term>
+                    <description>(default)</description>
+                </item>
+                <item>
+                    <term>"center"</term>
+                    <description></description>
+                </item>
+                <item>
+                    <term>"right"</term>
+                    <description></description>
+                </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ChartTooltips.YAlign">
+            <summary>
+            Position of the tooltip caret in the Y direction.
+            <list type="bullet">
+                <item>
+                    <term>"left"</term>
+                    <description>(default)</description>
+                </item>
+                <item>
+                    <term>"center"</term>
+                    <description></description>
+                </item>
+                <item>
+                    <term>"right"</term>
+                    <description></description>
+                </item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartOptions.BarPercentage">
+            <summary>
+            Percent (0-1) of the available width each bar should be within the category width. 1.0 will take the whole category width and put the bars right next to each other.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.BarChartOptions.CategoryPercentage">
+            <summary>
+            Percent (0-1) of the available width each category should be within the sample width. 
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.DoughnutChartOptions.CutoutPercentage">
+            <summary>
+            The percentage of the chart that is cut out of the middle.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartOptions.ShowLines">
+            <summary>
+            If false, the lines between points are not drawn.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.LineChartOptions.SpanGaps">
+            <summary>
+            If false, NaN data causes a break in the line.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartOptions.CutoutPercentage">
+            <summary>
+            The percentage of the chart that is cut out of the middle.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartOptions.Rotation">
+            <summary>
+            Starting angle to draw arcs from.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PieChartOptions.Circumference">
+            <summary>
+            Sweep to allow arcs to cover.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.PolarAreaChartOptions.StartAngle">
+            <summary>
+            Starting angle to draw arcs for the first item in a dataset.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ScriptableOptions`2">
+            <summary>
+            Scriptable options also accept a function which is called for each of the underlying data values and that takes the unique
+            argument context representing contextual information (see <see cref="T:Blazorise.Charts.ScriptableOptionsContext"/>).
+            </summary>
+            <typeparam name="TValue">A value that is returned from a function.</typeparam>
+            <typeparam name="TContext">A context representing contextual information.</typeparam>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.#ctor(`0)">
+            <summary>
+            Creates a new instance of <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> which represents a single value.
+            </summary>
+            <param name="value">The single value this <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> should represent.</param>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.#ctor(System.Linq.Expressions.Expression{System.Func{`1,`0}})">
+            <summary>
+            Creates a new instance of <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> which represents a scriptable value.
+            </summary>
+            <param name="scriptableValue">The scriptable value this <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> should represent.</param>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.op_Implicit(`0)~Blazorise.Charts.ScriptableOptions{`0,`1}">
+            <summary>
+            Implicitly wraps a single value of <typeparamref name="TValue"/> to a new instance of <see cref="T:Blazorise.Charts.ScriptableOptions`2"/>.
+            </summary>
+            <param name="value">The single value to wrap.</param>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.op_Implicit(System.Linq.Expressions.Expression{System.Func{`1,`0}})~Blazorise.Charts.ScriptableOptions{`0,`1}">
+            <summary>
+            Implicitly wraps an expression of <typeparamref name="TValue"/> to a new instance of <see cref="T:Blazorise.Charts.ScriptableOptions`2"/>.
+            </summary>
+            <param name="scriptableValue">The expression values to wrap.</param>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.op_Equality(Blazorise.Charts.ScriptableOptions{`0,`1},Blazorise.Charts.ScriptableOptions{`0,`1})">
+            <summary>
+            Determines whether two specified <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> instances contain the same value.
+            </summary>
+            <param name="a">The first <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> to compare</param>
+            <param name="b">The second <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> to compare</param>
+            <returns>true if the value of a is the same as the value of b; otherwise, false.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.op_Inequality(Blazorise.Charts.ScriptableOptions{`0,`1},Blazorise.Charts.ScriptableOptions{`0,`1})">
+            <summary>
+            Determines whether two specified <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> instances contain different values.
+            </summary>
+            <param name="a">The first <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> to compare</param>
+            <param name="b">The second <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> to compare</param>
+            <returns>true if the value of a is different from the value of b; otherwise, false.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.Equals(Blazorise.Charts.ScriptableOptions{`0,`1})">
+            <summary>
+            Determines whether the specified <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> instance is considered equal to the current instance.
+            </summary>
+            <param name="other">The <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> to compare with.</param>
+            <returns>true if the objects are considered equal; otherwise, false.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.Equals(System.Object)">
+            <summary>
+            Determines whether the specified object instance is considered equal to the current instance.
+            </summary>
+            <param name="obj">The object to compare with.</param>
+            <returns>true if the objects are considered equal; otherwise, false.</returns>
+        </member>
+        <member name="M:Blazorise.Charts.ScriptableOptions`2.GetHashCode">
+            <summary>
+            Returns the hash of the underlying object.
+            </summary>
+            <returns>The hash of the underlying object.</returns>
+        </member>
+        <member name="P:Blazorise.Charts.ScriptableOptions`2.IsScriptable">
+            <summary>
+            Gets the value indicating whether the option wrapped in this <see cref="T:Blazorise.Charts.ScriptableOptions`2"/> is scriptable.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScriptableOptions`2.Value">
+            <summary>
+            The single value represented by this instance.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScriptableOptions`2.ScriptableValue">
+            <summary>
+            The scriptable value represented by this instance.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Charts.ScriptableOptionsContext">
+            <summary>
+            The option context is used to give contextual information when resolving options. It mainly applies to scriptable
+            options but also to some function options such as formatter.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScriptableOptionsContext.Active">
+            <summary>
+            Whether the associated element is hovered.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScriptableOptionsContext.DataIndex">
+            <summary>
+            The index of the associated data.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Charts.ScriptableOptionsContext.DatasetIndex">
+            <summary>
+            The index of the associated dataset.
+            </summary>
+        </member>
+    </members>
+</doc>

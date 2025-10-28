@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Components.WebAssembly.Server</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Server.WebAssemblyComponentsEndpointOptions">
+            <summary>
+            Options to configure interactive WebAssembly components.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Server.WebAssemblyComponentsEndpointOptions.PathPrefix">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Http.PathString"/> that indicates the prefix for Blazor WebAssembly assets.
+            This path must correspond to a referenced Blazor WebAssembly application project.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Server.TargetPickerUi">
+            <summary>
+            Class for the target picker ui.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Server.TargetPickerUi.#ctor(System.String,System.String)">
+            <summary>
+            Initialize a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Server.TargetPickerUi"/>.
+            </summary>
+            <param name="debugProxyUrl">The debug proxy url.</param>
+            <param name="devToolsHost">The dev tools host.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Server.TargetPickerUi.DisplayFirefox(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Display the ui.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/>.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Server.TargetPickerUi.Display(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Display the ui.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Http.HttpContext"/>.</param>
+            <returns>The <see cref="T:System.Threading.Tasks.Task"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.WebAssemblyRazorComponentsEndpointConventionBuilderExtensions">
+            <summary>
+            Web assembly specific endpoint conventions for razor component applications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.WebAssemblyRazorComponentsEndpointConventionBuilderExtensions.AddInteractiveWebAssemblyRenderMode(Microsoft.AspNetCore.Builder.RazorComponentsEndpointConventionBuilder,System.Action{Microsoft.AspNetCore.Components.WebAssembly.Server.WebAssemblyComponentsEndpointOptions})">
+            <summary>
+            Configures the application to support the <see cref="P:Microsoft.AspNetCore.Components.Web.RenderMode.InteractiveWebAssembly"/> render mode.
+            </summary>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.RazorComponentsEndpointConventionBuilder"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.ComponentsWebAssemblyApplicationBuilderExtensions">
+            <summary>
+            Extensions for mapping Blazor WebAssembly applications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ComponentsWebAssemblyApplicationBuilderExtensions.UseBlazorFrameworkFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder,Microsoft.AspNetCore.Http.PathString)">
+            <summary>
+            Configures the application to serve Blazor WebAssembly framework files from the path <paramref name="pathPrefix"/>. This path must correspond to a referenced Blazor WebAssembly application project.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <param name="pathPrefix">The <see cref="T:Microsoft.AspNetCore.Http.PathString"/> that indicates the prefix for the Blazor WebAssembly application.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/></returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.ComponentsWebAssemblyApplicationBuilderExtensions.UseBlazorFrameworkFiles(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configures the application to serve Blazor WebAssembly framework files from the root path "/".
+            </summary>
+            <param name="applicationBuilder">The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/>.</param>
+            <returns>The <see cref="T:Microsoft.AspNetCore.Builder.IApplicationBuilder"/></returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Builder.WebAssemblyNetDebugProxyAppBuilderExtensions">
+            <summary>
+            Provides infrastructure for debugging Blazor WebAssembly applications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Builder.WebAssemblyNetDebugProxyAppBuilderExtensions.UseWebAssemblyDebugging(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Adds middleware needed for debugging Blazor WebAssembly applications
+            inside Chromium dev tools.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.WebAssemblyRazorComponentsBuilderExtensions">
+            <summary>
+            Extension methods to configure an <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> for WebAssembly components.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyRazorComponentsBuilderExtensions.AddInteractiveWebAssemblyComponents(Microsoft.Extensions.DependencyInjection.IRazorComponentsBuilder)">
+            <summary>
+            Adds services to support rendering interactive WebAssembly components.
+            </summary>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IRazorComponentsBuilder"/>.</param>
+            <returns>An <see cref="T:Microsoft.Extensions.DependencyInjection.IRazorComponentsBuilder"/> that can be used to further customize the configuration.</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.CommandLineUtils.DotNetMuxer">
+            <summary>
+            Utilities for finding the "dotnet.exe" file from the currently running .NET Core application
+            </summary>
+        </member>
+        <member name="P:Microsoft.Extensions.CommandLineUtils.DotNetMuxer.MuxerPath">
+            <summary>
+            The full filepath to the .NET Core muxer.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.CommandLineUtils.DotNetMuxer.MuxerPathOrDefault">
+            <summary>
+            Finds the full filepath to the .NET Core muxer,
+            or returns a string containing the default name of the .NET Core muxer ('dotnet').
+            </summary>
+            <returns>The path or a string named 'dotnet'.</returns>
+        </member>
+    </members>
+</doc>

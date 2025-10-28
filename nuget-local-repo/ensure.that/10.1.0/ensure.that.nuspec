@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Ensure.That</id>
+    <version>10.1.0</version>
+    <title>Ensure.That</title>
+    <authors>danielwertheim</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <description>Argument validation made simple and unified. It ensures arguments conforms to simple validation rules and provides an uniformed exception throwing strategy if arguments are invalid.</description>
+    <releaseNotes>https://github.com/danielwertheim/ensure.that/releases</releaseNotes>
+    <copyright>Copyright ©danielwertheim</copyright>
+    <tags>ensure-that ensure that argument validation guard clause contracts</tags>
+    <repository type="Git" url="https://github.com/danielwertheim/ensure.that" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.5.1" />
+      <group targetFramework=".NETStandard1.1">
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0" />
+      <group targetFramework=".NETStandard2.1" />
+    </dependencies>
+  </metadata>
+</package>

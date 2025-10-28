@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>NServiceBus</id>
+    <version>9.0.0</version>
+    <authors>Particular Software</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>NServiceBus.png</icon>
+    <readme>Package-README.md</readme>
+    <projectUrl>https://docs.particular.net/nuget/NServiceBus</projectUrl>
+    <description>Build, version, and monitor better microservices with the most powerful service platform for .NET</description>
+    <copyright>© NServiceBus Ltd. All rights reserved.</copyright>
+    <tags>nservicebus messaging</tags>
+    <repository type="git" url="https://github.com/Particular/NServiceBus" commit="2da9fe05db47df35d2c7ccf0a59b8d8eb1595670" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="NServiceBus.MessageInterfaces" version="[1.0.0, 2.0.0)" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Cryptography.Xml" version="8.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

@@ -1,0 +1,1494 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Blazorise.Components</name>
+    </assembly>
+    <members>
+        <member name="T:Blazorise.Components.Autocomplete`2">
+            <summary>
+            The autocomplete is a normal text input enhanced by a panel of suggested options.
+            </summary>
+            <typeparam name="TItem">Type of an item filtered by the autocomplete component.</typeparam>
+            <typeparam name="TValue">Type of an SelectedValue field.</typeparam>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.virtualizeRef">
+            <summary>
+            Element reference to the Autocomplete's inner virtualize.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.cancellationTokenSource">
+            <summary>
+            Gets the CancellationTokenSource which could be used to issue a cancellation.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.textEditRef">
+            <summary>
+            Reference to the TextEdit component.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.data">
+            <summary>
+            Original data-source.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.filteredData">
+            <summary>
+            Holds the filtered data based on the filter.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.dirtyFilter">
+            <summary>
+            Marks the autocomplete to reload entire data source based on the current filter settings.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.canShowDropDown">
+            <summary>
+            Allow dropdown visibility
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.clickFromCheck">
+            <summary>
+            Workaround for the issue where the dropdown closes when clicking on the checkbox
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.Autocomplete`2.focusFromCheck">
+            <summary>
+            Workaround for the issue where the dropdown closes when clicking on the checkbox
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.OnInitializedAsync">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.OnTextChangedHandler(System.String)">
+            <summary>
+            Handles the search field onchange or oninput event.
+            </summary>
+            <param name="text">Search value.</param>
+            <returns>Returns awaitable task</returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.ScrollItemIntoView(System.Int32)">
+            <summary>
+            Scrolls an item into view.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.OnTextKeyDownHandler(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+            <summary>
+            Handles the search field OnKeyDown event.
+            </summary>
+            <param name="eventArgs">Event arguments.</param>
+            <returns>Returns awaitable task</returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.OnTextFocusHandler(Microsoft.AspNetCore.Components.Web.FocusEventArgs)">
+            <summary>
+            Handles the search field onfocusin event.
+            </summary>
+            <param name="eventArgs">Event arguments.</param>
+            <returns>Returns awaitable task</returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.OnTextBlurHandler(Microsoft.AspNetCore.Components.Web.FocusEventArgs)">
+            <summary>
+            Handles the search field onblur event.
+            </summary>
+            <param name="eventArgs">Event arguments.</param>
+            <returns>Returns awaitable task</returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.Reload(System.Threading.CancellationToken)">
+            <summary>
+            Triggers the reload of the <see cref="T:Blazorise.Components.Autocomplete`2"/> data.
+            Makes sure not to reload if the <see cref="T:Blazorise.Components.Autocomplete`2"/> is in a loading state.
+            </summary>
+            <returns>Returns the awaitable task.</returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.AddMultipleTextAndValue(`1)">
+            <summary>
+            Adds a Multiple Selection.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.RemoveMultipleTextAndValue(System.String)">
+            <summary>
+            Removes a Multiple Selection.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.RemoveMultipleTextAndValue(`1)">
+            <summary>
+            Removes a Multiple Selection.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.ResetSelected">
+            <summary>
+            Clears the current selection.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.Clear">
+            <summary>
+            Clears the selected value and the search field.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.DisposeAsync(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.Focus(System.Boolean)">
+            <summary>
+            Sets focus on the input element, if it can be focused.
+            </summary>
+            <param name="scrollToElement">If true the browser should scroll the document to bring the newly-focused element into view.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.Close">
+            <summary>
+            Closes the <see cref="T:Blazorise.Components.Autocomplete`2"/> Dropdown.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.Close(Blazorise.CloseReason)">
+            <summary>
+            Closes the <see cref="T:Blazorise.Components.Autocomplete`2"/> Dropdown.
+            </summary>
+            <param name="closeReason">Specifies the reason for a component close event.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.IsSafeToClose(System.String,Blazorise.CloseReason,System.Boolean)">
+             <summary>
+             Determines if Autocomplete can be closed
+             </summary>
+             <returns>True if Autocomplete can be closed.</returns>
+            
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.Open">
+            <summary>
+            Opens the <see cref="T:Blazorise.Components.Autocomplete`2"/> Dropdown.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.OpenDropdown">
+            <summary>
+            Opens the <see cref="T:Blazorise.Components.Autocomplete`2"/> Dropdown.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.IsSelectedvalue(`1)">
+            <summary>
+            Gets whether the <typeparamref name="TValue"/> is selected.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.IsSelectedItem(`0)">
+            <summary>
+            Gets whether the <typeparamref name="TItem"/> is selected.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.GetItemByValue(`1)">
+            <summary>
+            Gets a <typeparamref name="TItem"/> from <see cref="P:Blazorise.Components.Autocomplete`2.Data"/> by using the provided <see cref="P:Blazorise.Components.Autocomplete`2.ValueField"/>.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.GetItemByText(System.String)">
+            <summary>
+            Gets a <typeparamref name="TItem"/> from <see cref="P:Blazorise.Components.Autocomplete`2.Data"/> by using the provided <see cref="P:Blazorise.Components.Autocomplete`2.TextField"/>.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.GetValueByText(System.String)">
+            <summary>
+            Gets a <typeparamref name="TValue"/> from <see cref="P:Blazorise.Components.Autocomplete`2.SelectedValues"/> by using the provided <see cref="P:Blazorise.Components.Autocomplete`2.TextField"/> and <see cref="P:Blazorise.Components.Autocomplete`2.ValueField"/>.
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.IsSuggestSelectedItems">
+            <summary>
+            Suggests already selected option(s) when presenting the options.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ManualReadMode">
+            <summary>
+            True if user is using <see cref="P:Blazorise.Components.Autocomplete`2.ReadData"/> for loading the data.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.VirtualizeManualReadMode">
+            <summary>
+            True if user is using <see cref="P:Blazorise.Components.Autocomplete`2.ReadData"/> and <see cref="P:Blazorise.Components.Autocomplete`2.Virtualize"/> for loading the data.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Loading">
+            <summary>
+            Returns true if ReadData will be invoked.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ElementRef">
+            <summary>
+            Gets the Element Reference
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.InputElementId">
+            <summary>
+            Gets the Element Id
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.CssStyle">
+            <summary>
+            Gets the dropdown CSS styles.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ActiveItemIndex">
+            <summary>
+            Gets or sets the currently active item index.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.TextFocused">
+            <summary>
+            Gets or sets the search field focus state.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.DropdownVisible">
+            <summary>
+            True if the dropdown menu should be visible.
+            Takes into account whether menu was open and whether CloseOnSelection is set to false.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.NotFoundVisible">
+            <summary>
+            True if the not found content should be visible.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.FreeTypingNotFoundVisible">
+            <summary>
+            True if the free typing not found content should be visible.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.IsTextSearchable">
+            <summary>
+            True if the text complies to the search requirements
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.HasFilteredData">
+            <summary>
+            True if the filtered data exists
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.DropdownClassNames">
+            <summary>
+            Gets the custom class-names for dropdown element.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.DropdownItemClassNames(System.Int32)">
+            <summary>
+            Gets the custom class-names for dropdown element.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete`2.DropdownItemId(System.Int32)">
+            <summary>
+            Provides an index based id for the dropdown suggestion items.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.IsMultiple">
+            <summary>
+            Tracks whether the Autocomplete is in a multiple selection state.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ClassProvider">
+            <summary>
+            Gets or sets the classname provider.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.JSClosableModule">
+            <summary>
+            Gets or sets the <see cref="T:Blazorise.Modules.IJSClosableModule"/> instance.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.JSUtilitiesModule">
+            <summary>
+            Gets or sets the <see cref="T:Blazorise.Modules.IJSUtilitiesModule"/> instance.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.IdGenerator">
+            <summary>
+            Gets or set the IdGenerator.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.LicenseChecker">
+            <summary>
+            Gets or sets the license checker for the user session.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ElementId">
+            <summary>
+            Gets or sets the dropdown element id.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Filter">
+            <summary>
+            Defines the method by which the search will be done.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.MinLength">
+            <summary>
+            The minimum number of characters a user must type before a search is performed. Set this to 0 to make the Autocomplete function like a dropdown.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.MaxEntryLength">
+            <summary>
+            Specifies the maximum number of characters allowed in the input element.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.MaxMenuHeight">
+            <summary>
+            Sets the maximum height of the dropdown menu.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Placeholder">
+            <summary>
+            Sets the placeholder for the empty search.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Size">
+            <summary>
+            Size of a search field.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Disabled">
+            <summary>
+            Prevents a user from entering a value to the search field.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Data">
+            <summary>
+            Gets or sets the autocomplete data-source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ReadData">
+            <summary>
+            Event handler used to load data manually based on the current search value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Closed">
+            <summary>
+            Event handler used to detect when the autocomplete is closed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Opened">
+            <summary>
+            Event handler used to detect when the autocomplete is opened.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.FilteredData">
+            <summary>
+            Gets the data after all of the filters have being applied.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.FreeTyping">
+            <summary>
+            Allows the value to not be on the data source.
+            The value will be bound to the <see cref="P:Blazorise.Components.Autocomplete`2.SelectedText"/>
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.TextField">
+            <summary>
+            Method used to get the display field from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ValueField">
+            <summary>
+            Method used to get the value field from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectedValue">
+            <summary>
+            Currently selected item value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectedValueChanged">
+            <summary>
+            Occurs after the selected value has changed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectedText">
+            <summary>
+            Gets or sets the currently selected item text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectedTextChanged">
+            <summary>
+            Gets or sets the currently selected item text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.CurrentSearch">
+            <summary>
+            Gets or sets the currently selected item text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.CurrentSearchChanged">
+            <summary>
+            Occurs on every search text change.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Search">
+            <summary>
+            Gets or sets the currently selected item text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchChanged">
+            <summary>
+            Occurs on every search text change.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.HighlightSearch">
+            <summary>
+            If true, the searched text will be highlighted in the dropdown list items based on <see cref="P:Blazorise.Components.Autocomplete`2.Search"/> value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchBackground">
+            <summary>
+            Defines the background color of the search field.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchTextColor">
+            <summary>
+            Defines the text color of the search field.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchClass">
+            <summary>
+            Defines class for search field.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchStyle">
+            <summary>
+            Defines style for search field.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectedValues">
+            <summary>
+            Currently selected items values.
+            Used when multiple selection is set.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectedValuesChanged">
+            <summary>
+            Occurs after the selected values have changed.
+            Used when multiple selection is set.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectedTexts">
+            <summary>
+            Currently selected items texts.
+            Used when multiple selection is set.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectedTextsChanged">
+            <summary>
+            Occurs after the selected texts have changed.
+            Used when multiple selection is set.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Class">
+            <summary>
+            Custom class-name for dropdown element.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Style">
+            <summary>
+            Custom styles for dropdown element.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Immediate">
+            <summary>
+            If true the text in will be changed after each key press.
+            </summary>
+            <remarks>
+            Note that setting this will override global settings in <see cref="P:Blazorise.BlazoriseOptions.Immediate"/>.
+            </remarks>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Debounce">
+            <summary>
+            If true the entered text will be slightly delayed before submitting it to the internal value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.DebounceInterval">
+            <summary>
+            Interval in milliseconds that entered text will be delayed from submitting to the internal value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.TabIndex">
+            <summary>
+            If defined, indicates that its element can be focused and can participates in sequential keyboard navigation.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Validator">
+            <summary>
+            Validation handler used to validate selected value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.AsyncValidator">
+            <summary>
+            Asynchronously validates the selected value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Attributes">
+            <summary>
+            Captures all the custom attribute that are not part of Blazorise component.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Components.Autocomplete`2"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.NotFoundContent">
+            <summary>
+            Specifies the not found content to be rendered inside this <see cref="T:Blazorise.Components.Autocomplete`2"/> when no data is found.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.FreeTypingNotFoundTemplate">
+            <summary>
+            Specifies the not found content to be rendered inside this <see cref="T:Blazorise.Components.Autocomplete`2"/> when no data is found and FreeTyping is enabled.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.NotFound">
+            <summary>
+            Occurs on every search text change where the data does not contain the text being searched.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.CustomFilter">
+            <summary>
+            Handler for custom filtering on Autocomplete's data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Multiple">
+            <summary>
+            Allows for multiple selection.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.MultipleBadgeColor">
+            <summary>
+            Sets the Badge color for the multiple selection values. Used when multiple selection is set.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.MultipleDisabledBadgeColor">
+            <summary>
+            Sets the disabled Badge color for the multiple selection values. Used when multiple selection is set.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ItemContent">
+            <summary>
+            Specifies the item content to be rendered inside each dropdown item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.CloseOnSelection">
+            <summary>
+            Specifies whether <see cref="T:Blazorise.Components.Autocomplete`2"/> dropdown closes on selection. This is only evaluated when multiple selection is set.
+            Defauls to true.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SuggestSelectedItems">
+            <summary>
+            Suggests already selected option(s) when presenting the options.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.ConfirmKey">
+            <summary>
+            Gets or sets an array of the keyboard pressed values for the ConfirmKey.
+            If this is null or empty, there will be no confirmation key.
+            <para>Defauls to: { "Enter", "NumpadEnter", "Tab" }.</para>
+            </summary>
+            <remarks>
+            If the value has a printed representation, this attribute's value is the same as the char attribute.
+            Otherwise, it's one of the key value strings specified in 'Key values'.
+            </remarks>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.AutoPreSelect">
+            <summary>
+            Gets or sets whether <see cref="T:Blazorise.Components.Autocomplete`2"/> auto preselects the first item displayed on the dropdown.
+            Defauls to true.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SelectionMode">
+            <summary>
+            Gets or sets the <see cref="T:Blazorise.Components.Autocomplete`2"/> Selection Mode.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.AutoSelectFirstItem">
+            <summary>
+            Gets or sets the whether first item in the list should be selected
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.Virtualize">
+            <summary>
+            Gets or sets whether the Autocomplete will use the Virtualize functionality.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.TotalItems">
+            <summary>
+            Gets or sets the total number of items. Used only when <see cref="P:Blazorise.Components.Autocomplete`2.ReadData"/> and <see cref="P:Blazorise.Components.Autocomplete`2.Virtualize"/> is used to load the data.
+            </summary>
+            <remarks>
+            This field must be set only when <see cref="P:Blazorise.Components.Autocomplete`2.ReadData"/> and <see cref="P:Blazorise.Components.Autocomplete`2.Virtualize"/> is used to load the data.
+            </remarks>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.TagTemplate">
+            <summary>
+            Specifies the content to be rendered for each tag (multiple selected item).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchTextChanged">
+            <summary>
+            Occurs after the search box text has changed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchKeyDown">
+            <summary>
+            Occurs when a key is pressed down while the search box has focus.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchFocus">
+            <summary>
+            Occurs when the search box gains or loses focus.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.SearchBlur">
+            <summary>
+            The blur event fires when the search box has lost focus.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete`2.PositionStrategy">
+            <summary>
+            Defines the positioning strategy of the dropdown menu as a 'floating' element.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.Autocomplete.ItemContext`2">
+            <summary>
+            Holds the ItemContext for the current Autocomplete item.
+            </summary>
+            <typeparam name="TItem">Type of an item filtered by the autocomplete component.</typeparam>
+            <typeparam name="TValue">Type of a SelectedValue field by the autocomplete component.</typeparam>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete.ItemContext`2.#ctor(`0,`1,System.String)">
+            <summary>
+            Initializes ItemContext.
+            </summary>
+            <param name="item">Holds current Autocomplete Item Data.</param>
+            <param name="value">Holds current Autocomplete Item Value.</param>
+            <param name="text">Holds current Autocomplete Item Text.</param>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete.ItemContext`2.Value">
+            <summary>
+            Holds current Autocomplete Item Value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete.ItemContext`2.Text">
+            <summary>
+            Holds current Autocomplete Item Text.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.Autocomplete.AutocompleteTagContext`2">
+            <summary>
+            Holds the Tag Context for the current Autocomplete item.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.Autocomplete.AutocompleteTagContext`2.#ctor(`0,`1,System.String,Microsoft.AspNetCore.Components.EventCallback)">
+            <summary>
+            Initializes AutocompleteTagContext.
+            </summary>
+            <param name="item">Holds current Autocomplete Item Data.</param>
+            <param name="value">Holds current Autocomplete Item Value.</param>
+            <param name="text">Holds current Autocomplete Item Text.</param>
+            <param name="removeCallback">Removes Item from selection callback.</param>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete.AutocompleteTagContext`2.Value">
+            <summary>
+            Holds current Autocomplete Item Value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete.AutocompleteTagContext`2.Text">
+            <summary>
+            Holds current Autocomplete Item Text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.Autocomplete.AutocompleteTagContext`2.Remove">
+            <summary>
+            Removes Item from selection.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.DropdownList`2">
+            <summary>
+            A component that dynamically generated dropdown menu based on the supplied data-source.
+            </summary>
+            <typeparam name="TItem">Type of an item filtered by the component.</typeparam>
+            <typeparam name="TValue">Type of an SelectedValue field.</typeparam>
+        </member>
+        <member name="F:Blazorise.Components.DropdownList`2.dropdownRef">
+            <summary>
+            Reference to the Dropdown component.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.DropdownList`2.dropdownToggleRef">
+            <summary>
+            Reference to the DropdownToggle component.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.DropdownList`2.Focus(System.Boolean)">
+            <summary>
+            Sets focus on the input element, if it can be focused.
+            </summary>
+            <param name="scrollToElement">If true the browser should scroll the document to bring the newly-focused element into view.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="M:Blazorise.Components.DropdownList`2.IsSelected(`1)">
+            <summary>
+            Whether the value is currently selected.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.ElementId">
+            <summary>
+            Gets or sets the dropdown element id.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.Color">
+            <summary>
+            Defines the color of toggle button.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.DropdownToggleSize">
+            <summary>
+            Defines the size of toggle button.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.RightAligned">
+            <summary>
+            If true, a dropdown menu will be right aligned.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.Disabled">
+            <summary>
+            If true, dropdown would not react to button click.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.Direction">
+            <summary>
+            Dropdown-menu slide direction.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.Data">
+            <summary>
+            Gets or sets the DropdownList data-source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.TextField">
+            <summary>
+            Method used to get the display field from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.ValueField">
+            <summary>
+            Method used to get the value field from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.SelectedValue">
+            <summary>
+            Currently selected item value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.SelectedValueChanged">
+            <summary>
+            Occurs after the selected value has changed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.Class">
+            <summary>
+            Custom classname for dropdown element.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.Style">
+            <summary>
+            Custom styles for dropdown element.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.TabIndex">
+            <summary>
+            If defined, indicates that its element can be focused and can participates in sequential keyboard navigation.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.MaxMenuHeight">
+            <summary>
+            Sets the maximum height of the dropdown menu.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.Virtualize">
+            <summary>
+            Gets or sets whether the dropdown will use the Virtualize functionality.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.Attributes">
+            <summary>
+            Captures all the custom attribute that are not part of Blazorise component.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Components.DropdownList`2"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.SelectionMode">
+            <summary>
+            Gets or sets the <see cref="T:Blazorise.Components.DropdownList`2"/> Selection Mode.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.SelectedValues">
+            <summary>
+            Currently selected item values.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.SelectedValuesChanged">
+            <summary>
+            Occurs after the selected item values have changed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.DropdownList`2.DisabledItem">
+            <summary>
+            Method used to get the disabled items from the supplied data source.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.AutocompleteFilter">
+            <summary>
+            The Autocomplete's filter mode.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.AutocompleteFilter.StartsWith">
+            <summary>
+            The filtered items will appear only if the search value is found at the beginning of the item value.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.AutocompleteFilter.Contains">
+            <summary>
+            The filtered items will appear if the search value is found anywhere in the item value.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.AutocompleteSelectionMode">
+            <summary>
+            The Autocomplete's selection mode.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.AutocompleteSelectionMode.Default">
+            <summary>
+            Default mode. Selection is single.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.AutocompleteSelectionMode.Multiple">
+            <summary>
+            Multiple mode. Selection is multiple.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.AutocompleteSelectionMode.Checkbox">
+            <summary>
+            Checkbox mode. Selection is multiple with checkbox selection support.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.DropdownListSelectionMode">
+            <summary>
+            The DropdownList's selection mode.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.DropdownListSelectionMode.Default">
+            <summary>
+            Default mode. Selection is single.
+            </summary>
+        </member>
+        <member name="F:Blazorise.Components.DropdownListSelectionMode.Checkbox">
+            <summary>
+            Checkbox mode. Selection is multiple with checkbox selection support.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.AutocompleteClosedEventArgs">
+            <summary>
+            Provides all the information about the <see cref="P:Blazorise.Components.Autocomplete`2.Closed"/> event in <see cref="T:Blazorise.Components.Autocomplete`2"/>.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.AutocompleteClosedEventArgs.#ctor(Blazorise.CloseReason)">
+            <summary>
+            Initializes a new instance of closed event argument.
+            </summary>
+            <param name="closeReason">The reason why the Autocomplete was closed.</param>
+        </member>
+        <member name="P:Blazorise.Components.AutocompleteClosedEventArgs.CloseReason">
+            <summary>
+            Gets the reason why the <see cref="T:Blazorise.Components.Autocomplete`2"/> closed.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.AutocompleteReadDataEventArgs">
+            <summary>
+            Provides all the information for loading the <see cref="T:Blazorise.Components.Autocomplete`2"/> data manually.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.AutocompleteReadDataEventArgs.#ctor(System.String,System.Int32,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Initializes a new instance of read-data event argument.
+            </summary>
+            <param name="searchValue">The value to search.</param>
+            <param name="virtualizeOffset">Requested data start index by Virtualize.</param>
+            <param name="virtualizeCount">Max number of items requested by Virtualize.</param>
+            <param name="cancellationToken">Cancellation token.</param>
+        </member>
+        <member name="P:Blazorise.Components.AutocompleteReadDataEventArgs.SearchValue">
+            <summary>
+            Gets the search value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.AutocompleteReadDataEventArgs.VirtualizeOffset">
+            <summary>
+            Gets the requested data start index by Virtualize.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.AutocompleteReadDataEventArgs.VirtualizeCount">
+            <summary>
+            Gets the max number of items requested by Virtualize.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.AutocompleteReadDataEventArgs.CancellationToken">
+            <summary>
+            Gets the CancellationToken.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.ListView`1">
+            <summary>
+            Dynamically builds ListView component and it's items based in the supplied data.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.LicenseChecker">
+            <summary>
+            Gets or sets the license checker for the user session.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Mode">
+            <summary>
+            Defines the list-group behavior mode.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.SelectionMode">
+            <summary>
+            Defines the list-group selection mode.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Flush">
+            <summary>
+            Remove some borders and rounded corners to render list group items edge-to-edge in a parent container (e.g., cards).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Scrollable">
+            <summary>
+            Makes the list group scrollable by adding a vertical scrollbar.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Data">
+            <summary>
+            Gets or sets the items data-source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.TextField">
+            <summary>
+            Method used to get the display field from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.ValueField">
+            <summary>
+            Method used to get the value field from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.DisabledItem">
+            <summary>
+            Method used to get the disabled items from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.SelectedItem">
+            <summary>
+            Currently selected item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.SelectedItems">
+            <summary>
+            Currently selected items.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.SelectedItemChanged">
+            <summary>
+            Occurs after the selected item has changed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.SelectedItemsChanged">
+            <summary>
+            Occurs after the selected items has changed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Class">
+            <summary>
+            Custom css class-names.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Style">
+            <summary>
+            Custom styles.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Height">
+            <summary>
+            Sets the ListView Height. 
+            Defaults to empty.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.MaxHeight">
+            <summary>
+            Sets the ListView MaxHeight. 
+            Defaults to 250px.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.ItemTemplate">
+            <summary>
+            Specifies the content to be rendered inside each item of the <see cref="T:Blazorise.Components.ListView`1"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Virtualize">
+            <summary>
+            Gets or sets whether the listview will use the Virtualize functionality.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.Attributes">
+            <summary>
+            Captures all the custom attribute that are not part of Blazorise component.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView`1.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Components.ListView`1"/>.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.ListView.ItemContext`1">
+            <summary>
+            Holds the ItemContext for the current ListView item.
+            </summary>
+            <typeparam name="TItem">Type of an item.</typeparam>
+        </member>
+        <member name="P:Blazorise.Components.ListView.ItemContext`1.Text">
+            <summary>
+            Holds current ListView Item Text.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.ListView.ItemContext`1.Value">
+            <summary>
+            Holds current ListView Item Value.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.NotificationAlert">
+            <summary>
+            Component that handles the <see cref="T:Blazorise.INotificationService"/> to show the simple notifications.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.NotificationAlert.OnInitialized">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blazorise.Components.NotificationAlert.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blazorise.Components.NotificationAlert.OnSnackbarClosed(Blazorise.Snackbar.SnackbarClosedEventArgs)">
+            <summary>
+            Handles the <see cref="T:Blazorise.Snackbar.Snackbar"/> closing event.
+            </summary>
+            <param name="eventArgs"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Blazorise.Components.NotificationAlert.GetSnackbarColor(Blazorise.NotificationType)">
+            <summary>
+            Gets the snackbar color based on the predefined notification type.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.NotificationAlert.GetSnackbarStackLocation(Blazorise.NotificationLocation)">
+            <summary>
+            Gets the snackbar location based on the predefined notification location.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.NotificationAlert.SnackbarStack">
+            <summary>
+            Gets or sets the <see cref="T:Blazorise.Snackbar.SnackbarStack"/> reference.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.NotificationAlert.NotificationService">
+            <summary>
+            Gets or sets the <see cref="T:Blazorise.INotificationService"/> to which this component is responding.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.NotificationAlert.Location">
+            <summary>
+            Gets or sets the notification location.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.NotificationAlert.DefaultInterval">
+            <summary>
+            Defines the default interval (in milliseconds) after which the notification alert will be automatically closed (used if IntervalBeforeClose is not set on PushAsync call).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.NotificationAlert.Okayed">
+            <summary>
+            Occurs after the user has responded with an OK action.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.NotificationAlert.Closed">
+            <summary>
+            Occurs after the user has responded with a Cancel action.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.NotificationProvider">
+            <summary>
+            Component that handles the <see cref="T:Blazorise.INotificationService"/> to show the simple notifications.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.SelectList`2">
+            <summary>
+            Dynamically builds select component and it's items based in the supplied data.
+            </summary>
+            <typeparam name="TItem">Data item type.</typeparam>
+            <typeparam name="TValue">Type if the value inside of <see cref="T:Blazorise.Components.SelectList`2"/>.</typeparam>
+        </member>
+        <member name="F:Blazorise.Components.SelectList`2.selectRef">
+            <summary>
+            Reference to the <see cref="T:Blazorise.Select`1"/> component.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.SelectList`2.OnInitialized">
+            <inheritdoc/>
+        </member>
+        <member name="M:Blazorise.Components.SelectList`2.Focus(System.Boolean)">
+            <summary>
+            Sets focus on the input element, if it can be focused.
+            </summary>
+            <param name="scrollToElement">If true the browser should scroll the document to bring the newly-focused element into view.</param>
+            <returns>A task that represents the asynchronous operation.</returns>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.IdGenerator">
+            <summary>
+            Gets or set the javascript runner.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.ElementId">
+            <summary>
+            Gets or sets the select element id.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.Multiple">
+            <summary>
+            Specifies that multiple items can be selected.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.Data">
+            <summary>
+            Gets or sets the select data-source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.TextField">
+            <summary>
+            Method used to get the display field from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.ValueField">
+            <summary>
+            Method used to get the value field from the supplied data source.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.ItemDisabled">
+            <summary>
+            Method used to determine if an item should be disabled.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.SelectedValue">
+            <summary>
+            Currently selected item value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.SelectedValues">
+            <summary>
+            Gets or sets the multiple selected item values.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.SelectedValueChanged">
+            <summary>
+            Occurs after the selected value has changed.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.SelectedValuesChanged">
+            <summary>
+            Occurs when the selected items value has changed (only when <see cref="P:Blazorise.Components.SelectList`2.Multiple"/>==true).
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.SelectedValueExpression">
+            <summary>
+            Gets or sets an expression that identifies the selected value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.SelectedValuesExpression">
+            <summary>
+            Gets or sets an expression that identifies the selected value.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.DefaultItemText">
+            <summary>
+            Display text of the default select item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.DefaultItemValue">
+            <summary>
+            Value of the default select item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.DefaultItemDisabled">
+            <summary>
+            If true, disables the default item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.DefaultItemHidden">
+            <summary>
+            If true, disables the default item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.Class">
+            <summary>
+            Custom css class-names.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.Style">
+            <summary>
+            Custom styles.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.Size">
+            <summary>
+            Size of a select field.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.MaxVisibleItems">
+            <summary>
+            Specifies how many options should be shown at once.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.TabIndex">
+            <summary>
+            If defined, indicates that its element can be focused and can participates in sequential keyboard navigation.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.Disabled">
+            <summary>
+            Add the disabled boolean attribute on an select to prevent user interactions and make it appear lighter.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.Attributes">
+            <summary>
+            Captures all the custom attribute that are not part of Blazorise component.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.Feedback">
+            <summary>
+            Placeholder for validation messages.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.SelectList`2.ChildContent">
+            <summary>
+            Specifies the content to be rendered inside this <see cref="T:Blazorise.Components.SelectList`2"/>.
+            </summary>
+        </member>
+        <member name="T:Blazorise.Components.TransferList`1">
+            <summary>
+            Component for transferring items between two lists.
+            </summary>
+            <typeparam name="TItem">The type of items in the lists.</typeparam>
+        </member>
+        <member name="M:Blazorise.Components.TransferList`1.MoveSelectedEnd">
+            <summary>
+            Moves selected items from the start list to the end list.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.TransferList`1.MoveSelectedStart">
+            <summary>
+            Moves selected items from the end list to the start list.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.TransferList`1.MoveAllEnd">
+            <summary>
+            Moves all items from the start list to the end list.
+            </summary>
+        </member>
+        <member name="M:Blazorise.Components.TransferList`1.MoveAllStart">
+            <summary>
+            Moves all items from the end list to the start list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.MoveableItemsStart">
+            <summary>
+            Returns the items that can be moved to the end list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.MoveableItemsEnd">
+            <summary>
+            Returns the items that can be moved to the start list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.IsMoveAllEndDisabled">
+            <summary>
+            Gets a value indicating whether the "Move All End" action is disabled.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.IsMoveAllStartDisabled">
+            <summary>
+            Gets a value indicating whether the "Move All Start" action is disabled.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.IsMoveEndDisabled">
+            <summary>
+            Gets a value indicating whether the "Move End" action is disabled.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.IsMoveStartDisabled">
+            <summary>
+            Gets a value indicating whether the "Move Start" action is disabled.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.Mode">
+            <summary>
+            Defines the list-group behavior mode.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectionMode">
+            <summary>
+            Defines the list-group selection mode.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.ShowMoveAll">
+            <summary>
+            Enables the "Move All" Actions.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.MoveButtonsColor">
+            <summary>
+            Defines the color of the move buttons.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.Scrollable">
+            <summary>
+            Makes the list group scrollable by adding a vertical scrollbar.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.MaxHeight">
+            <summary>
+            Sets the TransferList MaxHeight. 
+            Defaults to 300px.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.ItemStartTemplate">
+            <summary>
+            Specifies the content to be rendered inside each item of the <see cref="T:Blazorise.Components.ListView`1"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.ItemEndTemplate">
+            <summary>
+            Specifies the content to be rendered inside each item of the <see cref="T:Blazorise.Components.ListView`1"/>.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.Items">
+            <summary>
+            Gets or sets the items in the list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.ValueField">
+            <summary>
+            Gets or sets the function to extract the value field from an item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.TextField">
+            <summary>
+            Gets or sets the function to extract the text field from an item.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.CanMoveToStart">
+            <summary>
+            Whether the item may be moved to the Start List.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.CanMoveToEnd">
+            <summary>
+            Whether the item may be moved to the End List.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.ItemsStart">
+            <summary>
+            Gets or sets the items in the start list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.ItemsStartChanged">
+            <summary>
+            Gets or sets the event callback for changes in the start list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.ItemsEnd">
+            <summary>
+            Gets or sets the items in the end list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.ItemsEndChanged">
+            <summary>
+            Gets or sets the event callback for changes in the end list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectedItemStart">
+            <summary>
+            Gets or sets item that is currently selected in the start list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectedItemStartChanged">
+            <summary>
+            Gets or sets the event callback for changes in the start list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectedItemEnd">
+            <summary>
+            Gets or sets item that is currently selected in the end list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectedItemEndChanged">
+            <summary>
+            Gets or sets the event callback for changes in the end list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectedItemsStart">
+            <summary>
+            Gets or sets items that are currently selected in the start list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectedItemsStartChanged">
+            <summary>
+            Gets or sets the event callback for changes to the items in the start list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectedItemsEnd">
+            <summary>
+            Gets or sets items that are currently selected in the end list.
+            </summary>
+        </member>
+        <member name="P:Blazorise.Components.TransferList`1.SelectedItemsEndChanged">
+            <summary>
+            Gets or sets the event callback for changes to the items in the end list.
+            </summary>
+        </member>
+    </members>
+</doc>
