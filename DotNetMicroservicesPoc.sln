@@ -61,6 +61,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DashboardService.E2ETest", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuthService.Test", "AuthService.Test\AuthService.Test.csproj", "{29FE7A94-6F1D-4DA6-8D20-43A5BCB47DC2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatService.E2ETest", "ChatService.E2ETest\ChatService.E2ETest.csproj", "{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -419,6 +421,18 @@ Global
 		{29FE7A94-6F1D-4DA6-8D20-43A5BCB47DC2}.Release|x64.Build.0 = Release|Any CPU
 		{29FE7A94-6F1D-4DA6-8D20-43A5BCB47DC2}.Release|x86.ActiveCfg = Release|Any CPU
 		{29FE7A94-6F1D-4DA6-8D20-43A5BCB47DC2}.Release|x86.Build.0 = Release|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Debug|x64.Build.0 = Debug|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Debug|x86.Build.0 = Debug|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Release|x64.ActiveCfg = Release|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Release|x64.Build.0 = Release|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Release|x86.ActiveCfg = Release|Any CPU
+		{32081DCD-2E8E-4460-BA7C-99333FF1CBDD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
