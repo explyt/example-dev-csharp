@@ -20,13 +20,22 @@ public class AuthService
 
     public AuthResult Authenticate(string login, string pwd)
     {
+        if (login == null)
+        {
+            return null;
+        }
+        
         var agent = agents.FindByLogin(login);
 
         if (agent == null)
+        {
             return null;
+        }
 
         if (!agent.PasswordMatches(pwd))
+        {
             return null;
+        }
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(appSettings.Secret);
@@ -46,6 +55,7 @@ public class AuthService
                 SecurityAlgorithms.HmacSha256Signature)
         };
         var token = tokenHandler.CreateToken(tokenDescriptor);
+            
         return new AuthResult
         (
             tokenHandler.WriteToken(token),
@@ -59,6 +69,11 @@ public class AuthService
 
     public InsuranceAgent AgentFromLogin(string login)
     {
+        if (login == null)
+        {
+            return null;
+        }
+        
         return agents.FindByLogin(login);
     }
 }
