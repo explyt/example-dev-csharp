@@ -24,7 +24,6 @@
 
     <ItemGroup>
       <Compile Remove="Init\InMemoryDataInitializer.cs" />
-      <Compile Remove="DataAccess\Elastic\**\*.cs" />
     </ItemGroup>
 
 
