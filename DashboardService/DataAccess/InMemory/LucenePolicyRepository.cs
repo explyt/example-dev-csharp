@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
@@ -37,6 +38,9 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
                 new StringField("agentLogin", policy.AgentLogin ?? string.Empty, Field.Store.YES),
                 new StringField("productCode", policy.ProductCode ?? string.Empty, Field.Store.YES),
                 new StringField("from", policy.From.ToString("o", CultureInfo.InvariantCulture), Field.Store.YES),
+                new StringField("to", policy.To.ToString("o", CultureInfo.InvariantCulture), Field.Store.YES),
+                new StringField("salesDate", policy.SalesDate.ToString("o", CultureInfo.InvariantCulture), Field.Store.YES),
+                new StringField("policyHolder", policy.PolicyHolder ?? string.Empty, Field.Store.YES),
                 new DoubleField("totalPremium", Convert.ToDouble(policy.TotalPremium), Field.Store.YES)
             };
 
@@ -93,7 +97,7 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
         var docs = SearchByFilters(null, query.FilterByProductCode, query.FilterBySalesDateStart, query.FilterBySalesDateEnd);
             var periods = docs.GroupBy(d =>
         {
-            var dt = DateTime.Parse(d.Get("from"), null, DateTimeStyles.RoundtripKind);
+            var dt = DateTime.Parse(d.Get("salesDate"), null, DateTimeStyles.RoundtripKind);
             return query.AggregationUnit switch
             {
                 TimeAggregationUnit.Month => new DateTime(dt.Year, dt.Month, 1),
@@ -144,7 +148,7 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
         {
             docs = docs.Where(d =>
             {
-                var dt = DateTime.Parse(d.Get("from"), null, DateTimeStyles.RoundtripKind);
+                var dt = DateTime.Parse(d.Get("salesDate"), null, DateTimeStyles.RoundtripKind);
                 if (fromDate != default && dt < fromDate) return false;
                 if (toDate != default && dt > toDate) return false;
                 return true;
@@ -158,13 +162,26 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
     {
         var number = doc.Get("number");
         var from = DateTime.Parse(doc.Get("from"), null, DateTimeStyles.RoundtripKind);
-        var to = from.AddYears(1).AddDays(-1);
-        var insured = doc.Get("insuredName");
+        var to = DateTime.Parse(doc.Get("to"), null, DateTimeStyles.RoundtripKind);
+        var salesDate = DateTime.Parse(doc.Get("salesDate"), null, DateTimeStyles.RoundtripKind);
+        var insured = doc.Get("policyHolder");
         var product = doc.Get("productCode");
         var premium = Convert.ToDecimal(doc.Get("totalPremium"));
         var agent = doc.Get("agentLogin");
 
-        return new PolicyDocument(number, from, to, insured, product, premium, agent);
+        return new PolicyDocument(number, from, to, salesDate, insured, product, premium, agent);
+    }
+    
+    public Task Clear()
+    {
+        lock (writerLock)
+        {
+            writer.DeleteAll();
+            writer.Flush(triggerMerge: false, applyAllDeletes: false);
+            writer.Commit();
+        }
+
+        return Task.CompletedTask;
     }
 
     public void Dispose()

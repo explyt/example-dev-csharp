@@ -8,6 +8,7 @@ public class PolicyDocumentBuilder
     private readonly string policyHolder;
     private string agentLogin;
     private DateTime from;
+    private DateTime salesDate;
     private string number;
     private string productCode;
     private DateTime to;
@@ -18,6 +19,7 @@ public class PolicyDocumentBuilder
         number = Guid.NewGuid().ToString();
         from = new DateTime(2020, 1, 1);
         to = from.AddYears(1).AddDays(-1);
+        salesDate = from;
         policyHolder = "Jan Test";
         productCode = "TRI";
         totalPremium = 100M;
@@ -39,6 +41,13 @@ public class PolicyDocumentBuilder
     {
         from = DateTime.Parse(start);
         to = DateTime.Parse(end);
+        salesDate = from;
+        return this;
+    }
+
+    public PolicyDocumentBuilder WithSalesDate(string date)
+    {
+        salesDate = DateTime.Parse(date);
         return this;
     }
 
@@ -67,6 +76,7 @@ public class PolicyDocumentBuilder
             number,
             from,
             to,
+            salesDate,
             policyHolder,
             productCode,
             totalPremium,
