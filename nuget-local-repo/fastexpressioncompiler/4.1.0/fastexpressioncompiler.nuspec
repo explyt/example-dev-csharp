@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>FastExpressionCompiler</id>
+    <version>4.1.0</version>
+    <title>FastExpressionCompiler</title>
+    <authors>Maksim Volkau</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>logo.png</icon>
+    <readme>readme.md</readme>
+    <projectUrl>https://github.com/dadhi/FastExpressionCompiler</projectUrl>
+    <iconUrl>https://github.com/dadhi/FastExpressionCompiler/blob/master/logo.png</iconUrl>
+    <description>FastExpressionCompiler is 10-40x times faster than Expression.Compile()</description>
+    <releaseNotes>## v4.1.0 Small feature and bug release
+
+- added: #379 Add direct net8.0 target as soon as Appveyor CI will support it
+- fixed: #380 Comparisons with nullable types
+- fixed: #381 NullReferenceException with V4.X when trying to map
+- fixed: #386 Value can not be null(parametr 'meth')
+
+
+## v4.0.1 Bug-fix release
+
+- fixed: #374 CompileFast doesn't work with HasFlag
+
+
+## v4.0.0 Major release
+
+- fixed: #352 xxxAssign doesn't work with MemberAccess
+- fixed: #353 NullReferenceException when calling CompileFast() results
+- fixed: #357 Invalid program exception
+- fixed: #366 FastExpressionCompiler[v3.3.4] gives incorrect results in some linq operations
+- fixed: #368 Fix duplicate nested lambda compilation
+- fixed: #374 CompileFast doesn't work with HasFlag
+
+- added: #264 Optimize the array index emit to emit specific Ldelem_ code instead of generic Ldelem
+- added: #273 Implement IArgumentProvider for the BlockExpression to minimize the consumed memory
+- added: #346 Is it possible to implement ref local variables?
+- added: #359 Improve the performance of variable lookup
+- added: #367 Better diagnostics and debugging with error codes from Collect and Compile rounds
+- added: #369 Decrease memory occupied by the LightExpression Block by storing Expression in SmallList (partly on stack)
+- added: #370 Optimize any nested lambda compilation (LINQ) by compiling right after collect one-by-one
+- added: #372 Support LightExpression.Expression.TryConvertDelegateIntrinsic for converting one type of delegate to another
+- added: #373 Support custom C# printing for the LightExpression.Expression</releaseNotes>
+    <copyright>Copyright © 2016-2023 Maksim Volkau</copyright>
+    <tags>Performance Expression ExpressionTree Compile DynamicMethod IL ILEmit DryIoc ExpressionToCodeLib</tags>
+    <repository type="git" url="https://github.com/dadhi/FastExpressionCompiler" commit="b63f74ad5881d07eeccb1151e8434c869cb9645b" />
+    <dependencies>
+      <group targetFramework=".NETFramework4.5">
+        <dependency id="System.ValueTuple" version="4.5.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net6.0" />
+      <group targetFramework="net7.0" />
+      <group targetFramework="net8.0" />
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Dynamic.Runtime" version="4.3.0" exclude="Build,Analyzers" />
+        <dependency id="System.Reflection.Emit.Lightweight" version="4.7.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.1" />
+    </dependencies>
+  </metadata>
+</package>

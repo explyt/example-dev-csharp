@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MessagePipe.Interprocess</name>
+    </assembly>
+    <members>
+        <member name="M:MessagePipe.Interprocess.Workers.SocketTcpServer.ListenUds(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            create TCP unix domain socket server and listen
+            </summary>
+            <param name="domainSocketPath">path to unix domain socket</param>
+            <param name="recvBufferSize">socket's receive buffer size</param>
+            <param name="sendBufferSize">socket's send buffer size</param>
+            <exception cref="T:System.Net.Sockets.SocketException">unix domain socket not supported or socket already exists</exception>
+            <returns>TCP unix domain socket server</returns>
+        </member>
+        <member name="M:MessagePipe.Interprocess.Workers.SocketTcpClient.ConnectUds(System.String)">
+            <summary>
+            create TCP unix domain socket client and connect to server
+            </summary>
+            <param name="domainSocketPath">path to unix domain socket</param>
+            <exception cref="T:System.Net.Sockets.SocketException">unix domain socket not supported or server does not listen</exception>
+            <returns>TCP socket client.</returns>
+        </member>
+        <member name="M:MessagePipe.Interprocess.Workers.SocketUdpServer.BindUds(System.String,System.Int32)">
+            <summary>
+            create UDP socket and bind for listen.
+            </summary>
+            <param name="domainSocketPath">path to socket</param>
+            <param name="bufferSize">socket buffer size</param>
+            <exception cref="T:System.Net.Sockets.SocketException">unix domain socket not supported or socket already exists even if it is not bound</exception>
+            <returns>UDP server with bound socket</returns>
+        </member>
+        <member name="M:MessagePipe.Interprocess.Workers.SocketUdpClient.ConnectUds(System.String,System.Int32)">
+            <summary>
+            create UDP unix domain socket client and connect to server
+            </summary>
+            <param name="domainSocketPath">path to unix domain socket</param>
+            <param name="bufferSize"></param>
+            <exception cref="T:System.Net.Sockets.SocketException">unix domain socket not supported or server does not exist</exception>
+            <returns>UDP unix domain socket client</returns>
+        </member>
+    </members>
+</doc>

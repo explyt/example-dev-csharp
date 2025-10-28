@@ -1,0 +1,1038 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Weasel.Core</name>
+    </assembly>
+    <members>
+        <member name="F:Weasel.Core.AutoCreate.All">
+            <summary>
+                Will drop and recreate tables that do not match the Marten configuration or create new ones
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.AutoCreate.CreateOrUpdate">
+            <summary>
+                Will never destroy existing tables. Attempts to add missing columns or missing tables
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.AutoCreate.CreateOnly">
+            <summary>
+                Will create missing schema objects at runtime, but will not update or remove existing schema objects
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.AutoCreate.None">
+            <summary>
+                Do not recreate, destroy, or update schema objects at runtime. Will throw exceptions if
+                the schema does not match the Marten configuration
+            </summary>
+        </member>
+        <member name="T:Weasel.Core.CommandBuilderBase`3">
+            <summary>
+                Base class for batch queries against a relational database
+            </summary>
+            <typeparam name="TCommand"></typeparam>
+            <typeparam name="TParameter"></typeparam>
+            <typeparam name="TTransaction"></typeparam>
+            <typeparam name="TParameterType"></typeparam>
+            <typeparam name="TDataReader"></typeparam>
+        </member>
+        <member name="P:Weasel.Core.CommandBuilderBase`3.LastParameterName">
+            <summary>
+            Preview the parameter name of the last appended parameter
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.Append(System.String)">
+            <summary>
+                Add text to the batched command SQL string
+            </summary>
+            <param name="text"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.Append(System.Char)">
+            <summary>
+                Add text to the batched command SQL string
+            </summary>
+            <param name="character"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.Append(System.Object)">
+            <summary>
+                Add text to the batched command SQL string
+            </summary>
+            <param name="value"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.Compile">
+            <summary>
+                Build out the batched ADO.Net command
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AddParameter(System.Object,System.Nullable{`2})">
+            <summary>
+                Adds a parameter to the underlying command, but does NOT add the
+                parameter usage to the command text
+            </summary>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AddNamedParameter(System.String,System.Object,System.Nullable{`2})">
+            <summary>
+                Finds or adds a new parameter with the specified name and returns the parameter
+            </summary>
+            <param name="command"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AddNamedParameter(System.String,System.String)">
+            <summary>
+                Finds or adds a new parameter with the specified name and returns the parameter
+            </summary>
+            <param name="command"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AddNamedParameter(System.String,System.Boolean)">
+            <summary>
+                Finds or adds a new parameter with the specified name and returns the parameter
+            </summary>
+            <param name="command"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AddNamedParameter(System.String,System.Int32)">
+            <summary>
+                Finds or adds a new parameter with the specified name and returns the parameter
+            </summary>
+            <param name="command"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AddNamedParameter(System.String,System.Double)">
+            <summary>
+                Finds or adds a new parameter with the specified name and returns the parameter
+            </summary>
+            <param name="command"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AddNamedParameter(System.String,System.Int64)">
+            <summary>
+                Finds or adds a new parameter with the specified name and returns the parameter
+            </summary>
+            <param name="command"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AppendParameter(System.Object,System.Nullable{`2})">
+            <summary>
+                Append a parameter with the supplied value to the underlying command
+                parameter collection *and* the command text
+            </summary>
+            <param name="value"></param>
+            <param name="dbType"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AppendParameter(System.Int32)">
+            <summary>
+                Append a parameter with the supplied value to the underlying command
+                parameter collection *and* the command text
+            </summary>
+            <param name="value"></param>
+            <param name="dbType"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AppendParameter(System.Guid)">
+            <summary>
+                Append a parameter with the supplied value to the underlying command
+                parameter collection *and* the command text
+            </summary>
+            <param name="value"></param>
+            <param name="dbType"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AppendParameter(System.String)">
+            <summary>
+                Append a parameter with the supplied value to the underlying command parameter
+                collection and adds the parameter usage to the SQL
+            </summary>
+            <param name="value"></param>
+            <param name="dbType"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AddParameters(System.Object)">
+            <summary>
+                For each public property of the parameters object, adds a new parameter
+                to the command with the name of the property and the current value of the property
+                on the parameters object. Does *not* affect the command text
+            </summary>
+            <param name="parameters"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AppendWithParameters(System.String)">
+            <summary>
+                Append a SQL string with `?` placeholders for new parameters, and returns an
+                array of the newly created parameters
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderBase`3.AppendWithParameters(System.String,System.Char)">
+            <summary>
+                Append a SQL string with user defined placeholder characters for new parameters, and returns an
+                array of the newly created parameters
+            </summary>
+            <param name="text"></param>
+            <param name="separator"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderExtensions.ExecuteNonQueryAsync``1(System.Data.Common.DbConnection,Weasel.Core.ICommandBuilder{``0},System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the command against the user supplied connection
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderExtensions.ExecuteNonQueryAsync``1(System.Data.Common.DbConnection,Weasel.Core.ICommandBuilder{``0},System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the command against the user supplied connection
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="tx"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderExtensions.ExecuteReaderAsync``1(System.Data.Common.DbConnection,Weasel.Core.ICommandBuilder{``0},System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the command against the user supplied connection and
+                return a data reader for the results
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderExtensions.ExecuteReaderAsync``1(System.Data.Common.DbConnection,Weasel.Core.ICommandBuilder{``0},System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the command against the user supplied connection and
+                return a data reader for the results
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="tx"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandBuilderExtensions.FetchListAsync``2(System.Data.Common.DbConnection,Weasel.Core.ICommandBuilder{``1},System.Func{System.Data.Common.DbDataReader,System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}},System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the query and returns the results transformed from the raw database reader
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="transform"></param>
+            <param name="tx"></param>
+            <param name="ct"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.ToCommandBuilder(System.Data.Common.DbConnection)">
+            <summary>
+                Create a CommandBuilder around the DbConnection
+            </summary>
+            <param name="connection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.Sql``1(``0,System.String)">
+            <summary>
+                Set the CommandText on this DbCommand in a Fluent Interface style
+            </summary>
+            <param name="cmd"></param>
+            <param name="sql"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.CallsSproc``1(``0,System.String)">
+            <summary>
+                Set the command text of the command object to a stored procedure name and
+                change the command type to StoredProcedure in a fluent interface style
+            </summary>
+            <param name="cmd"></param>
+            <param name="storedProcedureName"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.CallsSproc``1(``0,Weasel.Core.DbObjectName)">
+            <summary>
+                Set the command text of the command object to a stored procedure name and
+                change the command type to StoredProcedure in a fluent interface style
+            </summary>
+            <param name="cmd"></param>
+            <param name="storedProcedureName"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.RunSqlAsync(System.Data.Common.DbConnection,System.String[])">
+            <summary>
+                Execute all of the SQL statements against the supplied DbConnection. This assumes
+                that the connection is already open
+            </summary>
+            <param name="conn"></param>
+            <param name="sqls"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.RunSqlAsync(System.Data.Common.DbConnection,System.Threading.CancellationToken,System.String[])">
+            <summary>
+                Execute all of the SQL statements against the supplied DbConnection. This assumes
+                that the connection is already open
+            </summary>
+            <param name="conn"></param>
+            <param name="sqls"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.CreateCommand(System.Data.Common.DbConnection,System.String)">
+            <summary>
+                Create a new DbCommand attached to the connection with the supplied
+                CommandText
+            </summary>
+            <param name="conn"></param>
+            <param name="sql"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.CreateCommand(System.Data.Common.DbTransaction,System.String)">
+            <summary>
+                Create a new DbCommand enlisted in the current transaction and connection
+            </summary>
+            <param name="tx"></param>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.FetchListAsync``1(System.Data.Common.DbCommand,System.Func{System.Data.Common.DbDataReader,System.Threading.Tasks.Task{``0}},System.Threading.CancellationToken)">
+            <summary>
+                Execute the supplied command as a data reader and convert each row to an object
+                of type T with the supplied transform function
+            </summary>
+            <param name="cmd"></param>
+            <param name="transform"></param>
+            <param name="cancellation"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.FetchListAsync``1(System.Data.Common.DbCommand,System.Threading.CancellationToken)">
+            <summary>
+                Execute the command return a list of the values in the first column
+            </summary>
+            <param name="cmd"></param>
+            <param name="cancellation"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.FetchOne``1(System.Data.Common.DbCommand,System.Threading.CancellationToken)">
+            <summary>
+                Execute the command and return the value in the first column and row as type
+                T. If there is no data returned, this function will return default(T)
+            </summary>
+            <param name="cmd"></param>
+            <param name="cancellation"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.ExecuteOnce(System.Data.Common.DbCommand,System.Threading.CancellationToken)">
+            <summary>
+                Open the attached connection, execute the command, and close the connection
+                in one call. This assumes that the connection is not already open
+            </summary>
+            <param name="command"></param>
+            <param name="cancellation"></param>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.AddParameter(System.Data.Common.DbCommand,System.Object,System.Nullable{System.Data.DbType})">
+            <summary>
+                Add a single parameter to a DbCommand with the supplied value and optional DbType
+            </summary>
+            <param name="command"></param>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.CommandExtensions.AddNamedParameter(System.Data.Common.DbCommand,System.String,System.Object,System.Nullable{System.Data.DbType})">
+            <summary>
+                Find or add a single DbParameter with the supplied name. Will set the parameter value and DbType
+            </summary>
+            <param name="command"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.ConnectionSourceExtensions.RunSql``1(Weasel.Core.IConnectionSource{``0},System.String)">
+            <summary>
+                Synchronously run a single SQL statement with a new connection against this
+                connection source
+            </summary>
+            <param name="source"></param>
+            <param name="sql"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Weasel.Core.ConnectionSourceExtensions.RunSqlAsync``1(Weasel.Core.IConnectionSource{``0},System.String,System.Threading.CancellationToken)">
+            <summary>
+                Asynchronously run a single SQL statement with a new connection against this
+                connection source
+            </summary>
+            <param name="source"></param>
+            <param name="sql"></param>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:Weasel.Core.CreationStyle.DropThenCreate">
+            <summary>
+                Export DDL by first issuing a DROP statement for a table, then the CREATE statement. This is the default
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.CreationStyle.CreateIfNotExists">
+            <summary>
+                Export DDL for table creation by using a CREATE IF NOT EXISTS clause w/o a prior DROP statement
+            </summary>
+        </member>
+        <member name="T:Weasel.Core.IDatabaseProvider">
+            <summary>
+                Primarily responsible for handling .Net to database engine type mappings
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.IDatabaseProvider.ToQualifiedName(System.String)">
+            <summary>
+            Maps databaseObjectName to include local conventions around case sensitivity etc.
+            </summary>
+            <param name="objectName">database object name (e.g. table, sequence)</param>
+            <returns></returns>
+        </member>
+        <member name="T:Weasel.Core.IDatabaseProvider`3">
+            <summary>
+                Primarily responsible for handling .Net to database engine type mappings
+            </summary>
+            <typeparam name="TCommand"></typeparam>
+            <typeparam name="TParameter"></typeparam>
+            <typeparam name="TTransaction"></typeparam>
+            <typeparam name="TParameterType"></typeparam>
+            <typeparam name="TDataReader"></typeparam>
+        </member>
+        <member name="T:Weasel.Core.DatabaseProvider`3">
+            <summary>
+                Base type for database providers. Primarily responsible for handling .Net to database engine type mappings
+            </summary>
+            <typeparam name="TCommand"></typeparam>
+            <typeparam name="TParameter"></typeparam>
+            <typeparam name="TConnection"></typeparam>
+            <typeparam name="TTransaction"></typeparam>
+            <typeparam name="TParameterType"></typeparam>
+            <typeparam name="TDataReader"></typeparam>
+        </member>
+        <member name="M:Weasel.Core.DatabaseProvider`3.AddNamedParameter(`0,System.String,System.Object,System.Nullable{`2})">
+            <summary>
+                Finds or adds a new parameter with the specified name and returns the parameter
+            </summary>
+            <param name="command"></param>
+            <param name="name"></param>
+            <param name="value"></param>
+            <param name="dbType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Weasel.Core.DbCommandBuilder">
+            <summary>
+                CommandBuilder for generic DbCommand or DbConnection commands
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.DbCommandBuilderExtensions.ExecuteNonQueryAsync(System.Data.Common.DbConnection,Weasel.Core.DbCommandBuilder,System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the batched command against the user supplied connection
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.DbCommandBuilderExtensions.ExecuteNonQueryAsync(System.Data.Common.DbConnection,Weasel.Core.DbCommandBuilder,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the batched command against the user supplied connection
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="tx"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.DbCommandBuilderExtensions.ExecuteReaderAsync(System.Data.Common.DbConnection,Weasel.Core.DbCommandBuilder,System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the command against the user supplied connection and
+                return a data reader for the results
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.DbCommandBuilderExtensions.ExecuteReaderAsync(System.Data.Common.DbConnection,Weasel.Core.DbCommandBuilder,System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the command against the user supplied connection and
+                return a data reader for the results
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="tx"></param>
+            <param name="ct"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.DbCommandBuilderExtensions.FetchListAsync``1(System.Data.Common.DbConnection,Weasel.Core.DbCommandBuilder,System.Func{System.Data.Common.DbDataReader,System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}},System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the query and returns the results transformed from the raw database reader
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="transform"></param>
+            <param name="tx"></param>
+            <param name="ct"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.DbCommandBuilderExtensions.FetchListAsync``1(System.Data.Common.DbConnection,Weasel.Core.DbCommandBuilder,System.Func{System.Data.Common.DbDataReader,System.Threading.CancellationToken,System.Threading.Tasks.Task{``0}},System.Data.Common.DbTransaction,System.Threading.CancellationToken)">
+            <summary>
+                Compile and execute the query and returns the results transformed from the raw database reader
+            </summary>
+            <param name="connection"></param>
+            <param name="commandBuilder"></param>
+            <param name="transform"></param>
+            <param name="ct"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Weasel.Core.DbObjectName">
+            <summary>
+                Models a database object with both schema name and object name
+            </summary>
+        </member>
+        <member name="T:Weasel.Core.EnumStorage">
+            <summary>
+                Governs how .Net Enum types are persisted
+                in the serialized JSON
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.EnumStorage.AsInteger">
+            <summary>
+                Serialize Enum values as their integer value
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.EnumStorage.AsString">
+            <summary>
+                Serialize Enum values as their string value
+            </summary>
+        </member>
+        <member name="T:Weasel.Core.IConnectionSource">
+            <summary>
+                Interface for services that can create a new connection object
+                to the underlying database
+            </summary>
+        </member>
+        <member name="T:Weasel.Core.IConnectionSource`1">
+            <summary>
+                Interface for services that can create a new connection object
+                to the underlying database
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Weasel.Core.IConnectionSource`1.CreateConnection">
+            <summary>
+                Fetch a connection to the tenant database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Weasel.Core.ISchemaObject">
+            <summary>
+                Responsible for the desired configuration of a single database object like
+                a table, sequence, of function.
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.ISchemaObject.Identifier">
+            <summary>
+                Name of this database object
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.ISchemaObject.WriteCreateStatement(Weasel.Core.Migrator,System.IO.TextWriter)">
+            <summary>
+                Write the SQL statement(s) to create this object in a database
+            </summary>
+            <param name="migrator"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Weasel.Core.ISchemaObject.WriteDropStatement(Weasel.Core.Migrator,System.IO.TextWriter)">
+            <summary>
+                Write the SQL statement(s) to drop this object from a database
+            </summary>
+            <param name="rules"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Weasel.Core.ISchemaObject.ConfigureQueryCommand(Weasel.Core.DbCommandBuilder)">
+            <summary>
+                Register the necessary queries to check the existing state of this schema
+                object in the database
+            </summary>
+            <param name="builder"></param>
+        </member>
+        <member name="M:Weasel.Core.ISchemaObject.CreateDeltaAsync(System.Data.Common.DbDataReader,System.Threading.CancellationToken)">
+            <summary>
+                Given the results of the query built by ConfigureQueryCommand(), return an
+                object describing the difference between the as configured object and the object
+                in the database
+            </summary>
+            <param name="reader"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.ISchemaObject.AllNames">
+            <summary>
+                Returns all the database object names created by this ISchemaObject. Most of the
+                time this is just Identifier, but tables may create named indexes that would also be
+                reflected here
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Weasel.Core.ISchemaObjectDelta">
+            <summary>
+                Models the difference between a configured ISchemaObject and the actual
+                database version of that object
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.ISchemaObjectDelta.SchemaObject">
+            <summary>
+                The subject of this delta
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.ISchemaObjectDelta.WriteUpdate(Weasel.Core.Migrator,System.IO.TextWriter)">
+            <summary>
+                Write the SQL to make incremental changes to the existing object
+                in the database to make it match the as desired configuration
+            </summary>
+            <param name="rules"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Weasel.Core.ISchemaObjectDelta.WriteRollback(Weasel.Core.Migrator,System.IO.TextWriter)">
+            <summary>
+                Write the necessary SQL to rollback any incremental changes to the
+                existing object in this delta
+            </summary>
+            <param name="rules"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Weasel.Core.ISchemaObjectDelta.WriteRestorationOfPreviousState(Weasel.Core.Migrator,System.IO.TextWriter)">
+            <summary>
+                Only used to express the current state in the database for an object when
+                Weasel is unable to execute the detected changes
+            </summary>
+            <param name="rules"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Weasel.Core.Migrations.DatabaseBase`1.AllSchemaNames">
+            <summary>
+                All referenced schema names by the known objects in this database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.DatabaseBase`1.WriteScriptsByTypeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Write scripts for all the features in this database to a file for
+                each feature
+            </summary>
+            <param name="directory"></param>
+        </member>
+        <member name="T:Weasel.Core.Migrations.DatabaseValidationException">
+            <summary>
+                Thrown when the actual database configuration does not match the expected configuration
+            </summary>
+        </member>
+        <member name="T:Weasel.Core.Migrations.FeatureSchemaBase">
+            <summary>
+                Base class for easier creation of custom IFeatureSchema objects
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.Migrations.FeatureSchemaExtensions.WriteFeatureCreation(Weasel.Core.Migrations.IFeatureSchema,Weasel.Core.Migrator,System.IO.TextWriter)">
+            <summary>
+                Write the creation SQL for an entire feature
+            </summary>
+            <param name="schema"></param>
+            <param name="rules"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="T:Weasel.Core.Migrations.IDatabase">
+            <summary>
+                Marker interface for a known database with expected schema features
+                used to drive the migration process
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.Migrations.IDatabase.Migrator">
+            <summary>
+                The migrator rules for formatting SQL for this database
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.Migrations.IDatabase.Identifier">
+            <summary>
+                Identifying name for Weasel infrastructure and logging
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.BuildFeatureSchemas">
+            <summary>
+                Create all known features in order. Dependency relationships are assumed
+                to be reflected in the order of the feature array
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.AllSchemaNames">
+            <summary>
+                All referenced schema names by the known objects in this database
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.AllObjects">
+            <summary>
+                Return an enumerable of all schema objects in dependency order
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.CreateMigrationAsync(Weasel.Core.Migrations.IFeatureSchema,System.Threading.CancellationToken)">
+            <summary>
+                Determine a migration for a single IFeatureSchema
+            </summary>
+            <param name="group"></param>
+            <param name="ct"> Cancellation token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.ToDatabaseScript">
+            <summary>
+                Return the SQL script for the entire database configuration as a single string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.WriteCreationScriptToFileAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Write the SQL creation script to the supplied filename
+            </summary>
+            <param name="filename"></param>
+            <param name="ct">Cancellation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.WriteScriptsByTypeAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Write the SQL creation script by feature type to the supplied directory
+            </summary>
+            <param name="directory"></param>
+            <param name="ct">Cancellation Token</param>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.CreateMigrationAsync(System.Threading.CancellationToken)">
+            <summary>
+                Determine a migration for the configured database against the actual database
+            </summary>
+            <param name="ct">Cancellation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.ApplyAllConfiguredChangesToDatabaseAsync(System.Nullable{Weasel.Core.AutoCreate},Weasel.Core.Migrations.ReconnectionOptions,System.Threading.CancellationToken)">
+            <summary>
+                Apply all detected changes between configuration and the actual database to the database
+            </summary>
+            <param name="override">If supplied, this overrides the AutoCreate threshold of this database</param>
+            <param name="reconnectionOptions">Reconnection policy options when the database is unavailable while applying database changes. If not supplied it will use default options.</param>
+            <param name="ct">Cancellation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.AssertDatabaseMatchesConfigurationAsync(System.Threading.CancellationToken)">
+            <summary>
+                Assert that the existing database matches the configured database
+            </summary>
+            <param name="ct">Cancellation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabase.AssertConnectivityAsync(System.Threading.CancellationToken)">
+            <summary>
+                Attempts to connect to the actual database and throws an exception
+                if that fails
+            </summary>
+            <param name="ct">Cancellation Token</param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrations.DatabaseExtensions.WriteMigrationFileAsync(Weasel.Core.Migrations.IDatabase,System.String,System.Threading.CancellationToken)">
+            <summary>
+                Generate a migration, and write the results to the specified file name
+            </summary>
+            <param name="database"></param>
+            <param name="filename"></param>
+        </member>
+        <member name="T:Weasel.Core.Migrations.IDatabaseSource">
+            <summary>
+                Service that exposes multiple databases for migration operations. This
+                was intended for "database per tenant" type scenarios
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IDatabaseSource.BuildDatabases">
+            <summary>
+                Resolve a list of the known databases
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Weasel.Core.Migrations.IFeatureSchema">
+            <summary>
+                Defines a distinct part of your database. Can represent relationships
+                between groups as well
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.Migrations.IFeatureSchema.Identifier">
+            <summary>
+                Really just the filename when the SQL is exported
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.Migrations.IFeatureSchema.StorageType">
+            <summary>
+                Identifier by type for this feature. Used along with the DependentTypes()
+                collection to control the proper ordering of object creation or scripting
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IFeatureSchema.WritePermissions(Weasel.Core.Migrator,System.IO.TextWriter)">
+            <summary>
+                Write any permission SQL when this feature is exported to a SQL
+                file
+            </summary>
+            <param name="rules"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Weasel.Core.Migrations.IFeatureSchema.DependentTypes">
+            <summary>
+                Any document or feature types that this feature depends on. Used
+                to intelligently order the creation and scripting of database
+                schema objects
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Weasel.Core.Migrations.ReconnectionOptions">
+            <summary>
+            Reconnection policy options when the database is unavailable while applying database changes.
+            </summary>
+            <param name="MaxReconnectionCount">The maximum number of reconnections if the database is unavailable while applying database changes. Default is 3.</param>
+            <param name="DelayInMs">The base delay between reconnections to perform if the database is unavailable while applying database changes. Note it'll be performed with exponential backoff. Default is 50ms.</param>
+        </member>
+        <member name="M:Weasel.Core.Migrations.ReconnectionOptions.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Reconnection policy options when the database is unavailable while applying database changes.
+            </summary>
+            <param name="MaxReconnectionCount">The maximum number of reconnections if the database is unavailable while applying database changes. Default is 3.</param>
+            <param name="DelayInMs">The base delay between reconnections to perform if the database is unavailable while applying database changes. Note it'll be performed with exponential backoff. Default is 50ms.</param>
+        </member>
+        <member name="P:Weasel.Core.Migrations.ReconnectionOptions.MaxReconnectionCount">
+            <summary>The maximum number of reconnections if the database is unavailable while applying database changes. Default is 3.</summary>
+        </member>
+        <member name="P:Weasel.Core.Migrations.ReconnectionOptions.DelayInMs">
+            <summary>The base delay between reconnections to perform if the database is unavailable while applying database changes. Note it'll be performed with exponential backoff. Default is 50ms.</summary>
+        </member>
+        <member name="T:Weasel.Core.Migrator">
+            <summary>
+                Governs the rules and formatting for generating SQL exports of schema objects
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.Migrator.IsTransactional">
+            <summary>
+                Should all generated DDL files be written with transactional semantics
+                so that everything succeeds or everything fails together
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.Migrator.TableCreation">
+            <summary>
+                Alters the syntax used to create tables in DDL
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.Migrator.UpsertRights">
+            <summary>
+                Alters the user rights for the upsert functions in DDL
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.Migrator.Role">
+            <summary>
+                Option to use this database role during DDL scripts
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.Migrator.ReadTemplatesAsync(System.String,System.Threading.CancellationToken)">
+            <summary>
+                Read [name].table and [name].function files from the named directory
+                to serve as templates for extra DDL (GRANT's probably)
+            </summary>
+            <param name="directory"></param>
+        </member>
+        <member name="M:Weasel.Core.Migrator.WriteTemplatedFile(System.String,System.Action{Weasel.Core.Migrator,System.IO.TextWriter},System.Threading.CancellationToken)">
+            <summary>
+                Write templated SQL to the supplied file name
+            </summary>
+            <param name="filename"></param>
+            <param name="writeStep"></param>
+        </member>
+        <member name="M:Weasel.Core.Migrator.WriteScript(System.IO.TextWriter,System.Action{Weasel.Core.Migrator,System.IO.TextWriter})">
+            <summary>
+                Write out a templated SQL script with all rules
+            </summary>
+            <param name="writer"></param>
+            <param name="writeStep">A continuation to write the inner SQL</param>
+        </member>
+        <member name="M:Weasel.Core.Migrator.WriteSchemaCreationSql(System.Collections.Generic.IEnumerable{System.String},System.IO.TextWriter)">
+            <summary>
+                Writes the necessary SQL to create the supplied schema names
+            </summary>
+            <param name="schemaNames"></param>
+            <param name="writer"></param>
+        </member>
+        <member name="M:Weasel.Core.Migrator.ApplyAllAsync(System.Data.Common.DbConnection,Weasel.Core.SchemaMigration,Weasel.Core.AutoCreate,Weasel.Core.Migrations.IMigrationLogger,System.Threading.CancellationToken)">
+            <summary>
+                Apply all the differences in the supplied SchemaMigration to the supplied database connection
+            </summary>
+            <param name="conn"></param>
+            <param name="migration"></param>
+            <param name="autoCreate"></param>
+            <param name="logger"></param>
+        </member>
+        <member name="M:Weasel.Core.Migrator.WriteUpdate(System.IO.TextWriter,Weasel.Core.ISchemaObjectDelta)">
+            <summary>
+                Write the SQL updates for a single delta object to the TextWriter
+            </summary>
+            <param name="writer"></param>
+            <param name="delta"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrator.ToExecuteScriptLine(System.String)">
+            <summary>
+                Create a line in a SQL statement to execute the given script file name. Used in
+                generating database creation SQL by feature
+            </summary>
+            <param name="scriptName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.Migrator.WriteMigrationFileAsync(System.String,Weasel.Core.SchemaMigration,System.Threading.CancellationToken)">
+            <summary>
+                Write the delta "up" and matching "down" file at the same location
+            </summary>
+            <param name="filename"></param>
+            <param name="migration"></param>
+        </member>
+        <member name="M:Weasel.Core.Migrator.AssertValidIdentifier(System.String)">
+            <summary>
+                Throw an exception if the supplied name is an invalid identifier for
+                this database engine
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="T:Weasel.Core.SchemaMigration">
+            <summary>
+                A detected change between desired database configuration
+                and the actual state of the database
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.SchemaMigration.Schemas">
+            <summary>
+                The unique schemas part of this migration
+            </summary>
+        </member>
+        <member name="P:Weasel.Core.SchemaMigration.Difference">
+            <summary>
+                The detected difference between configuration and the actual database
+            </summary>
+        </member>
+        <member name="M:Weasel.Core.SchemaMigration.DetermineAsync(System.Data.Common.DbConnection,Weasel.Core.ISchemaObject[])">
+            <summary>
+                Create a SchemaMigration for the supplied connection and array of schema
+                objects
+            </summary>
+            <param name="conn"></param>
+            <param name="schemaObjects"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.SchemaMigration.DetermineAsync(System.Data.Common.DbConnection,System.Threading.CancellationToken,Weasel.Core.ISchemaObject[])">
+            <summary>
+                Create a SchemaMigration for the supplied connection and array of schema
+                objects
+            </summary>
+            <param name="conn"></param>
+            <param name="schemaObjects"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Weasel.Core.SchemaMigration.WriteAllUpdates(System.IO.TextWriter,Weasel.Core.Migrator,Weasel.Core.AutoCreate)">
+            <summary>
+                Writes all the necessary SQL statements to update the actual database to the expected configuration
+            </summary>
+            <param name="writer"></param>
+            <param name="rules"></param>
+            <param name="autoCreate"></param>
+        </member>
+        <member name="M:Weasel.Core.SchemaMigration.WriteAllRollbacks(System.IO.TextWriter,Weasel.Core.Migrator)">
+            <summary>
+                Writes all the necessary SQL statements to rollback the actual database to the initial state if
+                this migration has already been applied
+            </summary>
+            <param name="writer"></param>
+            <param name="rules"></param>
+        </member>
+        <member name="M:Weasel.Core.SchemaMigration.AssertPatchingIsValid(Weasel.Core.AutoCreate)">
+            <summary>
+                Assert that this migration can be applied based on the supplied
+                autoCreate threshold
+            </summary>
+            <param name="autoCreate"></param>
+            <exception cref="T:Weasel.Core.SchemaMigrationException"></exception>
+        </member>
+        <member name="M:Weasel.Core.SchemaMigration.RollbackAllAsync(System.Data.Common.DbConnection,Weasel.Core.Migrator,System.Threading.CancellationToken)">
+            <summary>
+                Apply all the rollback steps from this migration to the supplied database connection
+            </summary>
+            <param name="conn"></param>
+            <param name="rules"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Weasel.Core.SchemaPatchDifference.None">
+            <summary>
+                No differences between expected and actual database structure
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.SchemaPatchDifference.Create">
+            <summary>
+                Configured schema objects are missing in the existing database structure
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.SchemaPatchDifference.Update">
+            <summary>
+                There are detected differences between the expected configuration of a schema object and
+                the existing database
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.SchemaPatchDifference.Invalid">
+            <summary>
+                The existing database object in incompatible somehow with the expected configuration and Weasel
+                cannot determine the update SQL to bridge the difference
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.SecurityRights.Invoker">
+            <summary>
+                Upsert functions will execute with the rights of the current Postgresql user. This is the default
+                in both Marten and Postgresql.
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.SecurityRights.Definer">
+            <summary>
+                Upsert functions will execute with the rights of the Postgresql user that created the schema
+                objects.
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.SqlFormatting.Pretty">
+            <summary>
+                Write object SQL in human readable formats
+            </summary>
+        </member>
+        <member name="F:Weasel.Core.SqlFormatting.Concise">
+            <summary>
+                Write object SQL in a terse format
+            </summary>
+        </member>
+    </members>
+</doc>

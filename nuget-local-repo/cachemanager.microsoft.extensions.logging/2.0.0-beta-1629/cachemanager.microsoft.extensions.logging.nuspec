@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>CacheManager.Microsoft.Extensions.Logging</id>
+    <version>2.0.0-beta-1629</version>
+    <authors>MichaConrad</authors>
+    <owners>MichaConrad</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>https://github.com/MichaCo/CacheManager/blob/master/LICENSE</licenseUrl>
+    <projectUrl>http://cachemanager.michaco.net/</projectUrl>
+    <iconUrl>http://cachemanager.michaco.net/favicon-128.png</iconUrl>
+    <description>CacheManager extension package to work with Microsoft.Extensions.Logging as logging provider. CacheManager is an open source caching abstraction layer for .NET written in C#. The ASP.NET Core logging provides a bridge to the Microsoft.Extensions.Logging framework.</description>
+    <copyright>Copyright (c) 2017 MichaConrad</copyright>
+    <tags>Caching Cache CacheManager Distributed Cache Logging</tags>
+    <repository type="git" url="https://github.com/MichaCo/CacheManager" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="CacheManager.Core" version="2.0.0-beta-1629" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection" version="2.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging" version="2.0.0" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

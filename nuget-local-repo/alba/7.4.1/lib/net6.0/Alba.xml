@@ -1,0 +1,942 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Alba</name>
+    </assembly>
+    <members>
+        <member name="T:Alba.AlbaHost">
+            <summary>
+                Root host of Alba to govern and configure the underlying ASP.Net Core application
+            </summary>
+        </member>
+        <member name="P:Alba.AlbaHost.Server">
+            <summary>
+                The underlying TestServer for additional functionality
+            </summary>
+        </member>
+        <member name="P:Alba.AlbaHost.Services">
+            <summary>
+                The root IoC container of the running application
+            </summary>
+        </member>
+        <member name="M:Alba.AlbaHost.BeforeEach(System.Action{Microsoft.AspNetCore.Http.HttpContext})">
+            <summary>
+                Execute some kind of action before each scenario. This is additive as of Alba v5
+            </summary>
+            <param name="beforeEach"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHost.AfterEach(System.Action{Microsoft.AspNetCore.Http.HttpContext})">
+            <summary>
+                Execute some clean up action immediately after executing each HTTP execution. This is additive as of Alba v5
+            </summary>
+            <param name="afterEach"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHost.BeforeEachAsync(System.Func{Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task})">
+            <summary>
+                Run some kind of set up action immediately before executing an HTTP request. This is additive as of Alba v5
+            </summary>
+            <param name="beforeEach"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHost.AfterEachAsync(System.Func{Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task})">
+            <summary>
+                Execute some clean up action immediately after executing each HTTP execution. This is additive as of Alba v5
+            </summary>
+            <param name="afterEach"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHost.Scenario(System.Action{Alba.Scenario})">
+            <summary>
+                Define and execute an integration test by running an Http request through
+                your ASP.Net Core system
+            </summary>
+            <param name="configure"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Alba.AlbaHost.For(Microsoft.AspNetCore.Builder.WebApplicationBuilder,System.Action{Microsoft.AspNetCore.Builder.WebApplication},Alba.IAlbaExtension[])">
+            <summary>
+            Create an AlbaHost using the new WebApplicationBuilder
+            </summary>
+            <param name="builder"></param>
+            <param name="configureRoutes"></param>
+            <param name="extensions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHost.For``1(System.Action{Microsoft.AspNetCore.Hosting.IWebHostBuilder},Alba.IAlbaExtension[])">
+            <summary>
+            Creates an AlbaHost using an underlying WebApplicationFactory.
+            </summary>
+            <typeparam name="TEntryPoint">A type in the entry point assembly of the application. Typically the Startup or Program classes can be used.</typeparam>
+            <param name="configuration"></param>
+            <param name="extensions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHost.For``1(Alba.IAlbaExtension[])">
+            <summary>
+            Creates an AlbaHost using an underlying WebApplicationFactory with the application defaults.
+            </summary>
+            <typeparam name="TEntryPoint">A type in the entry point assembly of the application. Typically the Startup or Program classes can be used.</typeparam>
+            <param name="extensions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHost.ForStartup``1(System.Func{Microsoft.Extensions.Hosting.IHostBuilder,Microsoft.Extensions.Hosting.IHostBuilder},System.String)">
+            <summary>
+                Create a SystemUnderTest using the designated "Startup" type
+                to configure the ASP.NET Core system
+            </summary>
+            <param name="configure">
+                Optional configuration of the IHostBuilder to be applied *after* the call to
+                <c>IWebHostBuilder.UseStartup()</c>
+            </param>
+            <param name="rootPath">Specify the content root directory to be used by the host.</param>
+            <typeparam name="T"></typeparam>
+            <returns>The system under test</returns>
+        </member>
+        <member name="M:Alba.AlbaHost.For(System.Action{Microsoft.AspNetCore.Hosting.IWebHostBuilder})">
+            <summary>
+                Creates a SystemUnderTest from a default HostBuilder using the provided <c>IWebHostBuilder</c>
+            </summary>
+            <param name="configuration">
+                Optional configuration of the IWebHostBuilder to be applied *after* the call to
+                UseStartup()
+            </param>
+            <returns>The system under test</returns>
+        </member>
+        <member name="M:Alba.AlbaHostExtensions.StartAlbaAsync(Microsoft.AspNetCore.Builder.WebApplicationBuilder,System.Action{Microsoft.AspNetCore.Builder.WebApplication},Alba.IAlbaExtension[])">
+            <summary>
+            Start an AlbaHost for a configured WebApplicationBuilder and WebApplication
+            </summary>
+            <param name="builder"></param>
+            <param name="configureRoutes">Configure the WebApplication for routing and/or middleware</param>
+            <param name="extensions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHostExtensions.StartAlbaAsync(Microsoft.Extensions.Hosting.IHostBuilder,Alba.IAlbaExtension[])">
+            <summary>
+            Start an AlbaHost for the supplied IHostBuilder
+            </summary>
+            <param name="builder"></param>
+            <param name="extensions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHostExtensions.PostJson``1(Alba.IAlbaHost,``0,System.String,System.Nullable{Alba.JsonStyle})">
+            <summary>
+                Shortcut to issue a POST with a Json serialized request body and a Json serialized
+                response body
+            </summary>
+            <param name="system"></param>
+            <param name="request"></param>
+            <param name="url"></param>
+            <param name="jsonStyle"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHostExtensions.PutJson``1(Alba.IAlbaHost,``0,System.String,System.Nullable{Alba.JsonStyle})">
+            <summary>
+                Shortcut to issue a PUT with a Json serialized request body and a Json serialized
+                response body
+            </summary>
+            <param name="system"></param>
+            <param name="request"></param>
+            <param name="url"></param>
+            <param name="jsonStyle"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHostExtensions.GetAsJson``1(Alba.IAlbaHost,System.String)">
+            <summary>
+                Shortcut to just retrieve the contents of an HTTP GET as JSON and deserialize the resulting
+                response to the type "T"
+            </summary>
+            <param name="system"></param>
+            <param name="url"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.AlbaHostExtensions.GetAsText(Alba.IAlbaHost,System.String)">
+            <summary>
+            Issue a GET to the supplied url and read the response text as a string
+            </summary>
+            <param name="host"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Alba.AlbaWebApplicationFactory`1">
+            <inheritdoc cref="T:Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1"/>
+        </member>
+        <member name="M:Alba.DirectoryFinder.FindParallelFolder(System.String)">
+            <summary>
+            Tries to find the correct content path for a project that is parallel to the 
+            testing project
+            </summary>
+            <param name="folderName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.FormDataExtensions.WriteFormData(Microsoft.AspNetCore.Http.HttpContext,System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Write the dictionary values to the HttpContext.Request.Body.
+            Also sets content-length and content-type header to
+            application/x-www-form-urlencoded
+            </summary>
+            <param name="context"></param>
+            <param name="values"></param>
+        </member>
+        <member name="M:Alba.FormDataExtensions.WriteMultipartFormData(Microsoft.AspNetCore.Http.HttpContext,System.Net.Http.MultipartFormDataContent)">
+            <summary>
+            Writes the <see cref="T:System.Net.Http.MultipartFormDataContent"/> to the provided HttpContext, along with the
+            required headers.
+            </summary>
+            <param name="context"></param>
+            <param name="content"></param>
+        </member>
+        <member name="M:Alba.HeaderExpectations.SingleValueShouldEqual(System.String)">
+            <summary>
+            Asserts that there is a single header value matching 'expected'
+            in the Http response
+            </summary>
+            <param name="expected"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.HeaderExpectations.ShouldHaveOneNonNullValue">
+            <summary>
+            Asserts that there is exactly one value in the response for the header
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.HeaderExpectations.SingleValueShouldMatch(System.Text.RegularExpressions.Regex)">
+            <summary>
+            Asserts that there is a single header value matching 'expected'
+            regular expression in the Http response
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.HeaderExpectations.SingleValueShouldMatch(System.String)">
+            <summary>
+            Asserts that there is a single header value matching 'expected'
+            regular expression in the Http response
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.HeaderExpectations.ShouldNotBeWritten">
+            <summary>
+            Asserts that there are no values for this header in the Http response
+            </summary>
+        </member>
+        <member name="M:Alba.HeaderExpectations.ShouldHaveValues(System.String[])">
+            <summary>
+            Asserts that there are the given values in the header.
+            </summary>
+            <param name="expectedValues"></param>
+        </member>
+        <member name="M:Alba.HeaderExpectations.ShouldHaveValues">
+            <summary>
+            Asserts that there is one or more values for this header in the Http response
+            </summary>
+        </member>
+        <member name="M:Alba.HeaderExtensions.ContentLength(Microsoft.AspNetCore.Http.IHeaderDictionary)">
+            <summary>
+            Get the content-length header value
+            </summary>
+            <param name="headers"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.HeaderExtensions.ContentLength(Microsoft.AspNetCore.Http.IHeaderDictionary,System.Nullable{System.Int64})">
+            <summary>
+            Set the content-length header value
+            </summary>
+            <param name="headers"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Alba.HttpContextExtensions.SetBearerToken(Microsoft.AspNetCore.Http.HttpContext,System.String)">
+            <summary>
+            Set the Authorization header value to "Bearer [jwt]"
+            </summary>
+            <param name="context"></param>
+            <param name="jwt"></param>
+        </member>
+        <member name="T:Alba.IAlbaExtension">
+            <summary>
+            Models an extension to an AlbaHost
+            </summary>
+        </member>
+        <member name="M:Alba.IAlbaExtension.Start(Alba.IAlbaHost)">
+            <summary>
+            Called during the initialization of an AlbaHost after the application is started,
+            so the application DI container is available. Useful for registering setup or teardown
+            actions on an AlbaHOst
+            </summary>
+            <param name="host"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IAlbaExtension.Configure(Microsoft.Extensions.Hosting.IHostBuilder)">
+            <summary>
+            Allow an extension to alter the application's
+            IHostBuilder prior to starting the application
+            </summary>
+            <param name="builder"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IAlbaHost.Scenario(System.Action{Alba.Scenario})">
+            <summary>
+                Define and execute an integration test by running an Http request through
+                your ASP.Net Core system
+            </summary>
+            <param name="configure"></param>
+            <returns></returns>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Alba.IAlbaHost.BeforeEach(System.Action{Microsoft.AspNetCore.Http.HttpContext})">
+            <summary>
+            Execute some kind of action before each scenario. This is NOT additive
+            </summary>
+            <param name="beforeEach"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IAlbaHost.AfterEach(System.Action{Microsoft.AspNetCore.Http.HttpContext})">
+            <summary>
+            Execute some clean up action immediately after executing each HTTP execution. This is NOT additive
+            </summary>
+            <param name="afterEach"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IAlbaHost.BeforeEachAsync(System.Func{Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task})">
+            <summary>
+            Run some kind of set up action immediately before executing an HTTP request
+            </summary>
+            <param name="beforeEach"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IAlbaHost.AfterEachAsync(System.Func{Microsoft.AspNetCore.Http.HttpContext,System.Threading.Tasks.Task})">
+            <summary>
+            Execute some clean up action immediately after executing each HTTP execution. This is NOT additive
+            </summary>
+            <param name="afterEach"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Alba.IAlbaHost.Server">
+            <summary>
+                The underlying TestServer for additional functionality
+            </summary>
+        </member>
+        <member name="M:Alba.Internal.LightweightCache`2.FillDefault(`0)">
+            <summary>
+                Guarantees that the Cache has the default value for a given key.
+                If it does not already exist, it's created.
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="P:Alba.IScenarioResult.Context">
+            <summary>
+                The raw HttpContext used during the scenario
+            </summary>
+        </member>
+        <member name="M:Alba.IScenarioResult.ReadAsText">
+            <summary>
+            Read the contents of the HttpResponse.Body as text
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IScenarioResult.ReadAsTextAsync">
+            <summary>
+            Read the contents of the HttpResponse.Body as text
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IScenarioResult.ReadAsXml">
+            <summary>
+            Read the contents of the HttpResponse.Body into an XmlDocument object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IScenarioResult.ReadAsXmlAsync">
+            <summary>
+            Read the contents of the HttpResponse.Body into an XmlDocument object
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IScenarioResult.ReadAsXml``1">
+            <summary>
+            Deserialize the contents of the HttpResponse.Body into an object
+            of type T using the built in XmlSerializer
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IScenarioResult.ReadAsJson``1">
+            <summary>
+            Deserialize the contents of the HttpResponse.Body into an object
+            of type T using the configured Json serializer
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IScenarioResult.ReadAsJsonAsync``1">
+            <summary>
+            Deserialize the contents of the HttpResponse.Body into an object
+            of type T using the configured Json serializer
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="F:Alba.JsonStyle.Mvc">
+            <summary>
+            Use the MVC Core formatter for JSON serialization
+            </summary>
+        </member>
+        <member name="F:Alba.JsonStyle.MinimalApi">
+            <summary>
+            Use the Minimal API mechanism for JSON serialization
+            </summary>
+        </member>
+        <member name="M:Alba.IUrlExpression.Url(System.String)">
+            <summary>
+            Specify the relative url for the scenario
+            </summary>
+            <param name="relativeUrl"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IUrlExpression.Json``1(``0,System.Nullable{Alba.JsonStyle})">
+            <summary>
+            Writes the input object into Json to the Http Request, and
+            if enabled in your Alba system, sets the Url to match the
+            input type and Http method
+            </summary>
+            <param name="input"></param>
+            <param name="jsonStyle"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IUrlExpression.Xml``1(``0)">
+            <summary>
+            Writes the input object into Xml to the Http Request, and
+            if enabled in your Alba system, sets the Url to match the
+            input type and Http method
+            </summary>
+            <param name="input"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IUrlExpression.FormData``1(``0)">
+            <summary>
+            Writes the input object to form data in the Http request
+            </summary>
+            <param name="input"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IUrlExpression.MultipartFormData(System.Net.Http.MultipartFormDataContent)">
+            <summary>
+            Writes multipart form data to the Http request
+            </summary>
+            <param name="content"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IUrlExpression.Text(System.String)">
+            <summary>
+            Writes text to the request body as 'text/plain'
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IUrlExpression.FormData(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Writes the dictionary data to form data in the Http request
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.IUrlExpression.ByteArray(System.Byte[])">
+            <summary>
+            Writes the byte array to the body in the Http request
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Alba.MimeType">
+            <summary>
+            Strong-typed enumeration of common mime types that may be a useful helper within Alba
+            scenario definitions
+            </summary>
+        </member>
+        <member name="T:Alba.Scenario">
+            <summary>
+            Models both the setup and expectations for a single HTTP request made through
+            an AlbaHost
+            </summary>
+        </member>
+        <member name="P:Alba.Scenario.Body">
+            <summary>
+            Helpers to write content to the HttpRequest
+            </summary>
+        </member>
+        <member name="P:Alba.Scenario.Get">
+            <summary>
+            Specify an HTTP GET Url
+            </summary>
+        </member>
+        <member name="P:Alba.Scenario.Put">
+            <summary>
+            Specify an HTTP PUT Url
+            </summary>
+        </member>
+        <member name="P:Alba.Scenario.Delete">
+            <summary>
+            Specify an HTTP DELETE Url
+            </summary>
+        </member>
+        <member name="P:Alba.Scenario.Post">
+            <summary>
+            Specify an HTTP POST Url
+            </summary>
+        </member>
+        <member name="P:Alba.Scenario.Patch">
+            <summary>
+            Specify an HTTP PATCH Url
+            </summary>
+        </member>
+        <member name="P:Alba.Scenario.Head">
+            <summary>
+            Specify an HTTP HEAD Url
+            </summary>
+        </member>
+        <member name="M:Alba.Scenario.ByteArray(System.Byte[])">
+            <summary>
+            Write the supplied byte array to the body of the request
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.Scenario.Text(System.String)">
+            <summary>
+            Write the supplied text to the body of the request
+            </summary>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.Scenario.ConfigureHttpContext(System.Action{Microsoft.AspNetCore.Http.HttpContext})">
+            <summary>
+                Register any kind of custom setup of the HttpContext within the request
+            </summary>
+            <param name="configure"></param>
+        </member>
+        <member name="M:Alba.Scenario.WriteJson``1(``0,System.Nullable{Alba.JsonStyle})">
+            <summary>
+            Write the supplied input model to the request body using the configured
+            formatter in the underlying application that supports the supplied content type
+            </summary>
+            <param name="input">An input model that should be serialized to the HTTP request body</param>
+            <param name="jsonStyle"></param>
+            <typeparam name="T"></typeparam>
+            <exception cref="T:System.ArgumentNullException"></exception>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Alba.Scenario.AssertThat(Alba.IScenarioAssertion)">
+            <summary>
+                Add an assertion to the Scenario that will be executed after the request
+            </summary>
+            <param name="assertion"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.Scenario.StatusCodeShouldBe(System.Net.HttpStatusCode)">
+            <summary>
+                Verify the expected Http Status Code
+            </summary>
+            <param name="httpStatusCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.Scenario.StatusCodeShouldBe(System.Int32)">
+            <summary>
+                Verify the expected Http Status Code
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.Scenario.IgnoreStatusCode">
+            <summary>
+                Just ignore the Http Status Code when doing assertions against
+                the response
+            </summary>
+        </member>
+        <member name="M:Alba.Scenario.WriteFormData(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            Write the dictionary as form data to the HTTP request body
+            and set the matching request content types
+            </summary>
+            <param name="input"></param>
+        </member>
+        <member name="M:Alba.Scenario.Header(System.String)">
+            <summary>
+            Specify an expectation for the response headers
+            </summary>
+            <param name="headerKey"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.Scenario.SetupHttpContext(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+                Only for internal Alba testing, but this writes its input
+                to an HttpContext
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:Alba.Scenario.SetRequestHeader(System.String,System.String)">
+            <summary>
+                Set a value for a request header
+            </summary>
+            <param name="headerKey"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Alba.Scenario.WithRequestHeader(System.String,System.String)">
+            <summary>
+                Set a value for a request header
+            </summary>
+            <param name="headerKey"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:Alba.Scenario.RemoveRequestHeader(System.String)">
+            <summary>
+                Remove all values for a request header
+            </summary>
+            <param name="headerKey"></param>
+        </member>
+        <member name="M:Alba.Scenario.WithClaim(System.Security.Claims.Claim)">
+            <summary>
+                Add an additional claim to the HttpContext. This requires use of the JwtSecurityStub
+            </summary>
+            <param name="claim"></param>
+        </member>
+        <member name="M:Alba.Scenario.RemoveClaim(System.String)">
+            <summary>
+                Removes a default claim from the HttpContext. This requires use of the JwtSecurityStub.
+                Claims are removed before scenario-specific claims are added via <see cref="M:Alba.Scenario.WithClaim(System.Security.Claims.Claim)"/>
+            </summary>
+            <param name="name"></param>
+        </member>
+        <member name="M:Alba.Scenario.WithBearerToken(System.String)">
+            <summary>
+                Set the Authorization header value to "Bearer [jwt]" on the HTTP request
+            </summary>
+            <param name="jwt"></param>
+        </member>
+        <member name="M:Alba.ScenarioAssertionException.Add(System.String)">
+            <summary>
+            Add an assertion failure message
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="P:Alba.ScenarioAssertionException.Messages">
+            <summary>
+            All the assertion failure messages
+            </summary>
+        </member>
+        <member name="P:Alba.ScenarioAssertionException.Body">
+            <summary>
+            A textual representation of the HTTP response body for diagnostic purposes. This property will be null unless <see cref="M:Alba.ScenarioAssertionException.ReadBody(Microsoft.AspNetCore.Http.HttpContext)"/> is called.
+            </summary>
+        </member>
+        <member name="M:Alba.ScenarioAssertionException.ReadBody(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>
+            Reads the response body and returns it as a string
+            </summary>
+            <param name="context">The context of the response</param>
+            <returns>A string with the content of the body</returns>
+        </member>
+        <member name="M:Alba.ScenarioExpectationsExtensions.ContentShouldContain(Alba.Scenario,System.String)">
+            <summary>
+            Assert that the Http response contains the designated text
+            </summary>
+            <param name="scenario"></param>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.ScenarioExpectationsExtensions.ContentShouldNotContain(Alba.Scenario,System.String)">
+            <summary>
+            Assert that the Http response does not contain the designated text
+            </summary>
+            <param name="scenario"></param>
+            <param name="text"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.ScenarioExpectationsExtensions.ContentShouldBe(Alba.Scenario,System.String)">
+            <summary>
+            Assert that the Http response body text is exactly the expected content
+            </summary>
+            <param name="scenario"></param>
+            <param name="exactContent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.ScenarioExpectationsExtensions.StatusCodeShouldBeOk(Alba.Scenario)">
+            <summary>
+            Assert that the Http Status Code is 200 (Ok)
+            </summary>
+            <param name="scenario"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.ScenarioExpectationsExtensions.ContentTypeShouldBe(Alba.Scenario,Alba.MimeType)">
+            <summary>
+            Assert that the content-type header value of the Http response
+            matches the expected value
+            </summary>
+            <param name="scenario"></param>
+            <param name="mimeType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.ScenarioExpectationsExtensions.ContentTypeShouldBe(Alba.Scenario,System.String)">
+            <summary>
+            Assert that the content-type header value of the Http response
+            matches the expected value
+            </summary>
+            <param name="scenario"></param>
+            <param name="mimeType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.ScenarioExpectationsExtensions.RedirectShouldBe(Alba.Scenario,System.String)">
+            <summary>
+            Assert that the http response was redirected
+            </summary>
+            <param name="scenario"></param>
+            <param name="expected"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.ScenarioExpectationsExtensions.RedirectPermanentShouldBe(Alba.Scenario,System.String)">
+            <summary>
+            Assert that the http response was redirected permanently
+            </summary>
+            <param name="scenario"></param>
+            <param name="expected"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.ScenarioResult.ReadAsText">
+            <inheritdoc />
+        </member>
+        <member name="M:Alba.ScenarioResult.ReadAsTextAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Alba.ScenarioResult.ReadAsXml">
+            <inheritdoc />
+        </member>
+        <member name="M:Alba.ScenarioResult.ReadAsXmlAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Alba.ScenarioResult.ReadAsXml``1">
+            <inheritdoc />
+        </member>
+        <member name="M:Alba.ScenarioResult.ReadAsJson``1">
+            <inheritdoc />
+        </member>
+        <member name="M:Alba.ScenarioResult.ReadAsJsonAsync``1">
+            <inheritdoc />
+        </member>
+        <member name="T:Alba.Security.AuthenticationExtensionBase">
+            <summary>
+            Base class for extensions that apply authentication mechanics to AlbaHosts
+            </summary>
+        </member>
+        <member name="T:Alba.Security.AuthenticationStub">
+            <summary>
+            Stubs out security in all Alba scenarios to always authenticate
+            a user on each request with the configured claims
+            </summary>
+        </member>
+        <member name="M:Alba.Security.ClaimsExtensions.With``1(``0,System.Security.Claims.Claim)">
+            <summary>
+            Append a baseline Claim to be placed on all requests
+            </summary>
+            <param name="claims"></param>
+            <param name="claim"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.Security.ClaimsExtensions.With``1(``0,System.String,System.String)">
+            <summary>
+            Add a baseline Claim to be placed on all requests
+            </summary>
+            <param name="claims"></param>
+            <param name="type"></param>
+            <param name="value"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.Security.ClaimsExtensions.WithName``1(``0,System.String)">
+            <summary>
+            Add a baseline "name" claim to each request
+            </summary>
+            <param name="claims"></param>
+            <param name="name"></param>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
+        <member name="T:Alba.Security.IHasClaims">
+            <summary>
+            Implemented by types that model user permissions by claims
+            </summary>
+        </member>
+        <member name="M:Alba.Security.IHasClaims.AddClaim(System.Security.Claims.Claim)">
+            <summary>
+            Add a baseline claim that will be added to the ClaimsPrincipal
+            for any scenario executed by the current AlbaHost
+            </summary>
+            <param name="claim"></param>
+        </member>
+        <member name="T:Alba.Security.JwtSecurityStub">
+            <summary>
+            Use this extension to generate and apply JWT tokens to scenario requests using
+            a set of baseline claims
+            </summary>
+        </member>
+        <member name="T:Alba.Security.OpenConnectClientCredentials">
+            <summary>
+            Apply OIDC security workflow to outgoing Alba scenario requests using the
+            Client Credentials workflow
+            </summary>
+        </member>
+        <member name="P:Alba.Security.OpenConnectClientCredentials.Scope">
+            <summary>
+            User supplied value for the Open Id Connect "Scope". This is required.
+            </summary>
+        </member>
+        <member name="P:Alba.Security.OpenConnectExtension.ClientId">
+            <summary>
+            User-supplied value for the Open Id Connect ClientId. This is required.
+            </summary>
+        </member>
+        <member name="P:Alba.Security.OpenConnectExtension.ClientSecret">
+            <summary>
+            User-supplied value for the Open Id Connect ClientSecret. This is required.
+            </summary>
+        </member>
+        <member name="M:Alba.Security.OpenConnectExtension.AssertValid">
+            <summary>
+            Validate that all the necessary information like ClientSecret and ClientId have been
+            supplied to this extension
+            </summary>
+        </member>
+        <member name="M:Alba.Security.OpenConnectExtensions.UserAndPasswordIs(Alba.Scenario,System.String,System.String)">
+            <summary>
+            When used in conjunction with the OpenConnectUserPassword extension, this
+            method can be used to use the supplied credentials for just this scenario
+            </summary>
+            <param name="scenario"></param>
+            <param name="userName"></param>
+            <param name="password"></param>
+        </member>
+        <member name="P:Alba.Security.OpenConnectUserPassword.UserName">
+            <summary>
+            The default UserName to use for authenticating each service call
+            </summary>
+        </member>
+        <member name="P:Alba.Security.OpenConnectUserPassword.Password">
+            <summary>
+            The default Password to use for authenticating each service call
+            </summary>
+        </member>
+        <member name="M:Alba.SendExpression.ContentType(System.String)">
+            <summary>
+            Set the content-type header value of the outgoing Http request
+            </summary>
+            <param name="contentType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.SendExpression.Accepts(System.String)">
+            <summary>
+            Set the accepts header value of the outgoing Http request
+            </summary>
+            <param name="accepts"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.SendExpression.Etag(System.String)">
+            <summary>
+            Set the 'if-none-match' header value of the outgoing Http request
+            </summary>
+            <param name="etag"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.SendExpression.ToUrl(System.String)">
+            <summary>
+            Designate the relative url for the Http request
+            </summary>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.SendExpression.QueryString(System.String,System.String)">
+            <summary>
+            Appends a query string parameter to the HttpRequest
+            </summary>
+            <param name="paramName"></param>
+            <param name="paramValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.SendExpression.QueryString``1(``0)">
+            <summary>
+            Appends query string parameters for the values of all the public 
+            read/write properties and all public fields of the target object
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Alba.StringExtensions.GetCommaSeparatedHeaderValues(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Helper to expand any comma separated values out into an enumerable of
+            all the string values
+            </summary>
+            <param name="enumerable"></param>
+            <returns></returns>
+        </member>
+        <member name="T:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute">
+            <summary>Specifies the syntax used in a string.</summary>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.#ctor(System.String)">
+            <summary>Initializes the <see cref="T:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute"/> with the identifier of the syntax used.</summary>
+            <param name="syntax">The syntax identifier.</param>
+        </member>
+        <member name="M:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.#ctor(System.String,System.Object[])">
+            <summary>Initializes the <see cref="T:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute"/> with the identifier of the syntax used.</summary>
+            <param name="syntax">The syntax identifier.</param>
+            <param name="arguments">Optional arguments associated with the specific syntax employed.</param>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Syntax">
+            <summary>Gets the identifier of the syntax used.</summary>
+        </member>
+        <member name="P:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Arguments">
+            <summary>Optional arguments associated with the specific syntax employed.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.CompositeFormat">
+            <summary>The syntax identifier for strings containing composite formats for string formatting.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.DateOnlyFormat">
+            <summary>The syntax identifier for strings containing date format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.DateTimeFormat">
+            <summary>The syntax identifier for strings containing date and time format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.EnumFormat">
+            <summary>The syntax identifier for strings containing <see cref="T:System.Enum"/> format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.GuidFormat">
+            <summary>The syntax identifier for strings containing <see cref="T:System.Guid"/> format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Json">
+            <summary>The syntax identifier for strings containing JavaScript Object Notation (JSON).</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.NumericFormat">
+            <summary>The syntax identifier for strings containing numeric format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Regex">
+            <summary>The syntax identifier for strings containing regular expressions.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.TimeOnlyFormat">
+            <summary>The syntax identifier for strings containing time format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.TimeSpanFormat">
+            <summary>The syntax identifier for strings containing <see cref="T:System.TimeSpan"/> format specifiers.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Uri">
+            <summary>The syntax identifier for strings containing URIs.</summary>
+        </member>
+        <member name="F:System.Diagnostics.CodeAnalysis.StringSyntaxAttribute.Xml">
+            <summary>The syntax identifier for strings containing XML.</summary>
+        </member>
+    </members>
+</doc>

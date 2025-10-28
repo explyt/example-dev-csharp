@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Blazored.SessionStorage</id>
+    <version>2.4.0</version>
+    <authors>Chris Sainty</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>icon.png</icon>
+    <projectUrl>https://github.com/Blazored/SessionStorage</projectUrl>
+    <description>A library to provide access to session storage in Blazor applications</description>
+    <copyright>Copyright 2020 (c) Chris Sainty. All rights reserved.</copyright>
+    <tags>Blazored Blazor Razor Components SessionStorage Session Storage ASP.NET Core CSharp Web</tags>
+    <repository type="git" url="https://github.com/Blazored/SessionStorage" />
+    <dependencies>
+      <group targetFramework="net6.0">
+        <dependency id="Microsoft.AspNetCore.Components.Web" version="6.0.12" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net7.0">
+        <dependency id="Microsoft.AspNetCore.Components.Web" version="7.0.1" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>

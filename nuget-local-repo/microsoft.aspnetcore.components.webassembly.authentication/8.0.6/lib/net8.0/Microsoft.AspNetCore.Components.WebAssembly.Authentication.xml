@@ -1,0 +1,1186 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.AspNetCore.Components.WebAssembly.Authentication</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal.IAccessTokenProviderAccessor">
+            <summary>
+            This is an internal API that supports the Microsoft.AspNetCore.Components.WebAssembly.Authentication
+            infrastructure and not subject to the same compatibility standards as public APIs.
+            It may be changed or removed without notice in any release.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal.IAccessTokenProviderAccessor.TokenProvider">
+            <summary>
+            This is an internal API that supports the Microsoft.AspNetCore.Components.WebAssembly.Authentication
+            infrastructure and not subject to the same compatibility standards as public APIs.
+            It may be changed or removed without notice in any release.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IRemoteAuthenticationPathsProvider">
+            <summary>
+            This is an internal API that supports the Microsoft.AspNetCore.Components.WebAssembly.Authentication
+            infrastructure and not subject to the same compatibility standards as public APIs.
+            It may be changed or removed without notice in any release.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IRemoteAuthenticationPathsProvider.ApplicationPaths">
+            <summary>
+            This is an internal API that supports the Microsoft.AspNetCore.Components.WebAssembly.Authentication
+            infrastructure and not subject to the same compatibility standards as public APIs.
+            It may be changed or removed without notice in any release.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken">
+            <summary>
+            Represents an access token for a given user and scopes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken.GrantedScopes">
+            <summary>
+            Gets or sets the list of granted scopes for the token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken.Expires">
+            <summary>
+            Gets the expiration time of the token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken.Value">
+            <summary>
+            Gets the serialized representation of the token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractionType">
+            <summary>
+            The type of authentication request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractionType.SignIn">
+            <summary>
+            Authenticating or reauthenticating the user and provisioning the default access token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractionType.GetToken">
+            <summary>
+            Provisioning a token interactively because silent provisioning failed, either because the end user
+            has not consented or because the existing credentials have expired.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractionType.SignOut">
+            <summary>
+            Logging the user out.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions">
+            <summary>
+            Represents the request to the identity provider for logging in or provisioning a token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions.Interaction">
+            <summary>
+            Gets the request type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions.ReturnUrl">
+            <summary>
+            Gets the redirect URL this request must return to upon successful completion.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions.Scopes">
+            <summary>
+            Gets the scopes this request must use in the operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions.TryAddAdditionalParameter``1(System.String,``0)">
+            <summary>
+            Tries to add an additional parameter to pass in to the underlying provider.
+            </summary>
+            <remarks>
+            The underlying provider is free to apply these parameters as it sees fit or ignore them completely. In the default
+            implementations the parameters will be JSON serialized using System.Text.Json and passed as a parameter to the
+            underlying JavaScript implementation that handles the operation details.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions.TryRemoveAdditionalParameter(System.String)">
+            <summary>
+            Tries to remove an existing additional parameter.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions.TryGetAdditionalParameter``1(System.String,``0@)">
+            <summary>
+            Tries to retrieve an existing additional parameter.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.InteractionType">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.InteractiveRequestOptions">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.OptionsRecord">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.DictionaryStringObject">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.IEnumerableString">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.JsonElement">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.#ctor">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptionsSerializerContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions">
+            <summary>
+            Represents the list of authentication actions that can be performed by the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogIn">
+            <summary>
+            The log in action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogInCallback">
+            <summary>
+            The log in callback action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogInFailed">
+            <summary>
+            The log in failed action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.Profile">
+            <summary>
+            The navigate to user profile action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.Register">
+            <summary>
+            The navigate to register action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogOut">
+            <summary>
+            The log out action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogOutCallback">
+            <summary>
+            The log out callback action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogOutFailed">
+            <summary>
+            The log out failed action.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogOutSucceeded">
+            <summary>
+            The log out succeeded action.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.IsAction(System.String,System.String)">
+            <summary>
+            Whether or not a given <paramref name="candidate"/> represents a given <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions"/>.
+            </summary>
+            <param name="action">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions"/>.</param>
+            <param name="candidate">The candidate.</param>
+            <returns>Whether or not is the given <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions"/> action.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext`1">
+            <summary>
+            Represents the context during authentication operations.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState"></typeparam>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext`1.Url">
+            <summary>
+            Gets or sets the url for the current authentication operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext`1.State">
+            <summary>
+            Gets or sets the state instance for the current authentication operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext`1.InteractiveRequest">
+            <summary>
+            Gets or sets the interaction request for the current authentication operation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationResult`1">
+            <summary>
+            Represents the result of an authentication operation.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The type of the preserved state during the authentication operation.</typeparam>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationResult`1.Status">
+            <summary>
+            Gets or sets the status of the authentication operation. The status can be one of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationStatus"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationResult`1.ErrorMessage">
+            <summary>
+            Gets or sets the error message of a failed authentication operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationResult`1.State">
+            <summary>
+            Gets or sets the preserved state of a successful authentication operation.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState">
+            <summary>
+            Represents the minimal amount of authentication state to be preserved during authentication operations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState.ReturnUrl">
+            <summary>
+            Gets or sets the URL to which the application should redirect after a successful authentication operation.
+            It must be a url within the page.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationStatus">
+            <summary>
+            Represents the status of an authentication operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationStatus.Redirect">
+            <summary>
+            The application is going to be redirected.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationStatus.Success">
+            <summary>
+            The authentication operation completed successfully.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationStatus.Failure">
+            <summary>
+            There was an error performing the authentication operation.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationStatus.OperationCompleted">
+            <summary>
+            The operation in the current navigation context has completed. This signals that the application running on the
+            current browser context is about to be shut down and no other work is required.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount">
+            <summary>
+            A user account.
+            </summary>
+            <remarks>
+            The information in this type will be use to produce a <see cref="T:System.Security.Claims.ClaimsPrincipal"/> for the application.
+            </remarks>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount.AdditionalProperties">
+            <summary>
+            Gets or sets properties not explicitly mapped about the user.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.NavigationManagerExtensions">
+            <summary>
+            Extensions for <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.NavigationManagerExtensions.NavigateToLogout(Microsoft.AspNetCore.Components.NavigationManager,System.String)">
+            <summary>
+            Initiates a logout operation by navigating to the log out endpoint.
+            </summary>
+            <remarks>
+            The navigation includes state that is added to the browser history entry to
+            prevent logout operations performed from different contexts.
+            </remarks>
+            <param name="manager">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/>.</param>
+            <param name="logoutPath">The path to navigate to.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.NavigationManagerExtensions.NavigateToLogout(Microsoft.AspNetCore.Components.NavigationManager,System.String,System.String)">
+            <summary>
+            Initiates a logout operation by navigating to the log out endpoint.
+            </summary>
+            <remarks>
+            The navigation includes state that is added to the browser history entry to
+            prevent logout operations performed from different contexts.
+            </remarks>
+            <param name="manager">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/>.</param>
+            <param name="logoutPath">The path to navigate too.</param>
+            <param name="returnUrl">The url to redirect the user to after logging out.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.NavigationManagerExtensions.NavigateToLogin(Microsoft.AspNetCore.Components.NavigationManager,System.String,Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions)">
+            <summary>
+            Initiates a login operation by navigating to the login endpoint.
+            </summary>
+            <remarks>
+            The navigation includes state that is added to the browser history entry to
+            prevent login operations performed from different contexts.
+            </remarks>
+            <param name="manager">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/>.</param>
+            <param name="loginPath">The path to the login url.</param>
+            <param name="request">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions"/> containing the authorization details.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.NavigationManagerExtensions.NavigateToLogin(Microsoft.AspNetCore.Components.NavigationManager,System.String)">
+            <summary>
+            Initiates a login operation by navigating to the login endpoint.
+            </summary>
+            <remarks>
+            The navigation includes state that is added to the browser history entry to
+            prevent login operations performed from different contexts.
+            </remarks>
+            <param name="manager">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/>.</param>
+            <param name="loginPath">The path to the login url.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions">
+            <summary>
+            Represents options for applications relying on a server for configuration.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions.ConfigurationEndpoint">
+            <summary>
+            Gets or sets the endpoint to call to retrieve the authentication settings for the application.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions">
+            <summary>
+            Represents options to pass down to configure the oidc-client.js library used when using a standard OpenID Connect (OIDC) flow.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.Authority">
+            <summary>
+            Gets or sets the authority of the OpenID Connect (OIDC) identity provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.MetadataUrl">
+            <summary>
+            Gets or sets the metadata URL of the OpenID Connect (OIDC) provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.ClientId">
+            <summary>
+            Gets or sets the client of the application.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.DefaultScopes">
+            <summary>
+            Gets or sets the list of scopes to request when signing in.
+            </summary>
+            <value>Defaults to <c>openid</c> and <c>profile</c>.</value>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.RedirectUri">
+            <summary>
+            Gets or sets the redirect URI for the application. The application will be redirected here after the user has completed the sign in
+            process from the identity provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.PostLogoutRedirectUri">
+            <summary>
+            Gets or sets the post logout redirect URI for the application. The application will be redirected here after the user has completed the sign out
+            process from the identity provider.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.ResponseType">
+            <summary>
+            Gets or sets the response type to use on the authorization flow. The valid values are specified by the identity provider metadata.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.ResponseMode">
+            <summary>
+            Gets or sets the response mode to use in the authorization flow.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions.AdditionalProviderParameters">
+            <summary>
+            Gets or sets the additional provider parameters to use on the authorization flow.
+            </summary>
+            <remarks>
+            These parameters are for the IdP and not for the application. Using those parameters in the application in any way on the login callback will likely introduce security issues as they should be treated as untrusted input.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions">
+            <summary>
+            Represents the options for the paths used by the application for authentication operations. These paths are relative to the base.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.RegisterPath">
+            <summary>
+            Gets or sets the path to the endpoint for registering new users.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.RemoteRegisterPath">
+            <summary>
+            Gets or sets the remote path to the remote endpoint for registering new users.
+            It might be absolute and point outside of the application.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.ProfilePath">
+            <summary>
+            Gets or sets the path to the endpoint for modifying the settings for the user profile.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.RemoteProfilePath">
+            <summary>
+            Gets or sets the path to the remote endpoint for modifying the settings for the user profile.
+            It might be absolute and point outside of the application.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.LogInPath">
+            <summary>
+            Gets or sets the path to the login page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.LogInCallbackPath">
+            <summary>
+            Gets or sets the path to the login callback page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.LogInFailedPath">
+            <summary>
+            Gets or sets the path to the login failed page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.LogOutPath">
+            <summary>
+            Gets or sets the path to the logout page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.LogOutCallbackPath">
+            <summary>
+            Gets or sets the path to the logout callback page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.LogOutFailedPath">
+            <summary>
+            Gets or sets the path to the logout failed page.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions.LogOutSucceededPath">
+            <summary>
+            Gets or sets the path to the logout succeeded page.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1">
+            <summary>
+            Options for remote authentication.
+            </summary>
+            <typeparam name="TRemoteAuthenticationProviderOptions">The type of the underlying provider options.</typeparam>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1.ProviderOptions">
+            <summary>
+            Gets or sets the provider options.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1.AuthenticationPaths">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1.UserOptions">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationUserOptions"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationUserOptions">
+            <summary>
+            Represents options to use when configuring the <see cref="T:System.Security.Claims.ClaimsPrincipal"/> for a user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationUserOptions.NameClaim">
+            <summary>
+            Gets or sets the claim type to use for the user name.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationUserOptions.RoleClaim">
+            <summary>
+            Gets or sets the claim type to use for the user roles.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationUserOptions.ScopeClaim">
+            <summary>
+            Gets or sets the claim type to use for the user scopes.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationUserOptions.AuthenticationType">
+            <summary>
+            Gets or sets the value to use for the <see cref="P:System.Security.Claims.ClaimsIdentity.AuthenticationType"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults">
+            <summary>
+            Represents default values for different configurable values used across the library.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LoginPath">
+            <summary>
+            The default login path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LoginCallbackPath">
+            <summary>
+            The default login callback path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LoginFailedPath">
+            <summary>
+            The default login failed path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LogoutPath">
+            <summary>
+            The default logout path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LogoutCallbackPath">
+            <summary>
+            The default logout callback path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LogoutFailedPath">
+            <summary>
+            The default logout failed path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LogoutSucceededPath">
+            <summary>
+            The default logout succeeded path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.ProfilePath">
+            <summary>
+            The default profile path.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.RegisterPath">
+            <summary>
+            The default register path.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView">
+            <summary>
+            An <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1"/> that uses <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/> as the
+            state to be persisted across authentication operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView.#ctor">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorView"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1">
+            <summary>
+            A component that handles remote authentication operations in an application.
+            </summary>
+            <typeparam name="TAuthenticationState">The user state type persisted while the operation is in progress. It must be serializable.</typeparam>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.Action">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions"/> action the component needs to handle.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.AuthenticationState">
+            <summary>
+            Gets or sets the <typeparamref name="TAuthenticationState"/> instance to be preserved during the authentication operation.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.LoggingIn">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogIn"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.Registering">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.Register"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.UserProfile">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.Profile"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.CompletingLoggingIn">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogInCallback"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.LogInFailed">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogInFailed"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.LogOut">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogOut"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.CompletingLogOut">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogOutCallback"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.LogOutFailed">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogOutFailed"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.LogOutSucceeded">
+            <summary>
+            Gets or sets a <see cref="T:Microsoft.AspNetCore.Components.RenderFragment"/> with the UI to display while <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationActions.LogOutSucceeded"/> is being handled.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.OnLogInSucceeded">
+            <summary>
+            Gets or sets an event callback that will be invoked with the stored authentication state when a log in operation succeeds.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.OnLogOutSucceeded">
+            <summary>
+            Gets or sets an event callback that will be invoked with the stored authentication state when a log out operation succeeds.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.ApplicationPaths">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationApplicationPathsOptions"/> with the paths to different authentication pages.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticatorViewCore`1.OnParametersSetAsync">
+            <inheritdoc />
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenRequestOptions">
+            <summary>
+            Represents the options for provisioning an access token on behalf of a user.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenRequestOptions.Scopes">
+            <summary>
+            Gets or sets the list of scopes to request for the token.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenRequestOptions.ReturnUrl">
+            <summary>
+            Gets or sets a specific return url to use for returning the user back to the application if it needs to be
+            redirected elsewhere in order to provision the token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult">
+            <summary>
+            Represents the result of trying to provision an access token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.#ctor(Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus,Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult"/>.
+            </summary>
+            <param name="status">The status of the result.</param>
+            <param name="token">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken"/> in case it was successful.</param>
+            <param name="redirectUrl">The redirect uri to go to for provisioning the token.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.#ctor(Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus,Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken,System.String,Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult"/>.
+            </summary>
+            <param name="status">The status of the result.</param>
+            <param name="token">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken"/> in case it was successful.</param>
+            <param name="interactiveRequestUrl">The redirect uri to go to for provisioning the token with <see cref="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.NavigationManagerExtensions.NavigateToLogin(Microsoft.AspNetCore.Components.NavigationManager,System.String,Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions)"/>.</param>
+            <param name="interactiveRequest">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions"/> containing the parameters for the interactive authentication.</param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.Status">
+            <summary>
+            Gets the status of the current operation. See <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus"/> for a list of statuses.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.RedirectUrl">
+            <summary>
+            Gets the URL to redirect to if <see cref="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.Status"/> is <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus.RequiresRedirect"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.InteractiveRequestUrl">
+            <summary>
+            Gets the URL to call <see cref="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.NavigationManagerExtensions.NavigateToLogin(Microsoft.AspNetCore.Components.NavigationManager,System.String,Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions)"/> if <see cref="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.Status"/> is
+            <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus.RequiresRedirect"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.InteractionOptions">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions"/> to use if <see cref="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.Status"/> is <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus.RequiresRedirect"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.TryGetToken(Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken@)">
+            <summary>
+            Determines whether the token request was successful and makes the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken"/> available for use when it is.
+            </summary>
+            <param name="accessToken">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessToken"/> if the request was successful.</param>
+            <returns><c>true</c> when the token request is successful; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus">
+            <summary>
+            Represents the possible results from trying to acquire an access token.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus.Success">
+            <summary>
+            The token was successfully acquired.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResultStatus.RequiresRedirect">
+            <summary>
+            A redirect is needed in order to provision the token.
+            </summary>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1">
+            <summary>
+            Converts <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount" /> into a <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.
+            </summary>
+            <typeparam name="TAccount">The account type.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1.#ctor(Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal.IAccessTokenProviderAccessor)">
+            <summary>
+            Initialize a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1"/>.
+            </summary>
+            <param name="accessor"></param>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1.TokenProvider">
+            <summary>
+            Gets or sets the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1.CreateUserAsync(`0,Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationUserOptions)">
+            <summary>
+            Converts the <paramref name="account"/> into the final <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.
+            </summary>
+            <param name="account">The account.</param>
+            <param name="options">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationUserOptions"/> to configure the <see cref="T:System.Security.Claims.ClaimsPrincipal"/> with.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1"/>that will contain the <see cref="T:System.Security.Claims.ClaimsPrincipal"/> user when completed.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler">
+            <summary>
+            A <see cref="T:System.Net.Http.DelegatingHandler"/> that attaches access tokens to outgoing <see cref="T:System.Net.Http.HttpResponseMessage"/> instances.
+            Access tokens will only be added when the request URI is within one of the base addresses configured using
+            <see cref="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.String)"/>.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.#ctor(Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider,Microsoft.AspNetCore.Components.NavigationManager)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler"/>.
+            </summary>
+            <param name="provider">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider"/> to use for provisioning tokens.</param>
+            <param name="navigation">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/> to use for performing redirections.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.SendAsync(System.Net.Http.HttpRequestMessage,System.Threading.CancellationToken)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler.ConfigureHandler(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String},System.String)">
+            <summary>
+            Configures this handler to authorize outbound HTTP requests using an access token. The access token is only attached if at least one of
+            <paramref name="authorizedUrls" /> is a base of <see cref="P:System.Net.Http.HttpRequestMessage.RequestUri" />.
+            </summary>
+            <param name="authorizedUrls">The base addresses of endpoint URLs to which the token will be attached.</param>
+            <param name="scopes">The list of scopes to use when requesting an access token.</param>
+            <param name="returnUrl">The return URL to use in case there is an issue provisioning the token and a redirection to the
+            identity provider is necessary.
+            </param>
+            <returns>This <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler"/>.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler">
+            <summary>
+            A <see cref="T:System.Net.Http.DelegatingHandler"/> that attaches access tokens to outgoing <see cref="T:System.Net.Http.HttpResponseMessage"/> instances.
+            Access tokens will only be added when the request URI is within the application's base URI.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler.#ctor(Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider,Microsoft.AspNetCore.Components.NavigationManager)">
+            <summary>
+            Initializes a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.BaseAddressAuthorizationMessageHandler"/>.
+            </summary>
+            <param name="provider">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider"/> to use for requesting tokens.</param>
+            <param name="navigationManager">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/> used to compute the base address.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException">
+            <summary>
+            An <see cref="T:System.Exception"/> that is thrown when an <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AuthorizationMessageHandler"/> instance
+            is not able to provision an access token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException.#ctor(Microsoft.AspNetCore.Components.NavigationManager,Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Initialize a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException"/>.
+            </summary>
+            <param name="navigation">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/>.</param>
+            <param name="tokenResult">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult"/>.</param>
+            <param name="scopes">The scopes.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException.Redirect">
+            <summary>
+            Navigates to <see cref="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.InteractiveRequestUrl"/> using the given <see cref="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.InteractionOptions"/>
+            to allow refreshing the access token.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenNotAvailableException.Redirect(System.Action{Microsoft.AspNetCore.Components.WebAssembly.Authentication.InteractiveRequestOptions})">
+            <summary>
+            Navigates to <see cref="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.InteractiveRequestUrl"/> using the given <see cref="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult.InteractionOptions"/>
+            to allow refreshing the access token.
+            </summary>
+            <param name="configureInteractionOptions">A callback to further configure the initial set of options to be passed during the interactive token adquisition flow.</param>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider">
+            <summary>
+            Represents a contract for services capable of provisioning access tokens for an application.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider.RequestAccessToken">
+            <summary>
+            Tries to get an access token for the current user with the default set of permissions.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1"/> that will contain the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult"/> when completed.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IAccessTokenProvider.RequestAccessToken(Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenRequestOptions)">
+            <summary>
+            Tries to get an access token with the options specified in <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenRequestOptions"/>.
+            </summary>
+            <param name="options">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenRequestOptions"/> for provisioning the access token.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask`1"/> that will contain the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenResult"/> when completed.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IRemoteAuthenticationService`1">
+            <summary>
+            Represents a contract for services that perform authentication operations for a Blazor WebAssembly application.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The state to be persisted across authentication operations.</typeparam>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IRemoteAuthenticationService`1.SignInAsync(Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext{`0})">
+            <summary>
+            Signs in a user.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext`1"/> for authenticating the user.</param>
+            <returns>The result of the authentication operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IRemoteAuthenticationService`1.CompleteSignInAsync(Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext{`0})">
+            <summary>
+            Completes the sign in operation for a user when it is performed outside of the application origin via a redirect operation followed
+            by a redirect callback to a page in the application.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext`1"/> for authenticating the user.</param>
+            <returns>The result of the authentication operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IRemoteAuthenticationService`1.SignOutAsync(Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext{`0})">
+            <summary>
+            Signs out a user.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext`1"/> for authenticating the user.</param>
+            <returns>The result of the authentication operation.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IRemoteAuthenticationService`1.CompleteSignOutAsync(Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext{`0})">
+            <summary>
+            Completes the sign out operation for a user when it is performed outside of the application origin via a redirect operation followed
+            by a redirect callback to a page in the application.
+            </summary>
+            <param name="context">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext`1"/> for authenticating the user.</param>
+            <returns>The result of the authentication operation.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3">
+            <summary>
+            The default implementation for <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.IRemoteAuthenticationService`1"/> that uses JS interop to authenticate the user.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The state to preserve across authentication operations.</typeparam>
+            <typeparam name="TAccount">The type of the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount" />.</typeparam>
+            <typeparam name="TProviderOptions">The options to be passed down to the underlying JavaScript library handling the authentication operations.</typeparam>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.JsRuntime">
+            <summary>
+            Gets the <see cref="T:Microsoft.JSInterop.IJSRuntime"/> to use for performing JavaScript interop operations.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.Navigation">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/> used to compute absolute urls.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.AccountClaimsPrincipalFactory">
+            <summary>
+            Gets the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1"/> to map accounts to <see cref="T:System.Security.Claims.ClaimsPrincipal"/>.
+            </summary>
+        </member>
+        <member name="P:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.Options">
+            <summary>
+            Gets the options for the underlying JavaScript library handling the authentication operations.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Options.IOptionsSnapshot{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{`2}},Microsoft.AspNetCore.Components.NavigationManager,Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory{`1})">
+            <summary>
+            Initializes a new instance.
+            </summary>
+            <param name="jsRuntime">The <see cref="T:Microsoft.JSInterop.IJSRuntime"/> to use for performing JavaScript interop operations.</param>
+            <param name="options">The options to be passed down to the underlying JavaScript library handling the authentication operations.</param>
+            <param name="navigation">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/> used to generate URLs.</param>
+            <param name="accountClaimsPrincipalFactory">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1"/> used to generate the <see cref="T:System.Security.Claims.ClaimsPrincipal"/> for the user.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.#ctor(Microsoft.JSInterop.IJSRuntime,Microsoft.Extensions.Options.IOptionsSnapshot{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{`2}},Microsoft.AspNetCore.Components.NavigationManager,Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory{`1},Microsoft.Extensions.Logging.ILogger{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService{`0,`1,`2}})">
+            <summary>
+            Initializes a new instance.
+            </summary>
+            <param name="jsRuntime">The <see cref="T:Microsoft.JSInterop.IJSRuntime"/> to use for performing JavaScript interop operations.</param>
+            <param name="options">The options to be passed down to the underlying JavaScript library handling the authentication operations.</param>
+            <param name="navigation">The <see cref="T:Microsoft.AspNetCore.Components.NavigationManager"/> used to generate URLs.</param>
+            <param name="accountClaimsPrincipalFactory">The <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1"/> used to generate the <see cref="T:System.Security.Claims.ClaimsPrincipal"/> for the user.</param>
+            <param name="logger">The logger to use for login authentication operations.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.GetAuthenticationStateAsync">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.SignInAsync(Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.CompleteSignInAsync(Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.SignOutAsync(Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.CompleteSignOutAsync(Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationContext{`0})">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.RequestAccessToken">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.RequestAccessToken(Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccessTokenRequestOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationService`3.GetAuthenticatedUser">
+            <summary>
+            Gets the current authenticated used using JavaScript interop.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task`1"/>that will return the current authenticated user when completes.</returns>
+        </member>
+        <member name="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.SignOutSessionStateManager">
+            <summary>
+            Handles CSRF protection for the logout endpoint.
+            </summary>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.SignOutSessionStateManager.#ctor(Microsoft.JSInterop.IJSRuntime)">
+            <summary>
+            Initialize a new instance of <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.SignOutSessionStateManager"/>.
+            </summary>
+            <param name="jsRuntime">The <see cref="T:Microsoft.JSInterop.IJSRuntime"/>.</param>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.SignOutSessionStateManager.SetSignOutState">
+            <summary>
+            Sets up some state in session storage to allow for logouts from within the <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LogoutPath"/> page.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.ValueTask"/> that completes when the state has been saved to session storage.</returns>
+        </member>
+        <member name="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.SignOutSessionStateManager.ValidateSignOutState">
+            <summary>
+            Validates the existence of some state previously setup by <see cref="M:Microsoft.AspNetCore.Components.WebAssembly.Authentication.SignOutSessionStateManager.SetSignOutState"/> in session storage to allow
+            logouts from within the <see cref="F:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationDefaults.LogoutPath"/> page.
+            </summary>
+            <returns>A <see cref="T:System.Threading.Tasks.Task"/> that completes when the state has been validated and indicates the validity of the state.</returns>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Internal.LinkerFlags.JsonSerialized">
+            <summary>
+            Flags for a member that is JSON (de)serialized.
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Internal.LinkerFlags.Component">
+            <summary>
+            Flags for a component
+            </summary>
+        </member>
+        <member name="F:Microsoft.AspNetCore.Internal.LinkerFlags.JSInvokable">
+            <summary>
+            Flags for a JSInvokable type.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder`2">
+            <summary>
+            An interface for configuring remote authentication services.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The remote authentication state type.</typeparam>
+            <typeparam name="TAccount">The account type.</typeparam>
+        </member>
+        <member name="P:Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder`2.Services">
+            <summary>
+            The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.RemoteAuthenticationBuilderExtensions">
+            <summary>
+            Extensions for remote authentication services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.RemoteAuthenticationBuilderExtensions.AddAccountClaimsPrincipalFactory``3(Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder{``0,``1})">
+            <summary>
+            Replaces the existing <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1"/> with the user factory defined by <typeparamref name="TAccountClaimsPrincipalFactory"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The remote authentication state.</typeparam>
+            <typeparam name="TAccount">The account type.</typeparam>
+            <typeparam name="TAccountClaimsPrincipalFactory">The new user factory type.</typeparam>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder`2"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder`2"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.RemoteAuthenticationBuilderExtensions.AddAccountClaimsPrincipalFactory``2(Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder{``0,Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount})">
+            <summary>
+            Replaces the existing <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1"/> with the user factory defined by <typeparamref name="TAccountClaimsPrincipalFactory"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The remote authentication state.</typeparam>
+            <typeparam name="TAccountClaimsPrincipalFactory">The new user factory type.</typeparam>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder`2"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder`2"/>.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.RemoteAuthenticationBuilderExtensions.AddAccountClaimsPrincipalFactory``1(Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState,Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteUserAccount})">
+            <summary>
+            Replaces the existing <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.AccountClaimsPrincipalFactory`1"/> with the user factory defined by <typeparamref name="TAccountClaimsPrincipalFactory"/>.
+            </summary>
+            <typeparam name="TAccountClaimsPrincipalFactory">The new user factory type.</typeparam>
+            <param name="builder">The <see cref="T:Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder`2"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IRemoteAuthenticationBuilder`2"/>.</returns>
+        </member>
+        <member name="T:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions">
+            <summary>
+            Contains extension methods to add authentication to Blazor WebAssembly applications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddRemoteAuthentication``3(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds support for authentication for SPA applications using the given <typeparamref name="TProviderOptions"/> and
+            <typeparamref name="TRemoteAuthenticationState"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The state to be persisted across authentication operations.</typeparam>
+            <typeparam name="TAccount">The account type.</typeparam>
+            <typeparam name="TProviderOptions">The configuration options of the underlying provider being used for handling the authentication operations.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddRemoteAuthentication``3(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{``2}})">
+            <summary>
+            Adds support for authentication for SPA applications using the given <typeparamref name="TProviderOptions"/> and
+            <typeparamref name="TRemoteAuthenticationState"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The state to be persisted across authentication operations.</typeparam>
+            <typeparam name="TAccount">The account type.</typeparam>
+            <typeparam name="TProviderOptions">The configuration options of the underlying provider being used for handling the authentication operations.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <param name="configure">An action that will configure the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions}})">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <param name="configure">An action that will configure the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions}})">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The type of the remote authentication state.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <param name="configure">An action that will configure the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddOidcAuthentication``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions}})">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.OidcProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The type of the remote authentication state.</typeparam>
+            <typeparam name="TAccount">The account type.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <param name="configure">An action that will configure the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization``1(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The type of the remote authentication state.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization``2(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The type of the remote authentication state.</typeparam>
+            <typeparam name="TAccount">The account type.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions}})">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <param name="configure">An action that will configure the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization``1(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions}})">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The type of the remote authentication state.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <param name="configure">An action that will configure the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+        <member name="M:Microsoft.Extensions.DependencyInjection.WebAssemblyAuthenticationServiceCollectionExtensions.AddApiAuthorization``2(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions{Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions}})">
+            <summary>
+            Adds support for authentication for SPA applications using <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.ApiAuthorizationProviderOptions"/> and the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationState"/>.
+            </summary>
+            <typeparam name="TRemoteAuthenticationState">The type of the remote authentication state.</typeparam>
+            <typeparam name="TAccount">The account type.</typeparam>
+            <param name="services">The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> to add the services to.</param>
+            <param name="configure">An action that will configure the <see cref="T:Microsoft.AspNetCore.Components.WebAssembly.Authentication.RemoteAuthenticationOptions`1"/>.</param>
+            <returns>The <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/> where the services were registered.</returns>
+        </member>
+    </members>
+</doc>
