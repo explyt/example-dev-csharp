@@ -4,6 +4,11 @@ namespace AuthService.Domain;
 
 public class InsuranceAgent
 {
+    // EF Core requires a parameterless constructor
+    private InsuranceAgent()
+    {
+    }
+
     public InsuranceAgent(string login, string password, string avatar, List<string> availableProducts)
     {
         Login = login;
@@ -12,10 +17,11 @@ public class InsuranceAgent
         AvailableProducts = availableProducts;
     }
 
-    public string Login { get; }
-    public string Password { get; }
-    public string Avatar { get; }
-    public List<string> AvailableProducts { get; }
+    public int Id { get; private set; }
+    public string Login { get; private set; }
+    public string Password { get; private set; }
+    public string Avatar { get; private set; }
+    public List<string> AvailableProducts { get; private set; }
 
     public bool PasswordMatches(string passwordToTest)
     {

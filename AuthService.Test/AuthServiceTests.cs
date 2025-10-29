@@ -1,6 +1,9 @@
 using System;
-using AuthService.DataAccess;
+using System.Collections.Generic;
+using AuthService.DataAccess.EF;
+using AuthService.Domain;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
@@ -11,21 +14,37 @@ namespace AuthService.Test;
 public class AuthServiceTests
 {
     private readonly Domain.AuthService authService;
-    private readonly InsuranceAgentsInMemoryDb agentsDb;
+    private readonly IInsuranceAgents agentsRepository;
     private readonly AppSettings appSettings;
     private readonly ITestOutputHelper output;
 
     public AuthServiceTests(ITestOutputHelper output)
     {
         this.output = output;
-        agentsDb = new InsuranceAgentsInMemoryDb();
+        
+        // Setup EF Core in-memory database
+        var options = new DbContextOptionsBuilder<AuthDbContext>()
+            .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+            .Options;
+        
+        var dbContext = new AuthDbContext(options);
+        agentsRepository = new InsuranceAgentRepository(dbContext);
+        
+        // Seed test data
+        agentsRepository.Add(new InsuranceAgent("jimmy.solid", "secret", "static/avatars/jimmy_solid.png",
+            new List<string> { "TRI", "HSI", "FAI", "CAR" }));
+        agentsRepository.Add(new InsuranceAgent("danny.solid", "secret", "static/avatars/danny.solid.png",
+            new List<string> { "TRI", "HSI", "FAI", "CAR" }));
+        agentsRepository.Add(new InsuranceAgent("admin", "admin", "static/avatars/admin.png",
+            new List<string> { "TRI", "HSI", "FAI", "CAR" }));
+        
         appSettings = new AppSettings
         {
             Secret = "ThisIsASecretKeyForJWTTokenGeneration123456789"
         };
-        var options = Options.Create(appSettings);
+        var appSettingsOptions = Options.Create(appSettings);
         
-        authService = new Domain.AuthService(agentsDb, options);
+        authService = new Domain.AuthService(agentsRepository, appSettingsOptions);
     }
 
     [Theory]

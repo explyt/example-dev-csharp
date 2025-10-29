@@ -1,6 +1,7 @@
 ﻿using System.Text;
-using AuthService.DataAccess;
+using AuthService.DataAccess.EF;
 using AuthService.Domain;
+using AuthService.Init;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -59,7 +60,8 @@ public class Startup
             });
 
         services.AddSingleton<Domain.AuthService>();
-        services.AddSingleton<IInsuranceAgents, InsuranceAgentsInMemoryDb>();
+        services.AddEFConfiguration(Configuration);
+        services.AddAuthDemoInitializer();
         services.AddSwaggerGen();
     }
 
@@ -84,6 +86,9 @@ public class Startup
         app.UseAuthorization();
 
         app.UseHttpsRedirection();
+        
+        // Ensure initializer is awaited so seeding completes before the app starts handling requests
+        app.UseInitializer();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }
