@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Threading.Tasks;
 using Lucene.Net.Analysis.Standard;
 using Lucene.Net.Documents;
 using Lucene.Net.Index;
@@ -171,5 +172,17 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
     {
         writer?.Dispose();
         directory?.Dispose();
+    }
+    
+    public Task Clear()
+    {
+        lock (writerLock)
+        {
+            writer.DeleteAll();
+            writer.Flush(triggerMerge: false, applyAllDeletes: false);
+            writer.Commit();
+        }
+
+        return Task.CompletedTask;
     }
 }
