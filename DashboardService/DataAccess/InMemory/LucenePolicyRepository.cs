@@ -35,9 +35,13 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
             doc.Add(new Field("agentLogin", policy.AgentLogin ?? string.Empty, Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("productCode", policy.ProductCode ?? string.Empty, Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("from", policy.From.ToString("o", CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("to", policy.To.ToString("o", CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("salesDate", policy.SalesDate.ToString("o", CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("policyHolder", policy.PolicyHolder, Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("totalPremium", Convert.ToDouble(policy.TotalPremium).ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED));
 
             writer.UpdateDocument(new Term("number", policy.Number), doc);
+            writer.Flush(false, false, false);
             writer.Commit();
         }
     }
@@ -89,7 +93,7 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
         var docs = SearchByFilters(null, query.FilterByProductCode, query.FilterBySalesDateStart, query.FilterBySalesDateEnd);
             var periods = docs.GroupBy(d =>
         {
-            var dt = DateTime.Parse(d.Get("from"), null, DateTimeStyles.RoundtripKind);
+            var dt = DateTime.Parse(d.Get("salesDate"), null, DateTimeStyles.RoundtripKind);
             return query.AggregationUnit switch
             {
                 TimeAggregationUnit.Month => new DateTime(dt.Year, dt.Month, 1),
@@ -157,7 +161,7 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
         {
             docs = docs.Where(d =>
             {
-                var dt = DateTime.Parse(d.Get("from"), null, DateTimeStyles.RoundtripKind);
+                var dt = DateTime.Parse(d.Get("salesDate"), null, DateTimeStyles.RoundtripKind);
                 if (fromDate != default && dt < fromDate) return false;
                 if (toDate != default && dt > toDate) return false;
                 return true;
@@ -171,13 +175,14 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
     {
         var number = doc.Get("number");
         var from = DateTime.Parse(doc.Get("from"), null, DateTimeStyles.RoundtripKind);
-        var to = from.AddYears(1).AddDays(-1);
-        var insured = doc.Get("insuredName");
-        var product = doc.Get("productCode");
-        var premium = Convert.ToDecimal(doc.Get("totalPremium"));
-        var agent = doc.Get("agentLogin");
+        var to = DateTime.Parse(doc.Get("to"), null, DateTimeStyles.RoundtripKind);
+        var salesDate = DateTime.Parse(doc.Get("salesDate"), null, DateTimeStyles.RoundtripKind);
+        var policyHolder = doc.Get("policyHolder");
+        var productCode = doc.Get("productCode");
+        var totalPremium = Convert.ToDecimal(doc.Get("totalPremium"));
+        var agentLogin = doc.Get("agentLogin");
 
-        return new PolicyDocument(number, from, to, insured, product, premium, agent);
+        return new PolicyDocument(number, from, to, salesDate, policyHolder, productCode, totalPremium, agentLogin);
     }
 
     public void Dispose()

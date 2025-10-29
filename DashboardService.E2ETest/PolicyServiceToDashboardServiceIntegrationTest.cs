@@ -113,7 +113,8 @@ public class PolicyServiceToDashboardServiceIntegrationTest(
         await Task.Delay(1000);
         // Step 4: Wait for event processing and verify dashboard analytics are updated
         var policyNumber = createPolicyResult.PolicyNumber;
-        var saleDate = policyDetails.Policy.DateFrom;
+        // Sales date is when the policy was created (now), not the coverage start date
+        var saleDate = DateTime.Now;
 
         // Try querying dashboard multiple times with a delay to account for eventual consistency
         GetTotalSalesResult totalSalesResult = null;
@@ -281,11 +282,12 @@ public class PolicyServiceToDashboardServiceIntegrationTest(
         await Task.Delay(1000);
 
         // Verify total sales aggregation
-        var policyFrom = DateTime.Now.AddDays(5);
+        // Sales date is when policies were created (now), not the coverage start date
+        var saleDate = DateTime.Now;
         var totalSalesQuery = new GetTotalSalesQuery
         {
-            SalesDateFrom = policyFrom.AddDays(-1),
-            SalesDateTo = policyFrom.AddDays(1)
+            SalesDateFrom = saleDate.AddDays(-1),
+            SalesDateTo = saleDate.AddDays(1)
         };
 
         var totalSalesScenario = await DashboardHost.Scenario(_ =>
@@ -308,8 +310,8 @@ public class PolicyServiceToDashboardServiceIntegrationTest(
             var agentSalesQuery = new GetAgentsSalesQuery
             {
                 AgentLogin = agent,
-                SalesDateFrom = policyFrom.AddDays(-1),
-                SalesDateTo = policyFrom.AddDays(1)
+                SalesDateFrom = saleDate.AddDays(-1),
+                SalesDateTo = saleDate.AddDays(1)
             };
 
             var agentSalesScenario = await DashboardHost.Scenario(_ =>
@@ -325,15 +327,15 @@ public class PolicyServiceToDashboardServiceIntegrationTest(
 
             True(agentSalesResult.PerAgentTotal.ContainsKey(agent), $"Agent {agent} should be in sales results");
             var agentTotal = agentSalesResult.PerAgentTotal[agent];
-            Equal((long)policyCounts[agent], agentTotal.PoliciesCount);
+            Equal(policyCounts[agent], agentTotal.PoliciesCount);
             True(agentTotal.PremiumAmount > 0, $"Agent {agent} should have positive premium");
         }
 
         // Verify sales trends show correct data
         var salesTrendsQuery = new GetSalesTrendsQuery
         {
-            SalesDateFrom = policyFrom.AddDays(-1),
-            SalesDateTo = policyFrom.AddDays(1),
+            SalesDateFrom = saleDate.AddDays(-1),
+            SalesDateTo = saleDate.AddDays(1),
             Unit = TimeUnit.Day
         };
 
