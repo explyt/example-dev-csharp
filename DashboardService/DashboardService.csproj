@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <Compile Remove="Init\InMemoryDataInitializer.cs" />
+      <Compile Remove="Messaging\MessagePipe\UdpMessageReceiver.cs" />
     </ItemGroup>
 
 

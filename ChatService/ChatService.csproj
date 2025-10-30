@@ -20,4 +20,8 @@
         <ProjectReference Include="..\PolicyService.Api\PolicyService.Api.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Messaging\MessagePipe\UdpMessageReceiver.cs" />
+    </ItemGroup>
+
 </Project>

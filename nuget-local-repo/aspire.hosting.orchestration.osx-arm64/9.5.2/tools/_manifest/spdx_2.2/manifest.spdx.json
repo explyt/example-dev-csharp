@@ -1,0 +1,155 @@
+{
+  "files": [
+    {
+      "fileName": "./NOTICE",
+      "SPDXID": "SPDXRef-File--NOTICE-84D214298E846E9C71D468E595E4AEA00709B6D1",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "fcec5548f2f4cd6bffa6b756a741e018dc5424b433b7497befff369c29bb50a7"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "84d214298e846e9c71d468e595e4aea00709b6d1"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./ext/bin/dcptun",
+      "SPDXID": "SPDXRef-File--ext-bin-dcptun-0F19572008E7D213E785EE853EC0C4278421697E",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "6a285886677cbe5f8b992b226d72f97a4155cb4acfdd5cfe9872fbb92d56a9ae"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "0f19572008e7d213e785ee853ec0c4278421697e"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./ext/dcpctrl",
+      "SPDXID": "SPDXRef-File--ext-dcpctrl-13013925FD0FAA2D73B47675A282E4DAB194CA56",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "86e1ae2cc70151941e9a0b6077b40b2ca7879f336cb1879fb64b94f416337579"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "13013925fd0faa2d73b47675a282e4dab194ca56"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./dcp",
+      "SPDXID": "SPDXRef-File--dcp-156FFF0BD5FA46D118246A4DB33C3094E24EA61A",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "56d743a1ef84ddf03d8ae2342acd6a6beeb9cd2f7bae76fb9fce8f098579422d"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "156fff0bd5fa46d118246a4db33c3094e24ea61a"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    },
+    {
+      "fileName": "./ext/bin/dcpproc",
+      "SPDXID": "SPDXRef-File--ext-bin-dcpproc-10AF71B0FBB40D0AD17486F2D429566BD5013274",
+      "checksums": [
+        {
+          "algorithm": "SHA256",
+          "checksumValue": "abb7774410f2bdb6beb36a903f904ba6d5c5e95701cb5cdf55ecc1f053c75114"
+        },
+        {
+          "algorithm": "SHA1",
+          "checksumValue": "10af71b0fbb40d0ad17486f2d429566bd5013274"
+        }
+      ],
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoInFiles": [
+        "NOASSERTION"
+      ],
+      "copyrightText": "NOASSERTION"
+    }
+  ],
+  "packages": [
+    {
+      "name": "microsoft.usvc-apiserver-official",
+      "SPDXID": "SPDXRef-RootPackage",
+      "downloadLocation": "NOASSERTION",
+      "packageVerificationCode": {
+        "packageVerificationCodeValue": "4a830dc65af7ddd06a3028d2280763a715e60c3d"
+      },
+      "filesAnalyzed": true,
+      "licenseConcluded": "NOASSERTION",
+      "licenseInfoFromFiles": [
+        "NOASSERTION"
+      ],
+      "licenseDeclared": "NOASSERTION",
+      "copyrightText": "NOASSERTION",
+      "versionInfo": "12583071",
+      "externalRefs": [
+        {
+          "referenceCategory": "PACKAGE-MANAGER",
+          "referenceType": "purl",
+          "referenceLocator": "pkg:swid/Microsoft/sbom.microsoft/microsoft.usvc-apiserver-official@12583071?tag_id=e1c5aefc-23a7-4849-a560-d6adc8b41d3d"
+        }
+      ],
+      "supplier": "Organization: Microsoft",
+      "hasFiles": [
+        "SPDXRef-File--ext-bin-dcpproc-10AF71B0FBB40D0AD17486F2D429566BD5013274",
+        "SPDXRef-File--dcp-156FFF0BD5FA46D118246A4DB33C3094E24EA61A",
+        "SPDXRef-File--ext-dcpctrl-13013925FD0FAA2D73B47675A282E4DAB194CA56",
+        "SPDXRef-File--ext-bin-dcptun-0F19572008E7D213E785EE853EC0C4278421697E",
+        "SPDXRef-File--NOTICE-84D214298E846E9C71D468E595E4AEA00709B6D1"
+      ]
+    }
+  ],
+  "externalDocumentRefs": [],
+  "relationships": [
+    {
+      "relationshipType": "DESCRIBES",
+      "relatedSpdxElement": "SPDXRef-RootPackage",
+      "spdxElementId": "SPDXRef-DOCUMENT"
+    }
+  ],
+  "spdxVersion": "SPDX-2.2",
+  "dataLicense": "CC0-1.0",
+  "SPDXID": "SPDXRef-DOCUMENT",
+  "name": "microsoft.usvc-apiserver-official 12583071",
+  "documentNamespace": "https://sbom.microsoft/1:34sbAVZth0--DQCSE2iE2Q:kMXbC2KgP0yw9pOD9nhl7g/19235:12583071/skW9etubMkqG9jLjz7ehiQ",
+  "creationInfo": {
+    "created": "2025-10-14T23:21:08Z",
+    "creators": [
+      "Organization: Microsoft",
+      "Tool: Microsoft.SBOMTool-4.1.3"
+    ]
+  },
+  "documentDescribes": [
+    "SPDXRef-RootPackage"
+  ]
+}

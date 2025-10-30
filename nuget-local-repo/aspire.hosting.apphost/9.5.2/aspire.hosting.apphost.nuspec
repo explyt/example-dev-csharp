@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Aspire.Hosting.AppHost</id>
+    <version>9.5.2</version>
+    <authors>Microsoft</authors>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>Icon.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/dotnet/aspire</projectUrl>
+    <description>Core library and MSBuild logic for .NET Aspire AppHost projects.</description>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>aspire hosting</tags>
+    <serviceable>true</serviceable>
+    <repository type="git" url="https://github.com/dotnet/aspire" commit="2fc27528ec03a94f2d6c663c9fa2392a9568ee41" />
+    <dependencies>
+      <group targetFramework="net8.0">
+        <dependency id="Aspire.Hosting" version="9.5.2" exclude="Build,Analyzers" />
+        <dependency id="AspNetCore.HealthChecks.Uris" version="9.0.0" exclude="Build,Analyzers" />
+        <dependency id="Google.Protobuf" version="3.32.0" exclude="Build,Analyzers" />
+        <dependency id="Grpc.AspNetCore" version="2.71.0" exclude="Build,Analyzers" />
+        <dependency id="Grpc.Net.ClientFactory" version="2.71.0" exclude="Build,Analyzers" />
+        <dependency id="Grpc.Tools" version="2.72.0" exclude="Build,Analyzers" />
+        <dependency id="Humanizer.Core" version="2.14.1" exclude="Build,Analyzers" />
+        <dependency id="JsonPatch.Net" version="3.3.0" exclude="Build,Analyzers" />
+        <dependency id="KubernetesClient" version="17.0.14" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="8.0.2" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="8.0.2" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Diagnostics.HealthChecks" version="8.0.20" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Hosting" version="8.0.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Hosting.Abstractions" version="8.0.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Http" version="8.0.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="8.0.3" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Options" version="8.0.2" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Primitives" version="8.0.0" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
+        <dependency id="Polly.Core" version="8.6.3" exclude="Build,Analyzers" />
+        <dependency id="Semver" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="StreamJsonRpc" version="2.22.11" exclude="Build,Analyzers" />
+        <dependency id="System.IO.Hashing" version="9.0.8" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net9.0">
+        <dependency id="Aspire.Hosting" version="9.5.2" exclude="Build,Analyzers" />
+        <dependency id="AspNetCore.HealthChecks.Uris" version="9.0.0" exclude="Build,Analyzers" />
+        <dependency id="Google.Protobuf" version="3.32.0" exclude="Build,Analyzers" />
+        <dependency id="Grpc.AspNetCore" version="2.71.0" exclude="Build,Analyzers" />
+        <dependency id="Grpc.Net.ClientFactory" version="2.71.0" exclude="Build,Analyzers" />
+        <dependency id="Grpc.Tools" version="2.72.0" exclude="Build,Analyzers" />
+        <dependency id="Humanizer.Core" version="2.14.1" exclude="Build,Analyzers" />
+        <dependency id="JsonPatch.Net" version="3.3.0" exclude="Build,Analyzers" />
+        <dependency id="KubernetesClient" version="17.0.14" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Abstractions" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Configuration.Binder" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.DependencyInjection.Abstractions" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Diagnostics.HealthChecks" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Hosting" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Hosting.Abstractions" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Http" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Logging.Abstractions" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Options" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Extensions.Primitives" version="9.0.9" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="13.0.3" exclude="Build,Analyzers" />
+        <dependency id="Polly.Core" version="8.6.3" exclude="Build,Analyzers" />
+        <dependency id="Semver" version="3.0.0" exclude="Build,Analyzers" />
+        <dependency id="StreamJsonRpc" version="2.22.11" exclude="Build,Analyzers" />
+        <dependency id="System.IO.Hashing" version="9.0.8" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+</package>
