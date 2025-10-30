@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="Start All Services and Blazor" type="CompoundRunConfigurationType">
+        <toRun name="AuthService" type="LaunchSettings"/>
+        <toRun name="ProductService" type="LaunchSettings"/>
+        <toRun name="DashboardService" type="LaunchSettings"/>
+        <toRun name="PolicyService" type="LaunchSettings"/>
+        <toRun name="PricingService" type="LaunchSettings"/>
+        <toRun name="ChatService" type="LaunchSettings"/>
+        <toRun name="PaymentService" type="LaunchSettings"/>
+        <toRun name="PolicySearchService" type="LaunchSettings"/>
+        <toRun name="AgentPortalApiGateway" type="LaunchSettings"/>
+        <toRun name="BlazorWasmClient.Client" type="LaunchSettings"/>
+        <method v="2"/>
+    </configuration>
+</component>
