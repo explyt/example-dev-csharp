@@ -19,64 +19,9 @@ namespace PolicyService.IntegrationTest;
 /// Integration test that spans both PolicyService and PolicySearchService
 /// Tests the complete flow: policy creation -> event publishing -> indexing -> search
 /// </summary>
-public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper testOutputHelper) : IAsyncLifetime
+[Collection(nameof(PolicyControllerCollection))]
+public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper testOutputHelper, PolicyControllerFixture fixture)
 {
-    private IAlbaHost policyHost;
-    private IAlbaHost pricingHost;
-    private IAlbaHost policySearchHost;
-    
-    public async Task InitializeAsync()
-    {
-        // Start Pricing Service
-        var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
-        pricingHost = new AlbaHost(pricingBuilder);
-
-        var pricingBase = pricingHost.Server.BaseAddress.ToString().TrimEnd('/');
-        var pricingEndpoint = $"{pricingBase}/api/pricing";
-
-        // Start Policy Service with Pricing Service dependency
-        var policyBuilder = PolicyService.Program.CreateWebHostBuilder([])
-            .ConfigureAppConfiguration((_, config) =>
-            {
-                var overrides = new Dictionary<string, string>
-                {
-                    { "PricingServiceUri", pricingEndpoint }
-                };
-                config.AddInMemoryCollection(overrides);
-            })
-            .ConfigureServices((ctx, services) =>
-            {
-                services.AddSingleton(_ =>
-                {
-                    var http = pricingHost.Server.CreateClient();
-                    http.BaseAddress = new Uri(pricingEndpoint);
-                    return RestEase.RestClient.For<PolicyService.RestClients.IPricingClient>(http);
-                });
-            });
-
-        policyHost = new AlbaHost(policyBuilder);
-
-        // Start Policy Search Service with test logging
-        var policySearchBuilder = PolicySearchService.Program.CreateWebHostBuilder([]);
-
-        policySearchHost = new AlbaHost(policySearchBuilder);
-
-        // Give services time to fully initialize, especially NServiceBus endpoints
-        await Task.Delay(2000);
-    }
-
-    private void LuceneCleanup()
-    {
-        policySearchHost?.Services.GetService<IPolicyRepository>().Clear();
-    }
-    
-    public async Task DisposeAsync()
-    {
-        if (policyHost != null) await policyHost.DisposeAsync();
-        if (pricingHost != null) await pricingHost.DisposeAsync();
-        if (policySearchHost != null) await policySearchHost.DisposeAsync();
-    }
-
     /// <summary>
     /// Scenario: Complete policy lifecycle from creation to search
     /// Given: Customer creates a travel insurance policy
@@ -86,6 +31,8 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
     [Fact]
     public async Task PolicyCreation_Should_BeIndexedAndSearchable()
     {
+        await fixture.CleanupAsync();
+        
         // Step 1: Create an offer first
         var createOfferCommand = new CreateOfferCommand
         {
@@ -101,7 +48,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
             }
         };
 
-        var offerScenario = await policyHost.Scenario(scenario =>
+        var offerScenario = await fixture.PolicyHost.Scenario(scenario =>
         {
             scenario.Post.Json(createOfferCommand).ToUrl("/api/Offer");
             scenario.StatusCodeShouldBeOk();
@@ -131,7 +78,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
             }
         };
 
-        var policyScenario = await policyHost.Scenario(scenario =>
+        var policyScenario = await fixture.PolicyHost.Scenario(scenario =>
         {
             scenario.Post.Json(createPolicyCommand).ToUrl("/api/Policy");
             scenario.StatusCodeShouldBeOk();
@@ -142,7 +89,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         NotNull(createPolicyResult.PolicyNumber);
 
         // Step 3: Verify policy was created in PolicyService
-        var getPolicyScenario = await policyHost.Scenario(scenario =>
+        var getPolicyScenario = await fixture.PolicyHost.Scenario(scenario =>
         {
             scenario.Get.Url($"/api/Policy/{createPolicyResult.PolicyNumber}");
             scenario.StatusCodeShouldBeOk();
@@ -152,7 +99,9 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         NotNull(policyDetails);
         NotNull(policyDetails.Policy);
         Equal(createPolicyResult.PolicyNumber, policyDetails.Policy.Number);
-
+        
+        await Task.Delay(1000);
+        
         // Step 4: Wait for event processing and verify policy is searchable
         var policyNumber = createPolicyResult.PolicyNumber;
         var policyHolderName = "John Doe";
@@ -164,7 +113,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
 
         for (int attempt = 0; attempt < maxAttempts; attempt++)
         {
-            var searchScenario = await policySearchHost.Scenario(scenario =>
+            var searchScenario = await fixture.PolicySearchHost.Scenario(scenario =>
             {
                 scenario.Get.Url($"/api/PolicySearch?q={policyNumber}");
                 scenario.StatusCodeShouldBeOk();
@@ -197,7 +146,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         True(foundPolicy.PremiumAmount > 0);
 
         // Step 6: Verify search by policy holder name also works
-        var searchByNameScenario = await policySearchHost.Scenario(_ =>
+        var searchByNameScenario = await fixture.PolicySearchHost.Scenario(_ =>
         {
             _.Get.Url($"/api/PolicySearch?q={policyHolderName}");
             _.StatusCodeShouldBeOk();
@@ -211,8 +160,6 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         var foundByNamePolicy = searchByNameResult.Policies[0];
         Equal(policyNumber, foundByNamePolicy.PolicyNumber);
         Equal(policyHolderName, foundByNamePolicy.PolicyHolder);
-        
-        LuceneCleanup();
     }
 
     /// <summary>
@@ -224,6 +171,8 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
     [Fact]
     public async Task MultiplePoliciesCreation_Should_BeProperlyIndexedAndSearchable()
     {
+        await fixture.CleanupAsync();
+        
         var policyNumbers = new List<string>();
         var policyHolders = new[] { "Alice Smith", "Bob Johnson", "Carol Williams" };
 
@@ -245,7 +194,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
                 }
             };
 
-            var offerScenario = await policyHost.Scenario(_ =>
+            var offerScenario = await fixture.PolicyHost.Scenario(_ =>
             {
                 _.Post.Json(createOfferCommand).ToUrl("/api/Offer");
                 _.StatusCodeShouldBeOk();
@@ -273,7 +222,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
                 }
             };
 
-            var policyScenario = await policyHost.Scenario(_ =>
+            var policyScenario = await fixture.PolicyHost.Scenario(_ =>
             {
                 _.Post.Json(createPolicyCommand).ToUrl("/api/Policy");
                 _.StatusCodeShouldBeOk();
@@ -284,12 +233,12 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         }
 
         // Wait for all events to be processed
-        await Task.Delay(2000);
+        await Task.Delay(1000);
 
         // Verify all policies are searchable
         foreach (var policyNumber in policyNumbers)
         {
-            var searchScenario = await policySearchHost.Scenario(_ =>
+            var searchScenario = await fixture.PolicySearchHost.Scenario(_ =>
             {
                 _.Get.Url($"/api/PolicySearch?q={policyNumber}");
                 _.StatusCodeShouldBeOk();
@@ -303,7 +252,7 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         }
 
         // Verify search returns all policies when searching for common term
-        var allPoliciesScenario = await policySearchHost.Scenario(_ =>
+        var allPoliciesScenario = await fixture.PolicySearchHost.Scenario(_ =>
         {
             _.Get.Url("/api/PolicySearch?q=TRI");
             _.StatusCodeShouldBeOk();
@@ -314,7 +263,5 @@ public class PolicyServiceToPolicySearchServiceIntegrationTest(ITestOutputHelper
         NotNull(allPoliciesResult.Policies);
         True(allPoliciesResult.Policies.Count >= policyNumbers.Count,
             $"Should find at least {policyNumbers.Count} policies when searching by product code");
-        
-        LuceneCleanup();
     }
 }

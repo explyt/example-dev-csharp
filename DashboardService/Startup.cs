@@ -29,7 +29,7 @@ public class Startup
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLuceneSearch();
-        services.UseMessagePipe();
+        services.UseMessagePipe(Configuration);
         services.AddInitialSalesData();
         services.AddSwaggerGen();
     }

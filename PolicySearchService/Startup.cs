@@ -27,7 +27,7 @@ public class Startup
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLuceneSearch();
-        services.UseMessagePipe();
+        services.UseMessagePipe(Configuration);
         services.AddSwaggerGen();
         services.AddLogging(log => log.AddConsole());
     }

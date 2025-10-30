@@ -12,11 +12,13 @@ public class EFPolicyAccountRepository(PaymentDbContext dbContext) : IPolicyAcco
     public void Add(PolicyAccount policyAccount)
     {
         dbContext.PolicyAccounts.Add(policyAccount);
+        dbContext.SaveChanges();
     }
 
     public void Update(PolicyAccount policyAccount)
     {
         dbContext.PolicyAccounts.Update(policyAccount);
+        dbContext.SaveChanges();
     }
 
     public async Task<PolicyAccount> FindByNumber(string policyNumber)

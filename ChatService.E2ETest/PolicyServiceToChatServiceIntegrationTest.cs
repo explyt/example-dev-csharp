@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PolicyService.Api.Commands;
 using PolicyService.Api.Commands.Dtos;
+using TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
 using static Xunit.Assert;
@@ -28,6 +29,10 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
 
     public async Task InitializeAsync()
     {
+        // Get a random available port for MessagePipe to avoid conflicts with parallel tests
+        var messagePipePort = PortHelper.GetAvailablePort();
+        testOutputHelper.WriteLine($"Using MessagePipe port: {messagePipePort}");
+
         // Start Pricing Service
         var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
         pricingHost = new AlbaHost(pricingBuilder);
@@ -41,7 +46,8 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
             {
                 var overrides = new Dictionary<string, string>
                 {
-                    { "PricingServiceUri", pricingEndpoint }
+                    { "PricingServiceUri", pricingEndpoint },
+                    { "MessagePipe:Port", messagePipePort.ToString() }
                 };
                 config.AddInMemoryCollection(overrides);
             })
@@ -64,7 +70,8 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
                 var overrides = new Dictionary<string, string>
                 {
                     { "AppSettings:Secret", TestSecret },
-                    { "AppSettings:AllowedChatOrigins:0", "http://localhost" }
+                    { "AppSettings:AllowedChatOrigins:0", "http://localhost" },
+                    { "MessagePipe:Port", messagePipePort.ToString() }
                 };
                 config.AddInMemoryCollection(overrides);
             });
