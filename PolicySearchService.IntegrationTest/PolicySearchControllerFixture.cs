@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Alba;
+using Microsoft.Extensions.Configuration;
+using TestHelpers;
 using Xunit;
 
 namespace PolicySearchService.IntegrationTest;
@@ -13,7 +16,18 @@ public class PolicySearchControllerFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        var builder = PolicySearchService.Program.CreateWebHostBuilder([]);
+        // Get a random available port for MessagePipe to avoid conflicts with parallel tests
+        var messagePipePort = PortHelper.GetAvailablePort();
+
+        var builder = PolicySearchService.Program.CreateWebHostBuilder([])
+            .ConfigureAppConfiguration((_, config) =>
+            {
+                var overrides = new Dictionary<string, string>
+                {
+                    { "MessagePipe:Port", messagePipePort.ToString() }
+                };
+                config.AddInMemoryCollection(overrides);
+            });
         
         PolicySearchHost = new AlbaHost(builder);
         await Task.CompletedTask;

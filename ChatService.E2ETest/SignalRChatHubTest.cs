@@ -14,7 +14,7 @@ namespace ChatService.E2ETest;
 /// <summary>
 /// Tests for SignalR AgentChatHub functionality
 /// </summary>
-[Collection("ChatService E2E")]
+[Collection(nameof(ChatServiceTestCollection))]
 public class SignalRChatHubTest(ITestOutputHelper testOutputHelper) : IAsyncLifetime
 {
     private IAlbaHost chatHost;

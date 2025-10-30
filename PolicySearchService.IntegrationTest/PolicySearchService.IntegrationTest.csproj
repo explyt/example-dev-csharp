@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\PolicySearchService\PolicySearchService.csproj" />
     <ProjectReference Include="..\PolicySearchService.Api\PolicySearchService.Api.csproj" />
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 
 </Project>

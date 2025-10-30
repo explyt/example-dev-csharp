@@ -37,7 +37,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
             }
         };
 
-        var scenario = await fixture.SystemUnderTest.Scenario(_ =>
+        var scenario = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Post.Json(command).ToUrl("/api/Offer");
             _.StatusCodeShouldBeOk();
@@ -73,7 +73,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
             }
         };
 
-        var scenario = await fixture.SystemUnderTest.Scenario(_ =>
+        var scenario = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Post.Json(command).ToUrl("/api/Offer");
             _.WithRequestHeader("AgentLogin", agentLogin);
@@ -96,7 +96,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
     public async Task CanCreatePolicyFromValidOffer()
     {
         // First create an offer
-        var offerResponse = await fixture.SystemUnderTest.Scenario(_ =>
+        var offerResponse = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Post
                 .Json(new CreateOfferCommand
@@ -118,7 +118,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
         var offerResult = await offerResponse.ReadAsJsonAsync<CreateOfferResult>();
         
         // Then create policy from the offer
-        var policyResponse = await fixture.SystemUnderTest.Scenario(_ =>
+        var policyResponse = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Post
                 .Json(new CreatePolicyCommand
@@ -157,7 +157,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
     public async Task CanGetPolicyDetails()
     {
         // First create an offer and policy
-        var offerResponse = await fixture.SystemUnderTest.Scenario(_ =>
+        var offerResponse = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Post
                 .Json(new CreateOfferCommand
@@ -178,7 +178,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
     
         var offerResult = await offerResponse.ReadAsJsonAsync<CreateOfferResult>();
         
-        var policyResponse = await fixture.SystemUnderTest.Scenario(_ =>
+        var policyResponse = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Post
                 .Json(new CreatePolicyCommand
@@ -205,7 +205,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
         var policyResult = await policyResponse.ReadAsJsonAsync<CreatePolicyResult>();
         
         // Then get policy details
-        var detailsResponse = await fixture.SystemUnderTest.Scenario(_ =>
+        var detailsResponse = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Get.Url($"/api/Policy/{policyResult.PolicyNumber}");
             _.StatusCodeShouldBeOk();
@@ -226,7 +226,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
     [Fact]
     public async Task CreateOfferCommandIsProperlyValidated()
     {
-        _ = await fixture.SystemUnderTest.Scenario(_ =>
+        _ = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Post
                 .Json(new CreateOfferCommand())
@@ -245,7 +245,7 @@ public class PolicyControllerTest(PolicyControllerFixture fixture)
     [Fact]
     public async Task CreatePolicyCommandIsProperlyValidated()
     {
-        _ = await fixture.SystemUnderTest.Scenario(_ =>
+        _ = await fixture.PolicyHost.Scenario(_ =>
         {
             _.Post
                 .Json(new CreatePolicyCommand())

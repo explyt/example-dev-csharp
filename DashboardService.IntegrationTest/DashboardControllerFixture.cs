@@ -1,6 +1,9 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Alba;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using TestHelpers;
 using Xunit;
 using HostBuilderContext = Microsoft.Extensions.Hosting.HostBuilderContext;
 
@@ -15,7 +18,18 @@ public class DashboardControllerFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        var builder = DashboardService.Program.CreateWebHostBuilder([]);
+        // Get a random available port for MessagePipe to avoid conflicts with parallel tests
+        var messagePipePort = PortHelper.GetAvailablePort();
+
+        var builder = DashboardService.Program.CreateWebHostBuilder([])
+            .ConfigureAppConfiguration((_, config) =>
+            {
+                var overrides = new Dictionary<string, string>
+                {
+                    { "MessagePipe:Port", messagePipePort.ToString() }
+                };
+                config.AddInMemoryCollection(overrides);
+            });
         
         DashboardHost = new AlbaHost(builder);
         await Task.CompletedTask;

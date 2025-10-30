@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using Alba;
 using DashboardService.Api.Queries;
 using DashboardService.Api.Queries.Dtos;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using PolicyService.Api.Commands;
 using PolicyService.Api.Commands.Dtos;
 using PolicyService.Api.Queries;
@@ -19,62 +17,15 @@ namespace DashboardService.E2ETest;
 /// End-to-end integration test that spans PolicyService, PricingService, and DashboardService
 /// Tests the complete flow: policy creation -> event publishing -> dashboard analytics
 /// </summary>
-public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper testOutputHelper) : IAsyncLifetime
+[Collection(nameof(DashboardServiceTestCollection))]
+public class PolicyServiceToDashboardServiceIntegrationTest(
+    DashboardServiceFixture fixture,
+    ITestOutputHelper testOutputHelper
+)
 {
-    private IAlbaHost policyHost;
-    private IAlbaHost pricingHost;
-    private IAlbaHost dashboardHost;
-    
-    public async Task InitializeAsync()
-    {
-        // Start Pricing Service
-        var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
-        pricingHost = new AlbaHost(pricingBuilder);
-
-        var pricingBase = pricingHost.Server.BaseAddress.ToString().TrimEnd('/');
-        var pricingEndpoint = $"{pricingBase}/api/pricing";
-
-        // Start Policy Service with Pricing Service dependency
-        var policyBuilder = PolicyService.Program.CreateWebHostBuilder([])
-            .ConfigureAppConfiguration((_, config) =>
-            {
-                var overrides = new Dictionary<string, string>
-                {
-                    { "PricingServiceUri", pricingEndpoint }
-                };
-                config.AddInMemoryCollection(overrides);
-            })
-            .ConfigureServices((ctx, services) =>
-            {
-                services.AddSingleton(_ =>
-                {
-                    var http = pricingHost.Server.CreateClient();
-                    http.BaseAddress = new Uri(pricingEndpoint);
-                    return RestEase.RestClient.For<PolicyService.RestClients.IPricingClient>(http);
-                });
-            });
-
-        policyHost = new AlbaHost(policyBuilder);
-
-        // Start Dashboard Service
-        var dashboardBuilder = DashboardService.Program.CreateWebHostBuilder([]);
-        dashboardHost = new AlbaHost(dashboardBuilder);
-
-        // Give services time to fully initialize, especially MessagePipe endpoints
-        await Task.Delay(2000);
-    }
-
-    private void DashboardCleanup()
-    {
-        dashboardHost?.Services.GetService<DashboardService.Domain.IPolicyRepository>().Clear();
-    }
-    
-    public async Task DisposeAsync()
-    {
-        if (policyHost != null) await policyHost.DisposeAsync();
-        if (pricingHost != null) await pricingHost.DisposeAsync();
-        if (dashboardHost != null) await dashboardHost.DisposeAsync();
-    }
+    private IAlbaHost PolicyHost => fixture.PolicyHost;
+    private IAlbaHost PricingHost => fixture.PricingHost;
+    private IAlbaHost DashboardHost => fixture.DashboardHost;
 
     /// <summary>
     /// Scenario: Complete policy lifecycle from creation to dashboard analytics
@@ -85,10 +36,9 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
     [Fact]
     public async Task PolicyCreation_Should_UpdateDashboardAnalytics()
     {
-        DashboardCleanup();
-        
+        await fixture.CleanupAsync();
         const string agentLogin = "jimmy.solid";
-        
+
         // Step 1: Create an offer first
         var createOfferCommand = new CreateOfferCommand
         {
@@ -104,7 +54,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
             }
         };
 
-        var offerScenario = await policyHost.Scenario(scenario =>
+        var offerScenario = await PolicyHost.Scenario(scenario =>
         {
             scenario.Post.Json(createOfferCommand).ToUrl("/api/Offer");
             scenario.WithRequestHeader("AgentLogin", agentLogin);
@@ -135,7 +85,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
             }
         };
 
-        var policyScenario = await policyHost.Scenario(scenario =>
+        var policyScenario = await PolicyHost.Scenario(scenario =>
         {
             scenario.Post.Json(createPolicyCommand).ToUrl("/api/Policy");
             scenario.StatusCodeShouldBeOk();
@@ -147,9 +97,9 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
 
         // we need to wait for messages to be transferred
         await Task.Delay(1000);
-        
+
         // Step 3: Verify policy was created in PolicyService
-        var getPolicyScenario = await policyHost.Scenario(scenario =>
+        var getPolicyScenario = await PolicyHost.Scenario(scenario =>
         {
             scenario.Get.Url($"/api/Policy/{createPolicyResult.PolicyNumber}");
             scenario.StatusCodeShouldBeOk();
@@ -160,14 +110,15 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
         NotNull(policyDetails.Policy);
         Equal(createPolicyResult.PolicyNumber, policyDetails.Policy.Number);
 
+        await Task.Delay(1000);
         // Step 4: Wait for event processing and verify dashboard analytics are updated
         var policyNumber = createPolicyResult.PolicyNumber;
-        var saleDate = DateTime.Now;
+        var saleDate = policyDetails.Policy.DateFrom;
 
         // Try querying dashboard multiple times with a delay to account for eventual consistency
         GetTotalSalesResult totalSalesResult = null;
         GetAgentsSalesResult agentSalesResult = null;
-        var maxAttempts = 5;
+        var maxAttempts = 3;
         var delayMs = 1000;
 
         for (int attempt = 0; attempt < maxAttempts; attempt++)
@@ -179,7 +130,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
                 SalesDateTo = saleDate.AddDays(1)
             };
 
-            var totalSalesScenario = await dashboardHost.Scenario(scenario =>
+            var totalSalesScenario = await DashboardHost.Scenario(scenario =>
             {
                 scenario.Post.Json(totalSalesQuery).ToUrl("/api/Dashboard/total-sales");
                 scenario.StatusCodeShouldBeOk();
@@ -195,7 +146,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
                 SalesDateTo = saleDate.AddDays(1)
             };
 
-            var agentSalesScenario = await dashboardHost.Scenario(scenario =>
+            var agentSalesScenario = await DashboardHost.Scenario(scenario =>
             {
                 scenario.Post.Json(agentSalesQuery).ToUrl("/api/Dashboard/agents-sales");
                 scenario.StatusCodeShouldBeOk();
@@ -240,7 +191,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
             Unit = TimeUnit.Day
         };
 
-        var salesTrendsScenario = await dashboardHost.Scenario(scenario =>
+        var salesTrendsScenario = await DashboardHost.Scenario(scenario =>
         {
             scenario.Post.Json(salesTrendsQuery).ToUrl("/api/Dashboard/sales-trends");
             scenario.StatusCodeShouldBeOk();
@@ -250,8 +201,6 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
         NotNull(salesTrendsResult);
         NotNull(salesTrendsResult.PeriodsSales);
         True(salesTrendsResult.PeriodsSales.Count > 0, "Sales trends should show data for the period");
-
-        DashboardCleanup();
     }
 
     /// <summary>
@@ -263,7 +212,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
     [Fact]
     public async Task MultiplePoliciesWithDifferentAgents_Should_ShowCorrectAggregation()
     {
-        DashboardCleanup();
+        await fixture.CleanupAsync();
         var agents = new[] { "jimmy.solid", "anna.kowalsky", "tom.smith" };
         var policyCounts = new Dictionary<string, int>();
 
@@ -290,7 +239,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
                     }
                 };
 
-                var offerScenario = await policyHost.Scenario(_ =>
+                var offerScenario = await PolicyHost.Scenario(_ =>
                 {
                     _.Post.Json(createOfferCommand).ToUrl("/api/Offer");
                     _.WithRequestHeader("AgentLogin", agent);
@@ -318,7 +267,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
                     }
                 };
 
-                var policyScenario = await policyHost.Scenario(_ =>
+                var policyScenario = await PolicyHost.Scenario(_ =>
                 {
                     _.Post.Json(createPolicyCommand).ToUrl("/api/Policy");
                     _.StatusCodeShouldBeOk();
@@ -329,16 +278,17 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
         }
 
         // Wait for all events to be processed
-        await Task.Delay(3000);
+        await Task.Delay(1000);
 
         // Verify total sales aggregation
+        var policyFrom = DateTime.Now.AddDays(5);
         var totalSalesQuery = new GetTotalSalesQuery
         {
-            SalesDateFrom = DateTime.Now.AddDays(-1),
-            SalesDateTo = DateTime.Now.AddDays(1)
+            SalesDateFrom = policyFrom.AddDays(-1),
+            SalesDateTo = policyFrom.AddDays(1)
         };
 
-        var totalSalesScenario = await dashboardHost.Scenario(_ =>
+        var totalSalesScenario = await DashboardHost.Scenario(_ =>
         {
             _.Post.Json(totalSalesQuery).ToUrl("/api/Dashboard/total-sales");
             _.StatusCodeShouldBeOk();
@@ -347,7 +297,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
         var totalSalesResult = await totalSalesScenario.ReadAsJsonAsync<GetTotalSalesResult>();
         NotNull(totalSalesResult);
         NotNull(totalSalesResult.Total);
-        
+
         var totalExpectedPolicies = agents.Length + 1; // 3 agents + 1 extra for jimmy's second policy
         Equal(totalExpectedPolicies, totalSalesResult.Total.PoliciesCount);
         True(totalSalesResult.Total.PremiumAmount > 0);
@@ -358,11 +308,11 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
             var agentSalesQuery = new GetAgentsSalesQuery
             {
                 AgentLogin = agent,
-                SalesDateFrom = DateTime.Now.AddDays(-1),
-                SalesDateTo = DateTime.Now.AddDays(1)
+                SalesDateFrom = policyFrom.AddDays(-1),
+                SalesDateTo = policyFrom.AddDays(1)
             };
 
-            var agentSalesScenario = await dashboardHost.Scenario(_ =>
+            var agentSalesScenario = await DashboardHost.Scenario(_ =>
             {
                 _.Post.Json(agentSalesQuery).ToUrl("/api/Dashboard/agents-sales");
                 _.StatusCodeShouldBeOk();
@@ -382,12 +332,12 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
         // Verify sales trends show correct data
         var salesTrendsQuery = new GetSalesTrendsQuery
         {
-            SalesDateFrom = DateTime.Now.AddDays(-1),
-            SalesDateTo = DateTime.Now.AddDays(1),
+            SalesDateFrom = policyFrom.AddDays(-1),
+            SalesDateTo = policyFrom.AddDays(1),
             Unit = TimeUnit.Day
         };
 
-        var salesTrendsScenario = await dashboardHost.Scenario(_ =>
+        var salesTrendsScenario = await DashboardHost.Scenario(_ =>
         {
             _.Post.Json(salesTrendsQuery).ToUrl("/api/Dashboard/sales-trends");
             _.StatusCodeShouldBeOk();
@@ -396,7 +346,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
         var salesTrendsResult = await salesTrendsScenario.ReadAsJsonAsync<GetSalesTrendsResult>();
         NotNull(salesTrendsResult);
         NotNull(salesTrendsResult.PeriodsSales);
-        
+
         // Should have at least one period with sales
         var hasSales = false;
         foreach (var period in salesTrendsResult.PeriodsSales)
@@ -407,6 +357,7 @@ public class PolicyServiceToDashboardServiceIntegrationTest(ITestOutputHelper te
                 break;
             }
         }
+
         True(hasSales, "Sales trends should show at least one period with sales");
     }
 }

@@ -28,7 +28,7 @@ public class Startup
         services.AddMvc().AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddPricingRestClient();
-        services.UseMessagePipe();
+        services.UseMessagePipe(Configuration);
         services.AddSwaggerGen();
         
         // Add EF Core with in-memory database

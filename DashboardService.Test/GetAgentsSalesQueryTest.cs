@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using DashboardService.Api.Queries;
 using DashboardService.DataAccess.InMemory;
 using DashboardService.Queries;
@@ -8,17 +9,10 @@ using Xunit;
 namespace DashboardService.Test;
 
 [Collection("Lucene in memory")]
-public class GetAgentsSalesQueryTest
+public class GetAgentsSalesQueryTest(LuceneInMemoryFixture fixture)
 {
-    private readonly LuceneInMemoryFixture fixture;
-
-    public GetAgentsSalesQueryTest(LuceneInMemoryFixture fixture)
-    {
-        this.fixture = fixture;
-    }
-
     [Fact]
-    public async void Sales_All_Product_By_Jim_In_01_And_02_2020()
+    public async Task Sales_All_Product_By_Jim_In_01_And_02_2020()
     {
         var queryHandler = new GetAgentsSalesHandler(fixture.Repository());
         var result = await queryHandler.Handle(
@@ -37,7 +31,7 @@ public class GetAgentsSalesQueryTest
     }
 
     [Fact]
-    public async void Sales_All_Product_By_All_Agents_In_01_And_02_2020()
+    public async Task Sales_All_Product_By_All_Agents_In_01_And_02_2020()
     {
         var queryHandler = new GetAgentsSalesHandler(fixture.Repository());
         var result = await queryHandler.Handle(

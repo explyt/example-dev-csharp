@@ -81,7 +81,7 @@ public class Startup
 
         services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
-        services.UseMessagePipe();
+        services.UseMessagePipe(Configuration);
         
         services.AddSwaggerGen();
     }
