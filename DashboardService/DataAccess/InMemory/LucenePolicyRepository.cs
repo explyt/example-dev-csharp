@@ -8,14 +8,13 @@ using Lucene.Net.Documents;
 using Lucene.Net.Index;
 using Lucene.Net.Search;
 using Lucene.Net.Store;
-using Lucene.Net.Util;
 using DashboardService.Domain;
-
+using Version = Lucene.Net.Util.Version;
 namespace DashboardService.DataAccess.InMemory;
 
 public class LucenePolicyRepository : IPolicyRepository, IDisposable
 {
-    private const LuceneVersion AppLuceneVersion = LuceneVersion.LUCENE_48;
+    private const Version AppLuceneVersion = Version.LUCENE_30;
     private readonly RAMDirectory directory;
     private readonly IndexWriter writer;
     private readonly object writerLock = new();
@@ -24,32 +23,28 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
     {
         directory = new RAMDirectory();
         var analyzer = new StandardAnalyzer(AppLuceneVersion);
-        var indexConfig = new IndexWriterConfig(AppLuceneVersion, analyzer);
-        writer = new IndexWriter(directory, indexConfig);
+        writer = new IndexWriter(directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED);
     }
 
     public void Save(PolicyDocument policy)
     {
         lock (writerLock)
         {
-            var doc = new Document
-            {
-                new StringField("number", policy.Number, Field.Store.YES),
-                new StringField("agentLogin", policy.AgentLogin ?? string.Empty, Field.Store.YES),
-                new StringField("productCode", policy.ProductCode ?? string.Empty, Field.Store.YES),
-                new StringField("from", policy.From.ToString("o", CultureInfo.InvariantCulture), Field.Store.YES),
-                new DoubleField("totalPremium", Convert.ToDouble(policy.TotalPremium), Field.Store.YES)
-            };
+            var doc = new Document();
+            doc.Add(new Field("number", policy.Number, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("agentLogin", policy.AgentLogin ?? string.Empty, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("productCode", policy.ProductCode ?? string.Empty, Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("from", policy.From.ToString("o", CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED));
+            doc.Add(new Field("totalPremium", Convert.ToDouble(policy.TotalPremium).ToString(CultureInfo.InvariantCulture), Field.Store.YES, Field.Index.NOT_ANALYZED));
 
             writer.UpdateDocument(new Term("number", policy.Number), doc);
-            writer.Flush(triggerMerge: false, applyAllDeletes: false);
             writer.Commit();
         }
     }
 
     public PolicyDocument FindByNumber(string policyNumber)
     {
-        using var reader = writer.GetReader(applyAllDeletes: true);
+        using var reader = IndexReader.Open(directory, true);
         var searcher = new IndexSearcher(reader);
         var query = new TermQuery(new Term("number", policyNumber));
         var hits = searcher.Search(query, 1);
@@ -119,7 +114,7 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
 
     private IEnumerable<Document> SearchByFilters(string agentLogin, string productCode, DateTime fromDate, DateTime toDate)
     {
-        using var reader = writer.GetReader(applyAllDeletes: true);
+        using var reader = IndexReader.Open(directory, true);
         var searcher = new IndexSearcher(reader);
 
         var queries = new List<Query>();
@@ -136,7 +131,24 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
             // Simple approach: retrieve all and filter by date
         }
 
-        Query finalQuery = queries.Count == 0 ? new MatchAllDocsQuery() : (queries.Count == 1 ? queries[0] : new BooleanQuery { { queries[0], Occur.MUST }, { queries[1], Occur.MUST } });
+        Query finalQuery;
+        if (queries.Count == 0)
+        {
+            finalQuery = new MatchAllDocsQuery();
+        }
+        else if (queries.Count == 1)
+        {
+            finalQuery = queries[0];
+        }
+        else
+        {
+            var boolQuery = new BooleanQuery();
+            foreach (var q in queries)
+            {
+                boolQuery.Add(q, Occur.MUST);
+            }
+            finalQuery = boolQuery;
+        }
 
         var hits = searcher.Search(finalQuery, int.MaxValue);
         var docs = hits.ScoreDocs.Select(sd => searcher.Doc(sd.Doc)).ToList();
@@ -179,7 +191,6 @@ public class LucenePolicyRepository : IPolicyRepository, IDisposable
         lock (writerLock)
         {
             writer.DeleteAll();
-            writer.Flush(triggerMerge: false, applyAllDeletes: false);
             writer.Commit();
         }
 
