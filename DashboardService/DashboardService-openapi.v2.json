@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "DashboardService",
+    "version": "2.0"
+  },
+  "paths": {
+    "/api/Dashboard/agents-sales": {
+      "get": {
+        "tags": ["Dashboard"],
+        "parameters": [
+          { "name": "salesDateFrom", "in": "query", "required": true, "schema": { "type": "string", "format": "date-time" } },
+          { "name": "salesDateTo", "in": "query", "required": true, "schema": { "type": "string", "format": "date-time" } },
+          { "name": "agentLogin", "in": "query", "required": false, "schema": { "type": "string", "nullable": true } },
+          { "name": "productCode", "in": "query", "required": false, "schema": { "type": "string", "nullable": true } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/AgentsSalesResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Dashboard/total-sales": {
+      "get": {
+        "tags": ["Dashboard"],
+        "parameters": [
+          { "name": "salesDateFrom", "in": "query", "required": true, "schema": { "type": "string", "format": "date-time" } },
+          { "name": "salesDateTo", "in": "query", "required": true, "schema": { "type": "string", "format": "date-time" } },
+          { "name": "productCode", "in": "query", "required": false, "schema": { "type": "string", "nullable": true } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TotalSalesResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Dashboard/sales-trends": {
+      "get": {
+        "tags": ["Dashboard"],
+        "parameters": [
+          { "name": "salesDateFrom", "in": "query", "required": true, "schema": { "type": "string", "format": "date-time" } },
+          { "name": "salesDateTo", "in": "query", "required": true, "schema": { "type": "string", "format": "date-time" } },
+          { "name": "productCode", "in": "query", "required": false, "schema": { "type": "string", "nullable": true } },
+          { "name": "unit", "in": "query", "required": true, "schema": { "$ref": "#/components/schemas/TimeUnit" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/SalesTrendsResponse" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Dashboard/top-agents": {
+      "get": {
+        "tags": ["Dashboard"],
+        "parameters": [
+          { "name": "salesDateFrom", "in": "query", "required": true, "schema": { "type": "string", "format": "date-time" } },
+          { "name": "salesDateTo", "in": "query", "required": true, "schema": { "type": "string", "format": "date-time" } },
+          { "name": "productCode", "in": "query", "required": false, "schema": { "type": "string", "nullable": true } },
+          { "name": "sortBy", "in": "query", "required": false, "schema": { "type": "string", "enum": ["premiumAmount", "policiesCount"], "default": "premiumAmount" } },
+          { "name": "order", "in": "query", "required": false, "schema": { "type": "string", "enum": ["asc", "desc"], "default": "desc" } },
+          { "name": "limit", "in": "query", "required": false, "schema": { "type": "integer", "format": "int32", "minimum": 1, "maximum": 100, "default": 10 } },
+          { "name": "offset", "in": "query", "required": false, "schema": { "type": "integer", "format": "int32", "minimum": 0, "default": 0 } }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/TopAgentsResponse" }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "SalesDto": {
+        "type": "object",
+        "properties": {
+          "policiesCount": { "type": "integer", "format": "int64" },
+          "premiumAmount": { "type": "number", "format": "double" }
+        },
+        "additionalProperties": false
+      },
+      "ProductSalesItem": {
+        "type": "object",
+        "properties": {
+          "productCode": { "type": "string" },
+          "sales": { "$ref": "#/components/schemas/SalesDto" }
+        },
+        "additionalProperties": false
+      },
+      "TotalSalesResponse": {
+        "type": "object",
+        "properties": {
+          "overall": { "$ref": "#/components/schemas/SalesDto" },
+          "byProduct": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/ProductSalesItem" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "AgentSalesItem": {
+        "type": "object",
+        "properties": {
+          "agentLogin": { "type": "string" },
+          "sales": { "$ref": "#/components/schemas/SalesDto" }
+        },
+        "additionalProperties": false
+      },
+      "AgentsSalesResponse": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/AgentSalesItem" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "PeriodItem": {
+        "type": "object",
+        "properties": {
+          "date": { "type": "string", "format": "date-time" },
+          "label": { "type": "string", "nullable": true },
+          "sales": { "$ref": "#/components/schemas/SalesDto" }
+        },
+        "additionalProperties": false
+      },
+      "SalesTrendsResponse": {
+        "type": "object",
+        "properties": {
+          "periods": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/PeriodItem" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "TopAgentItem": {
+        "type": "object",
+        "properties": {
+          "rank": { "type": "integer", "format": "int32" },
+          "agentLogin": { "type": "string" },
+          "sales": { "$ref": "#/components/schemas/SalesDto" }
+        },
+        "additionalProperties": false
+      },
+      "TopAgentsResponse": {
+        "type": "object",
+        "properties": {
+          "total": { "type": "integer", "format": "int64" },
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/TopAgentItem" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "TimeUnit": {
+        "type": "integer",
+        "format": "int32",
+        "enum": [0,1,2,3]
+      }
+    }
+  }
+}
