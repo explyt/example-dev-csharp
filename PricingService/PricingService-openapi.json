@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "PricingService",
-    "version": "1.0"
+    "version": "2.0"
   },
   "paths": {
     "/api/Pricing": {
@@ -10,6 +10,7 @@
         "tags": [
           "Pricing"
         ],
+        "summary": "Legacy pricing calculation endpoint",
         "requestBody": {
           "content": {
             "application/json-patch+json": {
@@ -36,7 +37,58 @@
         },
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculatePriceResult"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/Pricing/calculate-price": {
+      "post": {
+        "tags": [
+          "Pricing"
+        ],
+        "summary": "Version 2 pricing calculation endpoint with enhanced features",
+        "requestBody": {
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculatePriceCommand"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculatePriceCommand"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculatePriceCommand"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculatePriceCommand"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculatePriceResultV2"
+                }
+              }
+            }
           }
         }
       }
@@ -72,6 +124,58 @@
               "$ref": "#/components/schemas/QuestionAnswer"
             },
             "nullable": true
+          },
+          "clientInfo": {
+            "$ref": "#/components/schemas/ClientInfo"
+          },
+          "context": {
+            "$ref": "#/components/schemas/RequestContext"
+          },
+          "includeCalculationDetails": {
+            "type": "boolean"
+          },
+          "currencyCode": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ClientInfo": {
+        "type": "object",
+        "properties": {
+          "age": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "region": {
+            "type": "string",
+            "nullable": true
+          },
+          "isVip": {
+            "type": "boolean"
+          },
+          "yearsAsCustomer": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "RequestContext": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "type": "string",
+            "nullable": true
+          },
+          "sessionId": {
+            "type": "string",
+            "nullable": true
+          },
+          "campaignCode": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -97,6 +201,119 @@
         ],
         "type": "integer",
         "format": "int32"
+      },
+      "CalculatePriceResult": {
+        "type": "object",
+        "properties": {
+          "totalPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "coverPrices": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "format": "double"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CalculatePriceResultV2": {
+        "type": "object",
+        "properties": {
+          "totalPrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "coverPrices": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "number",
+              "format": "double"
+            },
+            "nullable": true
+          },
+          "coverCalculationDetails": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CoverCalculationDetails"
+            },
+            "nullable": true
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "calculationId": {
+            "type": "string",
+            "nullable": true
+          },
+          "calculatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "expiresAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CoverCalculationDetails": {
+        "type": "object",
+        "properties": {
+          "coverCode": {
+            "type": "string",
+            "nullable": true
+          },
+          "coverName": {
+            "type": "string",
+            "nullable": true
+          },
+          "basePrice": {
+            "type": "number",
+            "format": "double"
+          },
+          "appliedFactors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PriceFactor"
+            },
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PriceFactor": {
+        "type": "object",
+        "properties": {
+          "factorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "factorValue": {
+            "type": "number",
+            "format": "double"
+          },
+          "appliedModifier": {
+            "type": "number",
+            "format": "double"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
       }
     }
   }
