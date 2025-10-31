@@ -12,7 +12,7 @@ public static class MessagePipeInstaller
         services.AddSingleton(config);
 
         services.AddMessagePipe(options => { options.EnableCaptureStackTrace = false; })
-            .AddUdpInterprocess(config.Host, config.Port);
+            .AddTcpInterprocess(config.Host, config.Port + 2, conf => { conf.HostAsServer = true; });
         services.AddScoped<DashboardMessageProcessor>();
         services.AddHostedService<PolicyCreatedHandler>();
         return services;

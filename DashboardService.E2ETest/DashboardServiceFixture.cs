@@ -16,25 +16,25 @@ namespace DashboardService.E2ETest;
 /// </summary>
 public class DashboardServiceFixture : IAsyncLifetime
 {
-    private IAlbaHost _policyHost;
-    private IAlbaHost _pricingHost;
-    private IAlbaHost _dashboardHost;
-    private int _messagePipePort;
+    private IAlbaHost policyHost;
+    private IAlbaHost pricingHost;
+    private IAlbaHost dashboardHost;
+    private int messagePipePort;
 
-    public IAlbaHost PolicyHost => _policyHost;
-    public IAlbaHost PricingHost => _pricingHost;
-    public IAlbaHost DashboardHost => _dashboardHost;
+    public IAlbaHost PolicyHost => policyHost;
+    public IAlbaHost PricingHost => pricingHost;
+    public IAlbaHost DashboardHost => dashboardHost;
 
     public async Task InitializeAsync()
     {
         // Get a random available port for MessagePipe to avoid conflicts with parallel tests
-        _messagePipePort = PortHelper.GetAvailablePort();
+        messagePipePort = PortHelper.GetAvailablePort();
 
         // Start Pricing Service
         var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
-        _pricingHost = new AlbaHost(pricingBuilder);
+        pricingHost = new AlbaHost(pricingBuilder);
 
-        var pricingBase = _pricingHost.Server.BaseAddress.ToString().TrimEnd('/');
+        var pricingBase = pricingHost.Server.BaseAddress.ToString().TrimEnd('/');
         var pricingEndpoint = $"{pricingBase}/api/pricing";
 
         // Start Policy Service with Pricing Service dependency
@@ -44,7 +44,7 @@ public class DashboardServiceFixture : IAsyncLifetime
                 var overrides = new Dictionary<string, string>
                 {
                     { "PricingServiceUri", pricingEndpoint },
-                    { "MessagePipe:Port", _messagePipePort.ToString() }
+                    { "MessagePipe:Port", messagePipePort.ToString() }
                 };
                 config.AddInMemoryCollection(overrides);
             })
@@ -52,13 +52,13 @@ public class DashboardServiceFixture : IAsyncLifetime
             {
                 services.AddSingleton(_ =>
                 {
-                    var http = _pricingHost.Server.CreateClient();
+                    var http = pricingHost.Server.CreateClient();
                     http.BaseAddress = new Uri(pricingEndpoint);
                     return RestEase.RestClient.For<PolicyService.RestClients.IPricingClient>(http);
                 });
             });
 
-        _policyHost = new AlbaHost(policyBuilder);
+        policyHost = new AlbaHost(policyBuilder);
 
         // Start Dashboard Service with test configuration
         var dashboardBuilder = DashboardService.Program.CreateWebHostBuilder([])
@@ -66,11 +66,11 @@ public class DashboardServiceFixture : IAsyncLifetime
             {
                 var overrides = new Dictionary<string, string>
                 {
-                    { "MessagePipe:Port", _messagePipePort.ToString() }
+                    { "MessagePipe:Port", messagePipePort.ToString() }
                 };
                 config.AddInMemoryCollection(overrides);
             });
-        _dashboardHost = new AlbaHost(dashboardBuilder);
+        dashboardHost = new AlbaHost(dashboardBuilder);
 
         // Give services time to fully initialize, especially MessagePipe endpoints
         await Task.Delay(2000);
@@ -81,7 +81,7 @@ public class DashboardServiceFixture : IAsyncLifetime
     /// </summary>
     public async Task CleanupAsync()
     {
-        var repository = _dashboardHost?.Services.GetService<DashboardService.Domain.IPolicyRepository>();
+        var repository = dashboardHost?.Services.GetService<DashboardService.Domain.IPolicyRepository>();
         if (repository != null)
         {
             await repository.Clear();
@@ -90,8 +90,8 @@ public class DashboardServiceFixture : IAsyncLifetime
 
     public async Task DisposeAsync()
     {
-        if (_policyHost != null) await _policyHost.DisposeAsync();
-        if (_pricingHost != null) await _pricingHost.DisposeAsync();
-        if (_dashboardHost != null) await _dashboardHost.DisposeAsync();
+        if (policyHost != null) await policyHost.DisposeAsync();
+        if (pricingHost != null) await pricingHost.DisposeAsync();
+        if (dashboardHost != null) await dashboardHost.DisposeAsync();
     }
 }

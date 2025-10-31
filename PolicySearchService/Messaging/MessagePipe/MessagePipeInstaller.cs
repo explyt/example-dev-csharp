@@ -14,7 +14,7 @@ public static class MessagePipeInstaller
         
         // Register MessagePipe with TCP Interprocess for distributed messaging
         services.AddMessagePipe(options => { options.EnableCaptureStackTrace = false; })
-            .AddUdpInterprocess(config.Host, config.Port);
+            .AddTcpInterprocess(config.Host, config.Port, conf => { conf.HostAsServer = true; });
         
         services.AddScoped<PolicyMessageProcessor>();
         services.AddHostedService<PolicyCreatedHandler>();
