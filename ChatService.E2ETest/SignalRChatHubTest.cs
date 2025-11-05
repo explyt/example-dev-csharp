@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -28,7 +27,8 @@ public class SignalRChatHubTest(ITestOutputHelper testOutputHelper) : IAsyncLife
                 var overrides = new Dictionary<string, string>
                 {
                     { "AppSettings:Secret", TestSecret },
-                    { "AppSettings:AllowedChatOrigins:0", "http://localhost" }
+                    { "AppSettings:AllowedChatOrigins:0", "http://localhost" },
+                    { "SignalRHub:IsEnabled", "false" }
                 };
                 config.AddInMemoryCollection(overrides);
             });

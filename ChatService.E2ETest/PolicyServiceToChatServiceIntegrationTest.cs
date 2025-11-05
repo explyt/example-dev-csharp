@@ -6,9 +6,9 @@ using ChatService.Api.Commands;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using PolicyService.Api.Commands;
 using PolicyService.Api.Commands.Dtos;
-using TestHelpers;
 using Xunit;
 using Xunit.Abstractions;
 using static Xunit.Assert;
@@ -22,71 +22,77 @@ namespace ChatService.E2ETest;
 [Collection(nameof(ChatServiceTestCollection))]
 public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOutputHelper) : IAsyncLifetime
 {
-    private IAlbaHost policyHost;
-    private IAlbaHost pricingHost;
-    private IAlbaHost chatHost;
+    private IAlbaHost PolicyHost { get; set; }
+    private IAlbaHost PricingHost { get; set; }
+    private IAlbaHost ChatHost { get; set; }
+    private HubConnection SignalRConnection { get; set; }
     private const string TestSecret = "THIS_IS_A_TEST_SECRET_KEY_FOR_JWT_TOKEN_GENERATION_MINIMUM_32_CHARS";
 
     public async Task InitializeAsync()
     {
-        // Get a random available port for MessagePipe to avoid conflicts with parallel tests
-        var messagePipePort = PortHelper.GetAvailablePort();
-        testOutputHelper.WriteLine($"Using MessagePipe port: {messagePipePort}");
-
-        // Start Pricing Service
         var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
-        pricingHost = new AlbaHost(pricingBuilder);
+        PricingHost = new AlbaHost(pricingBuilder);
 
-        var pricingBase = pricingHost.Server.BaseAddress.ToString().TrimEnd('/');
+        var pricingBase = PricingHost.Server.BaseAddress.ToString().TrimEnd('/');
         var pricingEndpoint = $"{pricingBase}/api/pricing";
 
-        // Start Policy Service with Pricing Service dependency
         var policyBuilder = PolicyService.Program.CreateWebHostBuilder([])
             .ConfigureAppConfiguration((_, config) =>
             {
                 var overrides = new Dictionary<string, string>
                 {
-                    { "PricingServiceUri", pricingEndpoint },
-                    { "MessagePipe:Port", messagePipePort.ToString() }
+                    { "PricingServiceUri", pricingEndpoint }
                 };
                 config.AddInMemoryCollection(overrides);
             })
-            .ConfigureServices((ctx, services) =>
+            .ConfigureServices((_, services) =>
             {
                 services.AddSingleton(_ =>
                 {
-                    var http = pricingHost.Server.CreateClient();
+                    var http = PricingHost.Server.CreateClient();
                     http.BaseAddress = new Uri(pricingEndpoint);
                     return RestEase.RestClient.For<PolicyService.RestClients.IPricingClient>(http);
                 });
             });
 
-        policyHost = new AlbaHost(policyBuilder);
+        PolicyHost = new AlbaHost(policyBuilder);
 
-        // Start Chat Service with test configuration
+        var policyBase = PolicyHost.Server.BaseAddress.ToString().TrimEnd('/');
+        var signalRHubUrl = $"{policyBase}/events";
+
+        SignalRConnection = new HubConnectionBuilder()
+            .WithUrl(signalRHubUrl,
+                options => { options.HttpMessageHandlerFactory = _ => PolicyHost.Server.CreateHandler(); })
+            .WithAutomaticReconnect()
+            .Build();
+
+        await SignalRConnection.StartAsync();
+
         var chatBuilder = ChatService.Program.CreateWebHostBuilder([])
             .ConfigureAppConfiguration((_, config) =>
             {
                 var overrides = new Dictionary<string, string>
                 {
                     { "AppSettings:Secret", TestSecret },
-                    { "AppSettings:AllowedChatOrigins:0", "http://localhost" },
-                    { "MessagePipe:Port", messagePipePort.ToString() }
+                    { "SignalRHub:Url", signalRHubUrl },
+                    { "AppSettings:AllowedChatOrigins:0", "http://localhost" }
                 };
                 config.AddInMemoryCollection(overrides);
-            });
+            }).ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((_, services) =>
+            {
+                services.AddSingleton(PolicyHost.Server.CreateHandler());
+            }));
 
-        chatHost = new AlbaHost(chatBuilder);
+        ChatHost = new AlbaHost(chatBuilder);
 
-        // Give services time to fully initialize, especially MessagePipe endpoints
         await Task.Delay(2000);
     }
 
     public async Task DisposeAsync()
     {
-        if (policyHost != null) await policyHost.DisposeAsync();
-        if (pricingHost != null) await pricingHost.DisposeAsync();
-        if (chatHost != null) await chatHost.DisposeAsync();
+        if (PolicyHost != null) await PolicyHost.DisposeAsync();
+        if (PricingHost != null) await PricingHost.DisposeAsync();
+        if (ChatHost != null) await ChatHost.DisposeAsync();
     }
 
     /// <summary>
@@ -102,15 +108,14 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
         var notificationReceived = false;
         string receivedNotification = null;
 
-        // Step 1: Connect to SignalR hub
         var token = TestAuthHelper.GenerateJwtToken(agentLogin, "avatar1.png", TestSecret);
-        var chatBaseUrl = chatHost.Server.BaseAddress.ToString().TrimEnd('/');
-        
+        var chatBaseUrl = ChatHost.Server.BaseAddress.ToString().TrimEnd('/');
+
         var connection = new HubConnectionBuilder()
             .WithUrl($"{chatBaseUrl}/agentsChat", options =>
             {
                 options.AccessTokenProvider = () => Task.FromResult(token);
-                options.HttpMessageHandlerFactory = _ => chatHost.Server.CreateHandler();
+                options.HttpMessageHandlerFactory = _ => ChatHost.Server.CreateHandler();
             })
             .Build();
 
@@ -124,7 +129,6 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
         await connection.StartAsync();
         True(connection.State == HubConnectionState.Connected, "SignalR connection should be established");
 
-        // Step 2: Create an offer
         var createOfferCommand = new CreateOfferCommand
         {
             ProductCode = "TRI",
@@ -139,7 +143,7 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
             }
         };
 
-        var offerScenario = await policyHost.Scenario(scenario =>
+        var offerScenario = await PolicyHost.Scenario(scenario =>
         {
             scenario.Post.Json(createOfferCommand).ToUrl("/api/Offer");
             scenario.WithRequestHeader("AgentLogin", agentLogin);
@@ -150,7 +154,6 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
         NotNull(createOfferResult);
         NotNull(createOfferResult.OfferNumber);
 
-        // Step 3: Create a policy using the offer
         var createPolicyCommand = new CreatePolicyCommand
         {
             OfferNumber = createOfferResult.OfferNumber,
@@ -169,7 +172,7 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
             }
         };
 
-        var policyScenario = await policyHost.Scenario(scenario =>
+        var policyScenario = await PolicyHost.Scenario(scenario =>
         {
             scenario.Post.Json(createPolicyCommand).ToUrl("/api/Policy");
             scenario.StatusCodeShouldBeOk();
@@ -179,7 +182,6 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
         NotNull(createPolicyResult);
         NotNull(createPolicyResult.PolicyNumber);
 
-        // Step 4: Wait for event processing and notification
         var maxAttempts = 10;
         var delayMs = 500;
 
@@ -188,7 +190,6 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
             await Task.Delay(delayMs);
         }
 
-        // Step 5: Verify notification was received
         True(notificationReceived, "Chat notification should be received");
         NotNull(receivedNotification);
         Contains(agentLogin, receivedNotification);
@@ -216,15 +217,14 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
         string receivedMessage = null;
         string receivedSender = null;
 
-        // Step 1: Connect to SignalR hub
         var token = TestAuthHelper.GenerateJwtToken(agentLogin, "avatar2.png", TestSecret);
-        var chatBaseUrl = chatHost.Server.BaseAddress.ToString().TrimEnd('/');
-        
+        var chatBaseUrl = ChatHost.Server.BaseAddress.ToString().TrimEnd('/');
+
         var connection = new HubConnectionBuilder()
             .WithUrl($"{chatBaseUrl}/agentsChat", options =>
             {
                 options.AccessTokenProvider = () => Task.FromResult(token);
-                options.HttpMessageHandlerFactory = _ => chatHost.Server.CreateHandler();
+                options.HttpMessageHandlerFactory = _ => ChatHost.Server.CreateHandler();
             })
             .Build();
 
@@ -239,20 +239,18 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
         await connection.StartAsync();
         True(connection.State == HubConnectionState.Connected);
 
-        // Step 2: Send notification via REST API
         var sendNotificationCommand = new SendNotificationCommand
         {
             Message = testMessage
         };
 
-        var notificationScenario = await chatHost.Scenario(scenario =>
+        var notificationScenario = await ChatHost.Scenario(scenario =>
         {
             scenario.Post.Json(sendNotificationCommand).ToUrl("/api/Notification");
             scenario.WithRequestHeader("Authorization", $"Bearer {token}");
             scenario.StatusCodeShouldBeOk();
         });
 
-        // Step 3: Wait for notification
         await Task.Delay(1000);
 
         // Step 4: Verify notification was received

@@ -18,15 +18,12 @@ public class DashboardControllerFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        // Get a random available port for MessagePipe to avoid conflicts with parallel tests
-        var messagePipePort = PortHelper.GetAvailablePort();
-
         var builder = DashboardService.Program.CreateWebHostBuilder([])
             .ConfigureAppConfiguration((_, config) =>
             {
                 var overrides = new Dictionary<string, string>
                 {
-                    { "MessagePipe:Port", messagePipePort.ToString() }
+                    {"SignalRHub:IsEnabled", "false"},
                 };
                 config.AddInMemoryCollection(overrides);
             });

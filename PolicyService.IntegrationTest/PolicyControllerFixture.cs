@@ -2,25 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Alba;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TestHelpers;
 using Xunit;
 using HostBuilderContext = Microsoft.Extensions.Hosting.HostBuilderContext;
 
 namespace PolicyService.IntegrationTest;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 public class PolicyControllerFixture : IAsyncLifetime
 {
     public IAlbaHost PolicyHost { get; private set; }
-    public IAlbaHost PricingHost { get; private set; }
+    private IAlbaHost PricingHost { get; set; }
     public IAlbaHost PolicySearchHost { get; private set; }
+    private HubConnection SignalRConnection { get; set; }
 
     public async Task InitializeAsync()
     {
-        // Get a random available port for MessagePipe to avoid conflicts with parallel tests
-        var messagePipePort = PortHelper.GetAvailablePort();
-
         var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
         PricingHost = new AlbaHost(pricingBuilder);
 
@@ -33,11 +32,10 @@ public class PolicyControllerFixture : IAsyncLifetime
                 var overrides = new Dictionary<string, string>
                 {
                     { "PricingServiceUri", pricingEndpoint },
-                    { "MessagePipe:Port", messagePipePort.ToString() }
                 };
                 config.AddInMemoryCollection(overrides);
             })
-            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((ctx, services) =>
+            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((_, services) =>
             {
                 services.AddSingleton(_ =>
                 {
@@ -48,16 +46,34 @@ public class PolicyControllerFixture : IAsyncLifetime
             }));
 
         PolicyHost = new AlbaHost(policyBuilder);
+        
+        var policyBase = PolicyHost.Server.BaseAddress.ToString().TrimEnd('/');
+        var signalRHubUrl = $"{policyBase}/events";
+        
+        SignalRConnection = new HubConnectionBuilder()
+            .WithUrl(signalRHubUrl, options =>
+            {
+                options.HttpMessageHandlerFactory = _ => PolicyHost.Server.CreateHandler();
+            })
+            .WithAutomaticReconnect()
+            .Build();
+        
+        await SignalRConnection.StartAsync();
 
         var policySearchBuilder = PolicySearchService.Program.CreateWebHostBuilder([])
             .ConfigureAppConfiguration((_, config) =>
             {
                 var overrides = new Dictionary<string, string>
                 {
-                    { "MessagePipe:Port", messagePipePort.ToString() }
+                    { "PolicyServiceUri", policyBase },
+                    { "SignalRHub:Url", signalRHubUrl }
                 };
                 config.AddInMemoryCollection(overrides);
-            });
+            })
+            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((_, services) =>
+            {
+                services.AddSingleton(PolicyHost.Server.CreateHandler());
+            }));
         
         PolicySearchHost = new AlbaHost(policySearchBuilder);
     }
@@ -76,7 +92,13 @@ public class PolicyControllerFixture : IAsyncLifetime
 
     public async Task DisposeAsync()
     {
+        if (SignalRConnection != null)
+        {
+            await SignalRConnection.StopAsync();
+            await SignalRConnection.DisposeAsync();
+        }
         if (PolicyHost != null) await PolicyHost.DisposeAsync();
         if (PricingHost != null) await PricingHost.DisposeAsync();
+        if (PolicySearchHost != null) await PolicySearchHost.DisposeAsync();
     }
 }

@@ -1,79 +1,82 @@
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Alba;
+using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TestHelpers;
 using Xunit;
-using Xunit.Abstractions;
+using HostBuilderContext = Microsoft.Extensions.Hosting.HostBuilderContext;
 
 namespace DashboardService.E2ETest;
 
-/// <summary>
-/// Fixture for DashboardService E2E tests that manages service hosts lifecycle
-/// and provides cleanup functionality between tests
-/// </summary>
 public class DashboardServiceFixture : IAsyncLifetime
 {
-    private IAlbaHost policyHost;
-    private IAlbaHost pricingHost;
-    private IAlbaHost dashboardHost;
+    public IAlbaHost PolicyHost { get; private set; }
+    public IAlbaHost PricingHost { get; private set; }
+    public IAlbaHost DashboardHost { get; private set; }
+    public HubConnection SignalRConnection { get; private set; }
     private int messagePipePort;
-
-    public IAlbaHost PolicyHost => policyHost;
-    public IAlbaHost PricingHost => pricingHost;
-    public IAlbaHost DashboardHost => dashboardHost;
 
     public async Task InitializeAsync()
     {
-        // Get a random available port for MessagePipe to avoid conflicts with parallel tests
         messagePipePort = PortHelper.GetAvailablePort();
 
-        // Start Pricing Service
         var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
-        pricingHost = new AlbaHost(pricingBuilder);
+        PricingHost = new AlbaHost(pricingBuilder);
 
-        var pricingBase = pricingHost.Server.BaseAddress.ToString().TrimEnd('/');
+        var pricingBase = PricingHost.Server.BaseAddress.ToString().TrimEnd('/');
         var pricingEndpoint = $"{pricingBase}/api/pricing";
 
-        // Start Policy Service with Pricing Service dependency
         var policyBuilder = PolicyService.Program.CreateWebHostBuilder([])
             .ConfigureAppConfiguration((_, config) =>
             {
                 var overrides = new Dictionary<string, string>
                 {
                     { "PricingServiceUri", pricingEndpoint },
-                    { "MessagePipe:Port", messagePipePort.ToString() }
                 };
                 config.AddInMemoryCollection(overrides);
             })
-            .ConfigureServices((ctx, services) =>
+            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((ctx, services) =>
             {
                 services.AddSingleton(_ =>
                 {
-                    var http = pricingHost.Server.CreateClient();
+                    var http = PricingHost.Server.CreateClient();
                     http.BaseAddress = new Uri(pricingEndpoint);
                     return RestEase.RestClient.For<PolicyService.RestClients.IPricingClient>(http);
                 });
-            });
+            }));
 
-        policyHost = new AlbaHost(policyBuilder);
+        PolicyHost = new AlbaHost(policyBuilder);
 
-        // Start Dashboard Service with test configuration
+        var policyBase = PolicyHost.Server.BaseAddress.ToString().TrimEnd('/');
+        var signalRHubUrl = $"{policyBase}/events";
+
+        SignalRConnection = new HubConnectionBuilder()
+            .WithUrl(signalRHubUrl, options =>
+            {
+                options.HttpMessageHandlerFactory = _ => PolicyHost.Server.CreateHandler();
+            })
+            .WithAutomaticReconnect()
+            .Build();
+
+        await SignalRConnection.StartAsync();
+
         var dashboardBuilder = DashboardService.Program.CreateWebHostBuilder([])
             .ConfigureAppConfiguration((_, config) =>
             {
                 var overrides = new Dictionary<string, string>
                 {
-                    { "MessagePipe:Port", messagePipePort.ToString() }
+                    { "SignalRHub:Url", signalRHubUrl }
                 };
                 config.AddInMemoryCollection(overrides);
-            });
-        dashboardHost = new AlbaHost(dashboardBuilder);
-
-        // Give services time to fully initialize, especially MessagePipe endpoints
-        await Task.Delay(2000);
+            }).ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((_, services) =>
+            {
+                services.AddSingleton(PolicyHost.Server.CreateHandler());
+            }));
+        DashboardHost = new AlbaHost(dashboardBuilder);
     }
 
     /// <summary>
@@ -81,7 +84,7 @@ public class DashboardServiceFixture : IAsyncLifetime
     /// </summary>
     public async Task CleanupAsync()
     {
-        var repository = dashboardHost?.Services.GetService<DashboardService.Domain.IPolicyRepository>();
+        var repository = DashboardHost?.Services.GetService<DashboardService.Domain.IPolicyRepository>();
         if (repository != null)
         {
             await repository.Clear();
@@ -90,8 +93,14 @@ public class DashboardServiceFixture : IAsyncLifetime
 
     public async Task DisposeAsync()
     {
-        if (policyHost != null) await policyHost.DisposeAsync();
-        if (pricingHost != null) await pricingHost.DisposeAsync();
-        if (dashboardHost != null) await dashboardHost.DisposeAsync();
+        if (SignalRConnection != null)
+        {
+            await SignalRConnection.StopAsync();
+            await SignalRConnection.DisposeAsync();
+        }
+
+        if (PolicyHost != null) await PolicyHost.DisposeAsync();
+        if (PricingHost != null) await PricingHost.DisposeAsync();
+        if (DashboardHost != null) await DashboardHost.DisposeAsync();
     }
 }

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using PolicySearchService.DataAccess.InMemory;
-using PolicySearchService.Messaging.MessagePipe;
+using PolicySearchService.Messaging.SignalR;
 
 
 namespace PolicySearchService;
@@ -27,7 +27,7 @@ public class Startup
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLuceneSearch();
-        services.UseMessagePipe(Configuration);
+        services.UseSignalR(Configuration);
         services.AddSwaggerGen();
         services.AddLogging(log => log.AddConsole());
     }
@@ -48,6 +48,9 @@ public class Startup
         }
         
         app.UseHttpsRedirection();
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
+        app.UseEndpoints(endpoints => 
+        {
+            endpoints.MapControllers();
+        });
     }
 }

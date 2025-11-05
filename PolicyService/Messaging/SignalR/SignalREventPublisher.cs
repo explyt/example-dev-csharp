@@ -1,31 +1,26 @@
-using System.Diagnostics;
 using System.Threading.Tasks;
-using MessagePipe;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using PolicyService.Api.Events;
 
-namespace PolicyService.Messaging.MessagePipe;
+namespace PolicyService.Messaging.SignalR;
 
-public class MessagePipeEventPublisher(
-    IDistributedPublisher<string, PolicyCreated> policyCreatedPublisher,
-    IDistributedPublisher<string, PolicyTerminated> policyTerminatedPublisher,
-    ILogger<MessagePipeEventPublisher> logger
-) : IEventPublisher
+public class SignalREventPublisher(IHubContext<EventsHub> hubContext, ILogger<SignalREventPublisher> logger)
+    : IEventPublisher
 {
     public async Task PublishMessage<T>(T msg)
     {
         try
         {
             logger.LogInformation("Publishing message of type {MessageType}", typeof(T).Name);
-            Debug.WriteLine("Publishing message of type {MessageType}", typeof(T).Name);
 
             switch (msg)
             {
                 case PolicyCreated policyCreated:
-                    await policyCreatedPublisher.PublishAsync("PolicyCreated", policyCreated);
+                    await hubContext.Clients.All.SendAsync(EventsHub.PolicyCreatedMethod, policyCreated);
                     break;
                 case PolicyTerminated policyTerminated:
-                    await policyTerminatedPublisher.PublishAsync("PolicyTerminated", policyTerminated);
+                    await hubContext.Clients.All.SendAsync(EventsHub.PolicyTerminatedMethod, policyTerminated);
                     break;
                 default:
                     logger.LogWarning("Unsupported message type: {MessageType}", typeof(T).Name);
@@ -33,7 +28,6 @@ public class MessagePipeEventPublisher(
             }
 
             logger.LogInformation("Successfully published message of type {MessageType}", typeof(T).Name);
-            Debug.WriteLine("Successfully published message of type {MessageType}", typeof(T).Name);
         }
         catch (System.Exception ex)
         {

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using PolicyService.DataAccess.EfCore;
 using PolicyService.Domain;
-using PolicyService.Messaging.MessagePipe;
+using PolicyService.Messaging.SignalR;
 using PolicyService.RestClients;
 
 
@@ -28,7 +28,7 @@ public class Startup
         services.AddMvc().AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddPricingRestClient();
-        services.UseMessagePipe(Configuration);
+        services.UseSignalR(Configuration);
         services.AddSwaggerGen();
         
         // Add EF Core with in-memory database
@@ -55,6 +55,10 @@ public class Startup
         }
         app.UseRouting();
         app.UseHttpsRedirection();
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+            endpoints.MapHub<EventsHub>("/events"); // Map SignalR hub
+        });
     }
 }

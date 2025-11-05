@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using DashboardService.DataAccess.InMemory;
 using DashboardService.Domain;
 using DashboardService.Init;
-using DashboardService.Messaging.MessagePipe;
+using DashboardService.Messaging.SignalR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -29,7 +29,7 @@ public class Startup
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLuceneSearch();
-        services.UseMessagePipe(Configuration);
+        services.UseSignalR(Configuration);
         services.AddInitialSalesData();
         services.AddSwaggerGen();
     }

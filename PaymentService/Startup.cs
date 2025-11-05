@@ -11,7 +11,7 @@ using PaymentService.Domain;
 using PaymentService.Infrastructure;
 using PaymentService.Init;
 using PaymentService.Jobs;
-using PaymentService.Messaging.MessagePipe;
+using PaymentService.Messaging.SignalR;
 
 namespace PaymentService;
 
@@ -35,7 +35,7 @@ public class Startup
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLogingBehaviour();
         services.AddSingleton<PolicyAccountNumberGenerator>();
-        services.UseMessagePipe(Configuration);
+        services.UseSignalR(Configuration);
         services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>());
         services.AddSwaggerGen();
     }

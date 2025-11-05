@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using ChatService.Hubs;
-using ChatService.Messaging.MessagePipe;
+using ChatService.Messaging.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -81,7 +81,7 @@ public class Startup
 
         services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
-        services.UseMessagePipe(Configuration);
+        services.UseSignalR(Configuration);
         
         services.AddSwaggerGen();
     }
