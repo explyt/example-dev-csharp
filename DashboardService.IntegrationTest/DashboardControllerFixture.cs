@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Alba;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TestHelpers;
 using Xunit;
 using HostBuilderContext = Microsoft.Extensions.Hosting.HostBuilderContext;
 

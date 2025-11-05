@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Net.Http;
 using System.Threading.Tasks;
 using Alba;
 using Microsoft.AspNetCore.SignalR.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using TestHelpers;
 using Xunit;
 using HostBuilderContext = Microsoft.Extensions.Hosting.HostBuilderContext;
 
@@ -18,12 +16,9 @@ public class DashboardServiceFixture : IAsyncLifetime
     public IAlbaHost PricingHost { get; private set; }
     public IAlbaHost DashboardHost { get; private set; }
     public HubConnection SignalRConnection { get; private set; }
-    private int messagePipePort;
 
     public async Task InitializeAsync()
     {
-        messagePipePort = PortHelper.GetAvailablePort();
-
         var pricingBuilder = PricingService.Program.CreateWebHostBuilder([]);
         PricingHost = new AlbaHost(pricingBuilder);
 
@@ -39,7 +34,7 @@ public class DashboardServiceFixture : IAsyncLifetime
                 };
                 config.AddInMemoryCollection(overrides);
             })
-            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((ctx, services) =>
+            .ConfigureServices((Action<HostBuilderContext, IServiceCollection>)((_, services) =>
             {
                 services.AddSingleton(_ =>
                 {

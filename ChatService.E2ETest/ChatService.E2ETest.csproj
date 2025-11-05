@@ -22,7 +22,6 @@
     <ProjectReference Include="../ChatService/ChatService.csproj" />
     <ProjectReference Include="../PolicyService/PolicyService.csproj" />
     <ProjectReference Include="../PricingService/PricingService.csproj" />
-    <ProjectReference Include="../TestHelpers/TestHelpers.csproj" />
   </ItemGroup>
 
 </Project>
