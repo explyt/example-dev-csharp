@@ -10,7 +10,7 @@ using static Xunit.Assert;
 
 namespace PricingService.IntegrationTest;
 
-[Collection("PricingControllerFixtureCollection")]
+[Collection(nameof(PricingControllerFixtureCollection))]
 public class PricingControllerTest
 {
     private readonly PricingControllerFixture fixture;
@@ -40,7 +40,6 @@ public class PricingControllerTest
                     }
                 })
                 .ToUrl("/api/Pricing");
-
             _.StatusCodeShouldBeOk();
         });
 

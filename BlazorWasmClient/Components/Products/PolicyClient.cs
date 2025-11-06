@@ -35,7 +35,7 @@ public class PolicyClient
         
         var calculationResult = await httpClient.PostAsync
         (
-            $"{baseUrl}/api/offers", 
+            $"{baseUrl}/api/offer", 
             new StringContent(JsonConvert.SerializeObject(createOfferCommand), Encoding.UTF8, "application/json")
         );
 

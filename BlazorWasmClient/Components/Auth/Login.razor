@@ -67,7 +67,7 @@
                 Role = loginResponse.Result.UserType,
                 Token = loginResponse.Result.Token,
                 Avatar = loginResponse.Result.Avatar,
-                ExpiryTimestamp = loginResponse.Result.ExpiresIn
+                ExpiryTimestamp = loginResponse.Result.ExpiryTimeStamp
             };
             var customAuthProvider = (CustomAuthenticationStateProvider)authStateProvider;
             await customAuthProvider.UpdateAuthenticationState(session);

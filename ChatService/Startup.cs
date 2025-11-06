@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text;
 using System.Threading.Tasks;
 using ChatService.Hubs;
-using ChatService.Messaging.RabbitMq;
+using ChatService.Messaging.SignalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +10,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
-using PolicyService.Api.Events;
 
 namespace ChatService;
 
@@ -84,7 +81,7 @@ public class Startup
 
         services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
-        services.AddRabbitListeners();
+        services.UseSignalR(Configuration);
         
         services.AddSwaggerGen();
     }
@@ -114,7 +111,5 @@ public class Startup
             endpoints.MapControllers();
             endpoints.MapHub<AgentChatHub>("/agentsChat");
         });
-
-        app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated) });
     }
 }

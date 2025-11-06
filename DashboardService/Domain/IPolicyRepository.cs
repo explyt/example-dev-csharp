@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace DashboardService.Domain;
 
 public interface IPolicyRepository
@@ -11,4 +13,6 @@ public interface IPolicyRepository
     TotalSalesQueryResult GetTotalSales(TotalSalesQuery query);
 
     SalesTrendsResult GetSalesTrend(SalesTrendsQuery query);
+    
+    Task Clear();
 }

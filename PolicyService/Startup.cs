@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PolicyService.DataAccess.NHibernate;
-using PolicyService.Messaging.RabbitMq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using PolicyService.DataAccess.EfCore;
+using PolicyService.Domain;
+using PolicyService.Messaging.SignalR;
 using PolicyService.RestClients;
-using Steeltoe.Discovery.Client;
+
 
 namespace PolicyService;
 
@@ -22,14 +25,20 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDiscoveryClient(Configuration);
-        services.AddMvc()
-            .AddNewtonsoftJson();
+        services.AddMvc().AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddPricingRestClient();
-        services.AddNHibernate(Configuration.GetConnectionString("DefaultConnection"));
-        services.AddRabbitListeners();
+        services.UseSignalR(Configuration);
         services.AddSwaggerGen();
+        
+        // Add EF Core with in-memory database
+        services.AddDbContext<PolicyDbContext>(options => options.UseInMemoryDatabase("PolicyServiceDb"));
+
+        // Domain/data access registrations
+        services.AddScoped<IOfferRepository, EfOfferRepository>();
+        services.AddScoped<IPolicyRepository, EfPolicyRepository>();
+        services.AddScoped<IUnitOfWork, EfUnitOfWork>();
+        services.AddLogging(log => log.AddConsole());
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,9 +53,12 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
         app.UseRouting();
         app.UseHttpsRedirection();
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
+        app.UseEndpoints(endpoints =>
+        {
+            endpoints.MapControllers();
+            endpoints.MapHub<EventsHub>("/events"); // Map SignalR hub
+        });
     }
 }

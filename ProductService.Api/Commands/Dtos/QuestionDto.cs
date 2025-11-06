@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using ProductService.Api.Commands.Converters;
 
 namespace ProductService.Api.Commands.Dtos;
 
+[JsonConverter(typeof(QuestionDtoConverter))]
 public abstract class QuestionDto
 {
     public string QuestionCode { get; set; }

@@ -6,10 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using PricingService.Configuration;
-using PricingService.DataAccess.Marten;
+using Microsoft.EntityFrameworkCore;
+using PricingService.DataAccess.EfCore;
+using PricingService.Domain;
 using PricingService.Infrastructure;
 using PricingService.Init;
-using Steeltoe.Discovery.Client;
 
 namespace PricingService;
 
@@ -25,11 +26,12 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDiscoveryClient(Configuration);
         services.AddControllers()
             .AddNewtonsoftJson(opt => { opt.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto; });
 
-        services.AddMarten(Configuration.GetConnectionString("DefaultConnection"));
+        services.AddDbContext<PricingDbContext>(opt => opt.UseInMemoryDatabase("PricingInMemory"));
+        services.AddScoped<IDataStore, EfDataStore>();
+
         services.AddPricingDemoInitializer();
         services.AddMediatR(options => options.RegisterServicesFromAssemblyContaining<Program>());
         services.AddLoggingBehavior();
@@ -48,7 +50,8 @@ public class Startup
             app.UseSwaggerUI();
         }
 
-        app.UseInitializer();
+        // Ensure initializer is awaited so seeding completes before the app starts handling requests
+        _ = app.UseInitializer();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }
 }

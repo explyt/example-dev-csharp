@@ -17,6 +17,7 @@ public class DiscontinueProductHandler : IRequestHandler<DiscontinueProductComma
         CancellationToken cancellationToken)
     {
         var product = await products.FindById(request.ProductId);
+        if (product == null) return null;
         product.Discontinue();
         return new DiscontinueProductResult
         {

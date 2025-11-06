@@ -1,0 +1,32 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "PaymentService",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Payment/accounts/{policyNumber}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "parameters": [
+          {
+            "name": "policyNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": { }
+}

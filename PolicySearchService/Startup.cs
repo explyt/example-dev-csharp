@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PolicySearchService.DataAccess.ElasticSearch;
-using PolicySearchService.Messaging.RabbitMq;
-using PolicyService.Api.Events;
-using Steeltoe.Discovery.Client;
+using Microsoft.Extensions.Logging;
+using PolicySearchService.DataAccess.InMemory;
+using PolicySearchService.Messaging.SignalR;
+
 
 namespace PolicySearchService;
 
@@ -24,13 +22,14 @@ public class Startup
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddDiscoveryClient(Configuration);
+
         services.AddMvc()
             .AddNewtonsoftJson();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
-        services.AddElasticSearch(Configuration.GetConnectionString("ElasticSearchConnection"));
-        services.AddRabbitListeners();
+        services.AddLuceneSearch();
+        services.UseSignalR(Configuration);
         services.AddSwaggerGen();
+        services.AddLogging(log => log.AddConsole());
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +48,9 @@ public class Startup
         }
         
         app.UseHttpsRedirection();
-        app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated) });
-        app.UseEndpoints(endpoints => endpoints.MapControllers());
+        app.UseEndpoints(endpoints => 
+        {
+            endpoints.MapControllers();
+        });
     }
 }

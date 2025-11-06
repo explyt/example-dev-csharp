@@ -7,5 +7,5 @@ public class AuthResponse
     public string[] Roles { get; set; }
     public string Avatar { get; set; }
     public string UserType { get; set; }
-    public DateTime ExpiresIn { get; set; }
+    public DateTime ExpiryTimeStamp { get; set; }
 }

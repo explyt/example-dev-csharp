@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Events;
 
 namespace PolicyService;
 
-public static class Program
+public class Program
 {
     public static void Main(string[] args)
     {
@@ -21,7 +22,7 @@ public static class Program
         CreateWebHostBuilder(args).Build().Run();
     }
 
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args)
+    public static IHostBuilder CreateWebHostBuilder(string[] args)
     {
         var config = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
@@ -30,9 +31,11 @@ public static class Program
             .AddCommandLine(args)
             .Build();
 
-        return WebHost.CreateDefaultBuilder(args)
-            .UseConfiguration(config)
-            .UseStartup<Startup>()
-            .UseSerilog();
+        return Host.CreateDefaultBuilder(args)
+            .ConfigureWebHostDefaults(webBuilder =>
+            {
+                webBuilder.UseStartup<Startup>();
+                webBuilder.UseConfiguration(config);
+            }).UseSerilog();
     }
 }

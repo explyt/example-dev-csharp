@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using GlobalExceptionHandler.WebApi;
+﻿using GlobalExceptionHandler.WebApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,13 +6,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using PaymentService.Configuration;
-using PaymentService.DataAccess.Marten;
+using PaymentService.DataAccess.EF;
 using PaymentService.Domain;
 using PaymentService.Infrastructure;
 using PaymentService.Init;
 using PaymentService.Jobs;
-using PaymentService.Messaging.RabbitMq;
-using PolicyService.Api.Events;
+using PaymentService.Messaging.SignalR;
 
 namespace PaymentService;
 
@@ -33,12 +30,12 @@ public class Startup
         services.AddMvc()
             .AddNewtonsoftJson(opt => { opt.SerializerSettings.TypeNameHandling = TypeNameHandling.Auto; });
 
-        services.AddMarten(Configuration.GetConnectionString("PgConnection"));
+        services.AddEFConfiguration();
         services.AddPaymentDemoInitializer();
         services.AddMediatR(opts => opts.RegisterServicesFromAssemblyContaining<Startup>());
         services.AddLogingBehaviour();
         services.AddSingleton<PolicyAccountNumberGenerator>();
-        services.AddRabbitListeners();
+        services.UseSignalR(Configuration);
         services.AddBackgroundJobs(Configuration.GetSection("BackgroundJobs").Get<BackgroundJobsConfig>());
         services.AddSwaggerGen();
     }
@@ -57,8 +54,7 @@ public class Startup
         }
 
         app.UseHttpsRedirection();
-        app.UseInitializer();
-        app.UseRabbitListeners(new List<Type> { typeof(PolicyCreated), typeof(PolicyTerminated) });
+        _ = app.UseInitializer();
         app.UseBackgroundJobs();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
     }

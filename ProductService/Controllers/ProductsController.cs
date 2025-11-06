@@ -29,6 +29,7 @@ public class ProductsController : ControllerBase
     public async Task<ActionResult> GetByCode([FromRoute] string code)
     {
         var result = await mediator.Send(new FindProductByCodeQuery { ProductCode = code });
+        if (result is null) return NotFound(new { message = $"Product with code {code} not found" });
         return new JsonResult(result);
     }
 
@@ -41,18 +42,20 @@ public class ProductsController : ControllerBase
     }
 
     // POST api/products/activate
-    [HttpPost("/activate")]
+    [HttpPost("activate")]
     public async Task<ActionResult> Activate([FromBody] ActivateProductCommand request)
     {
         var result = await mediator.Send(request);
+        if (result is null) return NotFound(new { message = $"Product with id {request.ProductId} not found" });
         return new JsonResult(result);
     }
 
     // POST api/products/discontinue
-    [HttpPost("/discontinue")]
+    [HttpPost("discontinue")]
     public async Task<ActionResult> Discontinue([FromBody] DiscontinueProductCommand request)
     {
         var result = await mediator.Send(request);
+        if (result is null) return NotFound(new { message = $"Product with id {request.ProductId} not found" });
         return new JsonResult(result);
     }
 }

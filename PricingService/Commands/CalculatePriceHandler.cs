@@ -20,9 +20,19 @@ public class CalculatePriceHandler : IRequestHandler<CalculatePriceCommand, Calc
 
     public async Task<CalculatePriceResult> Handle(CalculatePriceCommand cmd, CancellationToken cancellationToken)
     {
-        await commandValidator.ValidateAndThrowAsync(cmd);
+        if (cmd == null)
+        {
+            throw new ValidationException("CalculatePriceCommand payload is required");
+        }
+
+        await commandValidator.ValidateAndThrowAsync(cmd, cancellationToken);
 
         var tariff = await dataStore.Tariffs[cmd.ProductCode];
+        
+        if (tariff == null)
+        {
+            throw new ValidationException($"Product with code '{cmd.ProductCode}' does not exist");
+        }
 
         var calculation = tariff.CalculatePrice(ToCalculation(cmd));
 

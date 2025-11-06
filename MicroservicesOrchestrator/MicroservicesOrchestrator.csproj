@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <Sdk Name="Aspire.AppHost.Sdk" Version="9.5.2" />
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UserSecretsId>459187c2-8206-4ee2-985e-a83ac922efd4</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.5.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PricingService\PricingService.csproj" />
+    <ProjectReference Include="..\AuthService\AuthService.csproj" />
+    <ProjectReference Include="..\PolicyService\PolicyService.csproj" />
+    <ProjectReference Include="..\PaymentService\PaymentService.csproj" />
+    <ProjectReference Include="..\ProductService\ProductService.csproj" />
+    <ProjectReference Include="..\PolicySearchService\PolicySearchService.csproj" />
+    <ProjectReference Include="..\ChatService\ChatService.csproj" />
+    <ProjectReference Include="..\DashboardService\DashboardService.csproj" />
+    <ProjectReference Include="..\AgentPortalApiGateway\AgentPortalApiGateway.csproj" />
+    <ProjectReference Include="..\BlazorWasmClient\BlazorWasmClient.csproj" />
+  </ItemGroup>
+
+</Project>

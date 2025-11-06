@@ -2,25 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using DashboardService.Domain;
-using Elastic.Clients.Elasticsearch;
-using Elastic.Clients.Elasticsearch.IndexManagement;
-
 namespace DashboardService.Init;
+
+using DashboardService.Domain;
+using System.Threading.Tasks;
 
 public class SalesData
 {
-    private readonly ElasticsearchClient elasticClient;
+    private readonly IPolicyRepository policyRepository;
 
-    public SalesData(ElasticsearchClient elasticClient)
+    public SalesData(IPolicyRepository policyRepository)
     {
-        this.elasticClient = elasticClient;
+        this.policyRepository = policyRepository;
     }
 
     public async Task SeedData()
     {
-        var policyIndexExists = await elasticClient.Indices.ExistsAsync("policy_lab_stats");
-        if (policyIndexExists.Exists) await elasticClient.Indices.DeleteAsync(new DeleteIndexRequest("policy_lab_stats"));
-
+        // Seed policies using the repository Save method. The repository implementation
+        // (Lucene) keeps documents in-memory, so no index deletion is required here.
         var salesData = new Dictionary<string, (string Product, int Month, int Policies)[]>
         {
             { "jimmy.solid", JimmySalesData() },
@@ -46,16 +45,11 @@ public class SalesData
                     agentSalesData.Key
                 );
 
-                await elasticClient.IndexAsync
-                (
-                    policy,
-                    i => i
-                        .Index("policy_lab_stats")
-                        .Id(policy.Number)
-                        .Refresh(Refresh.True)
-                );
+                policyRepository.Save(policy);
             }
         }
+
+        await Task.CompletedTask;
     }
 
     private static (string Product, int Month, int Policies)[] JimmySalesData()

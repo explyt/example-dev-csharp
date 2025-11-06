@@ -58,7 +58,10 @@ internal class ChoiceQuestionConfig : IEntityTypeConfiguration<ChoiceQuestion>
     public void Configure(EntityTypeBuilder<ChoiceQuestion> entity)
     {
         entity.HasBaseType<Question>();
-        entity.HasMany(q => q.Choices);
+        entity.HasMany(q => q.Choices)
+            .WithOne(c => c.Question)
+            .HasForeignKey("QuestionId")
+            .IsRequired();
     }
 }
 
@@ -68,9 +71,18 @@ internal class ChoiceConfig : IEntityTypeConfiguration<Choice>
     public void Configure(EntityTypeBuilder<Choice> entity)
     {
         entity.ToTable("Choice");
-        entity.HasKey("Code");
-        entity.Property(x=>x.Label);
-        entity.HasOne(q => q.Question).WithMany(c => c.Choices);
+        // Use a surrogate shadow key to avoid needing FK values before tracking
+        entity.Property<Guid>("Id").ValueGeneratedOnAdd();
+        entity.HasKey("Id");
+        entity.Property(x => x.Label);
 
+        // Configure explicit FK to the parent question (shadow property QuestionId)
+        entity.HasOne(q => q.Question)
+            .WithMany(c => c.Choices)
+            .HasForeignKey("QuestionId")
+            .IsRequired();
+
+        // Ensure uniqueness of Code within a Question while allowing reuse across questions
+        entity.HasIndex("QuestionId", "Code").IsUnique();
     }
 }
