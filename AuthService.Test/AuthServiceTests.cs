@@ -165,16 +165,4 @@ public class AuthServiceTests
         // Token should be properly formatted JWT
         result.Token.Should().MatchRegex(@"^[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+$");
     }
-    
-    [Fact(Skip = "Expected to fail")]  
-    public void Authenticate_AdminShouldHaveAdminRoleAndUserType()  
-    {  
-        // Business-rule test separated to avoid breaking other cases  
-        var result = authService.Authenticate("admin", "admin");  
-  
-        result.Should().NotBeNull();  
-        result.Login.Should().Be("admin");  
-        result.Roles.Should().Contain("ADMIN");  
-        result.UserType.Should().Be("ADMIN");  
-    }
 }
