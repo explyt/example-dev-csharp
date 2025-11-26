@@ -10,6 +10,7 @@ public class PolicyCreated : INotification
     public string ProductCode { get; set; }
     public DateTime PolicyFrom { get; set; }
     public DateTime PolicyTo { get; set; }
+    public DateTime SalesDate { get; set; }
     public PersonDto PolicyHolder { get; set; }
     public decimal TotalPremium { get; set; }
     public string AgentLogin { get; set; }

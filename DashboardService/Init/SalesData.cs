@@ -34,11 +34,13 @@ public class SalesData
 
             for (var index = 0; index < policies; index++)
             {
+                var salesDate = new DateTime(startMonth.Year, startMonth.Month, 1);
                 var policy = new PolicyDocument
                 (
                     Guid.NewGuid().ToString(),
-                    new DateTime(startMonth.Year, startMonth.Month, 1),
-                    new DateTime(startMonth.Year, startMonth.Month, 1).AddYears(1).AddDays(-1),
+                    salesDate,
+                    salesDate.AddYears(1).AddDays(-1),
+                    salesDate,
                     "Anonymous Mike",
                     product,
                     100M,

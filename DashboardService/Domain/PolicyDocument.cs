@@ -4,12 +4,13 @@ namespace DashboardService.Domain;
 
 public class PolicyDocument
 {
-    public PolicyDocument(string number, DateTime from, DateTime to, string policyHolder, string productCode,
-        decimal totalPremium, string agentLogin)
+    public PolicyDocument(string number, DateTime from, DateTime to, DateTime salesDate, string policyHolder, 
+        string productCode, decimal totalPremium, string agentLogin)
     {
         Number = number;
         From = from;
         To = to;
+        SalesDate = salesDate;
         PolicyHolder = policyHolder;
         ProductCode = productCode;
         TotalPremium = totalPremium;
@@ -19,6 +20,7 @@ public class PolicyDocument
     public string Number { get; }
     public DateTime From { get; }
     public DateTime To { get; }
+    public DateTime SalesDate { get; }
     public string PolicyHolder { get; }
     public string ProductCode { get; }
     public decimal TotalPremium { get; }

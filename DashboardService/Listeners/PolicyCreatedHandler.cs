@@ -22,6 +22,7 @@ public class PolicyCreatedHandler : INotificationHandler<PolicyCreated>
             notification.PolicyNumber,
             notification.PolicyFrom,
             notification.PolicyTo,
+            notification.SalesDate,
             $"{notification.PolicyHolder.FirstName} {notification.PolicyHolder.LastName}",
             notification.ProductCode,
             notification.TotalPremium,
