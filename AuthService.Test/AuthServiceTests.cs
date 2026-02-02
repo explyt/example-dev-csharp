@@ -1,6 +1,5 @@
 using System;
-using AuthService.DataAccess;
-using FluentAssertions;
+using AuthService;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
