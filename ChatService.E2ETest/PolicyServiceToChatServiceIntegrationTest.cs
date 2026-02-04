@@ -96,6 +96,24 @@ public class PolicyServiceToChatServiceIntegrationTest(ITestOutputHelper testOut
         if (ChatHost != null) await ChatHost.DisposeAsync();
     }
 
+    [Fact]
+    public async Task NotificationController_Health_ReturnsOk()
+    {
+        // Arrange
+        var token = TestAuthHelper.GenerateJwtToken("test-user", "test-avatar", TestSecret);
+
+        // Act
+        var result = await ChatHost.Scenario(_ =>
+        {
+            _.Get.Url("/api/notification/health");
+            _.WithRequestHeader("Authorization", $"Bearer {token}");
+            _.StatusCodeShouldBeOk();
+        });
+
+        // Assert
+        NotNull(result);
+    }
+
     /// <summary>
     /// Scenario: Policy creation triggers chat notification
     /// Given: Agent creates a travel insurance policy
