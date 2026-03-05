@@ -15,9 +15,12 @@ public class PricingControllerShould
     {
         var mediator = new Mock<IMediator>();
         var command = new CalculatePriceCommand();
+        var calculatePriceResult = new CalculatePriceResult { TotalPrice = 0 };
+        mediator.Setup(x => x.Send(command, default)).ReturnsAsync(calculatePriceResult);
+        
         var controller = new PricingController(mediator.Object);
 
-        await controller.Post(command);
+        await controller.CalculatePriceV2(command);
 
         mediator.Verify(x => x.Send(command, default), Times.Once());
     }
@@ -31,9 +34,11 @@ public class PricingControllerShould
         mediator.Setup(x => x.Send(command, default)).ReturnsAsync(calculatePriceResult);
         var controller = new PricingController(mediator.Object);
 
-        var result = await controller.Post(command);
-
-        Assert.IsAssignableFrom<JsonResult>(result);
-        Assert.Equal(calculatePriceResult, ((JsonResult)result).Value);
+        var actionResult = await controller.CalculatePriceV2(command);
+        
+        // Convert ActionResult to JsonResult
+        var jsonResult = actionResult as JsonResult;
+        Assert.NotNull(jsonResult);
+        Assert.Equal(calculatePriceResult, jsonResult.Value);
     }
 }
